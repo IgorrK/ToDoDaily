@@ -6,23 +6,48 @@
 	objectVersion = 55;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		84C26F91276B7C2000BEBEF0 /* Code Generation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 84C26F94276B7C2000BEBEF0 /* Build configuration list for PBXAggregateTarget "Code Generation" */;
+			buildPhases = (
+				84C26F95276B7C2700BEBEF0 /* SwiftGen */,
+			);
+			dependencies = (
+			);
+			name = "Code Generation";
+			productName = "Code Generation";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		84C26F7C276B727400BEBEF0 /* ToDoDailyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26F7B276B727400BEBEF0 /* ToDoDailyApp.swift */; };
 		84C26F7E276B727400BEBEF0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26F7D276B727400BEBEF0 /* ContentView.swift */; };
-		84C26F80276B727700BEBEF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84C26F7F276B727700BEBEF0 /* Assets.xcassets */; };
+		84C26F80276B727700BEBEF0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84C26F7F276B727700BEBEF0 /* Images.xcassets */; };
 		84C26F83276B727700BEBEF0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84C26F82276B727700BEBEF0 /* Preview Assets.xcassets */; };
 		84C26F85276B727700BEBEF0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26F84276B727700BEBEF0 /* Persistence.swift */; };
 		84C26F88276B727700BEBEF0 /* ToDoDaily.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84C26F86276B727700BEBEF0 /* ToDoDaily.xcdatamodeld */; };
+		84C26F9B276B854500BEBEF0 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84C26F9A276B854500BEBEF0 /* Colors.xcassets */; };
+		84C26F9D276B85CE00BEBEF0 /* Assets-Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26F9C276B85CE00BEBEF0 /* Assets-Constants.swift */; };
+		84C26FA2276B8A5900BEBEF0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C26FA1276B8A5900BEBEF0 /* Launch Screen.storyboard */; };
+		D028BF8665A8EAC338C1BB86 /* Pods_ToDoDaily.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8486E40225582005AB4968ED /* Pods_ToDoDaily.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		378FD58BACD41F008FCC5F3F /* Pods-ToDoDaily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoDaily.debug.xcconfig"; path = "Target Support Files/Pods-ToDoDaily/Pods-ToDoDaily.debug.xcconfig"; sourceTree = "<group>"; };
+		5D595A9983B29CD103043183 /* Pods-ToDoDaily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoDaily.release.xcconfig"; path = "Target Support Files/Pods-ToDoDaily/Pods-ToDoDaily.release.xcconfig"; sourceTree = "<group>"; };
+		8486E40225582005AB4968ED /* Pods_ToDoDaily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoDaily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C26F78276B727400BEBEF0 /* ToDoDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C26F7B276B727400BEBEF0 /* ToDoDailyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDailyApp.swift; sourceTree = "<group>"; };
 		84C26F7D276B727400BEBEF0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		84C26F7F276B727700BEBEF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		84C26F7F276B727700BEBEF0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		84C26F82276B727700BEBEF0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		84C26F84276B727700BEBEF0 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		84C26F87276B727700BEBEF0 /* ToDoDaily.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDoDaily.xcdatamodel; sourceTree = "<group>"; };
+		84C26F9A276B854500BEBEF0 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		84C26F9C276B85CE00BEBEF0 /* Assets-Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Assets-Constants.swift"; sourceTree = "<group>"; };
+		84C26F9E276B884300BEBEF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		84C26FA1276B8A5900BEBEF0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D028BF8665A8EAC338C1BB86 /* Pods_ToDoDaily.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +67,8 @@
 			children = (
 				84C26F7A276B727400BEBEF0 /* ToDoDaily */,
 				84C26F79276B727400BEBEF0 /* Products */,
+				DE77C766B6822C9D344614B5 /* Pods */,
+				F0A169FE3F75534FA1DF47B7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,12 +83,12 @@
 		84C26F7A276B727400BEBEF0 /* ToDoDaily */ = {
 			isa = PBXGroup;
 			children = (
-				84C26F7B276B727400BEBEF0 /* ToDoDailyApp.swift */,
+				84C26F9E276B884300BEBEF0 /* Info.plist */,
+				84C26F8E276B735600BEBEF0 /* Application */,
 				84C26F7D276B727400BEBEF0 /* ContentView.swift */,
-				84C26F7F276B727700BEBEF0 /* Assets.xcassets */,
-				84C26F84276B727700BEBEF0 /* Persistence.swift */,
-				84C26F86276B727700BEBEF0 /* ToDoDaily.xcdatamodeld */,
+				84C26F90276B73BA00BEBEF0 /* Persistence */,
 				84C26F81276B727700BEBEF0 /* Preview Content */,
+				84C26F8F276B73AC00BEBEF0 /* Resources */,
 			);
 			path = ToDoDaily;
 			sourceTree = "<group>";
@@ -73,6 +101,59 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		84C26F8E276B735600BEBEF0 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				84C26F7B276B727400BEBEF0 /* ToDoDailyApp.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		84C26F8F276B73AC00BEBEF0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				84C26F97276B83F800BEBEF0 /* AutomaticallyGenerated */,
+				84C26F7F276B727700BEBEF0 /* Images.xcassets */,
+				84C26F9A276B854500BEBEF0 /* Colors.xcassets */,
+				84C26FA1276B8A5900BEBEF0 /* Launch Screen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		84C26F90276B73BA00BEBEF0 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				84C26F84276B727700BEBEF0 /* Persistence.swift */,
+				84C26F86276B727700BEBEF0 /* ToDoDaily.xcdatamodeld */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		84C26F97276B83F800BEBEF0 /* AutomaticallyGenerated */ = {
+			isa = PBXGroup;
+			children = (
+				84C26F9C276B85CE00BEBEF0 /* Assets-Constants.swift */,
+			);
+			path = AutomaticallyGenerated;
+			sourceTree = "<group>";
+		};
+		DE77C766B6822C9D344614B5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				378FD58BACD41F008FCC5F3F /* Pods-ToDoDaily.debug.xcconfig */,
+				5D595A9983B29CD103043183 /* Pods-ToDoDaily.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F0A169FE3F75534FA1DF47B7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8486E40225582005AB4968ED /* Pods_ToDoDaily.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -80,6 +161,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84C26F8B276B727700BEBEF0 /* Build configuration list for PBXNativeTarget "ToDoDaily" */;
 			buildPhases = (
+				AEE497996D8419E05E7652E7 /* [CP] Check Pods Manifest.lock */,
 				84C26F74276B727400BEBEF0 /* Sources */,
 				84C26F75276B727400BEBEF0 /* Frameworks */,
 				84C26F76276B727400BEBEF0 /* Resources */,
@@ -106,6 +188,9 @@
 					84C26F77276B727400BEBEF0 = {
 						CreatedOnToolsVersion = 13.2;
 					};
+					84C26F91276B7C2000BEBEF0 = {
+						CreatedOnToolsVersion = 13.2;
+					};
 				};
 			};
 			buildConfigurationList = 84C26F73276B727400BEBEF0 /* Build configuration list for PBXProject "ToDoDaily" */;
@@ -122,6 +207,7 @@
 			projectRoot = "";
 			targets = (
 				84C26F77276B727400BEBEF0 /* ToDoDaily */,
+				84C26F91276B7C2000BEBEF0 /* Code Generation */,
 			);
 		};
 /* End PBXProject section */
@@ -131,12 +217,57 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84C26F9B276B854500BEBEF0 /* Colors.xcassets in Resources */,
 				84C26F83276B727700BEBEF0 /* Preview Assets.xcassets in Resources */,
-				84C26F80276B727700BEBEF0 /* Assets.xcassets in Resources */,
+				84C26FA2276B8A5900BEBEF0 /* Launch Screen.storyboard in Resources */,
+				84C26F80276B727700BEBEF0 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		84C26F95276B7C2700BEBEF0 /* SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftGen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "swiftgen config run --config ${SRCROOT}/swiftgen.yml --verbose\n";
+		};
+		AEE497996D8419E05E7652E7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ToDoDaily-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		84C26F74276B727400BEBEF0 /* Sources */ = {
@@ -147,6 +278,7 @@
 				84C26F7E276B727400BEBEF0 /* ContentView.swift in Sources */,
 				84C26F7C276B727400BEBEF0 /* ToDoDailyApp.swift in Sources */,
 				84C26F88276B727700BEBEF0 /* ToDoDaily.xcdatamodeld in Sources */,
+				84C26F9D276B85CE00BEBEF0 /* Assets-Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +403,7 @@
 		};
 		84C26F8C276B727700BEBEF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 378FD58BACD41F008FCC5F3F /* Pods-ToDoDaily.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -280,9 +413,11 @@
 				DEVELOPMENT_TEAM = G68HFXQ7G5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ToDoDaily/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -300,6 +435,7 @@
 		};
 		84C26F8D276B727700BEBEF0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D595A9983B29CD103043183 /* Pods-ToDoDaily.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -309,9 +445,11 @@
 				DEVELOPMENT_TEAM = G68HFXQ7G5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ToDoDaily/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -324,6 +462,24 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		84C26F92276B7C2000BEBEF0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G68HFXQ7G5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		84C26F93276B7C2000BEBEF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G68HFXQ7G5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -344,6 +500,15 @@
 			buildConfigurations = (
 				84C26F8C276B727700BEBEF0 /* Debug */,
 				84C26F8D276B727700BEBEF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84C26F94276B7C2000BEBEF0 /* Build configuration list for PBXAggregateTarget "Code Generation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84C26F92276B7C2000BEBEF0 /* Debug */,
+				84C26F93276B7C2000BEBEF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
