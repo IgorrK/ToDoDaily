@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct LoginView: View {
     
@@ -14,7 +15,7 @@ struct LoginView: View {
     @State private var primaryAnimation = false
     @State private var secondaryAnimation = false
     @State private var bottomViewAnimation = false
-
+    
     // MARK: - View
     
     var body: some View {
@@ -24,7 +25,7 @@ struct LoginView: View {
                 .frame(width: secondaryAnimation ? 164.0 : 256.0, height: secondaryAnimation ? 164.0 : 256.0)
                 .padding(.top, primaryAnimation ? 40.0 : 157.0)
                 .padding(.bottom, 8.0)
-
+            
             Text(L10n.Application.name)
                 .font(.system(size: 26.0, weight: .bold))
                 .opacity(secondaryAnimation ? 1.0 : 0.0)
@@ -38,7 +39,7 @@ struct LoginView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.bottom, 20.0)
         .background(
-            Asset.Colors.launchBackground.color
+            Asset.Colors.primaryBackground.color
                 .edgesIgnoringSafeArea(.all)
         )
         .onAppear {
@@ -52,7 +53,7 @@ struct LoginView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                 bottomViewAnimation = true
             }
-
+            
         }
         .animation(.linear, value: primaryAnimation)
         .animation(.easeInOut, value: secondaryAnimation)
@@ -66,16 +67,62 @@ private extension LoginView {
     
     @ViewBuilder
     var bottomView: some View {
-        Color.red
-            .opacity(0.1)
-            .frame(height: 100.0)
-            .padding(.horizontal, 32.0)
-            .transition(.move(edge: .bottom))
+        VStack(spacing: 16.0) {
+            GoogleSignInButton {
+                
+            }
+            .frame(height: 48.0)
+            
+            HStack(alignment: .center) {
+                lineSeparatorView
+                
+                Text(L10n.Login.or)
+                    .font(.generated(FontFamily.Roboto.medium, size: 12.0))
+                    .foregroundColor(.secondary.opacity(0.7))
+                    .secondaryShadowStyle()
+                lineSeparatorView
+            }
+            .padding(.horizontal, 16.0)
+            
+            HStack {
+                Button(L10n.Login.goOffline) {
+                    
+                }
+                .buttonStyle(SecondaryButtonStyle())
+                .frame(maxWidth: .infinity)
+            }
+            .padding(.horizontal, 4.0)
+        }
+        .frame(width: 260.0, height: 100.0)
+        .padding(.horizontal, 32.0)
+        .padding(.bottom, 32.0)
+        .transition(.move(edge: .bottom))
+    }
+    
+    @ViewBuilder
+    var lineSeparatorView: some View {
+        LinePath()
+            .stroke(style: StrokeStyle(lineWidth: 1.0, lineCap: .round))
+            .foregroundColor(.secondary.opacity(0.7))
+            .frame(height: 1.0)
+            .secondaryShadowStyle()
     }
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
+    }
+}
+
+private struct LinePath: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        path.move(to: CGPoint(x: 0.0, y: rect.midY))
+        path.addLine(to: CGPoint(x: rect.size.width, y: rect.midY))
+        path.closeSubpath()
+        
+        return path
     }
 }

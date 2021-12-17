@@ -26,7 +26,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
-                        <color key="backgroundColor" name="launchBackground"/>
+                        <color key="backgroundColor" name="primaryBackground"/>
                         <constraints>
                             <constraint firstItem="kPo-UI-hWT" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="160" id="IiP-KL-bT6"/>
                             <constraint firstItem="kPo-UI-hWT" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="i1k-Be-n1a"/>
@@ -40,8 +40,8 @@
     </scenes>
     <resources>
         <image name="launchIcon" width="512" height="512"/>
-        <namedColor name="launchBackground">
-            <color red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="primaryBackground">
+            <color red="0.92549019607843142" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

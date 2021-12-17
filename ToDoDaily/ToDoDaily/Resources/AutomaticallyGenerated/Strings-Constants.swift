@@ -10,10 +10,15 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
-
   internal enum Application {
     /// ToDo Daily
-    internal static let name = L10n.tr("Application", "application.name")
+    internal static let name = L10n.tr("Application", "name")
+  }
+  internal enum Login {
+    /// Go Offline
+    internal static let goOffline = L10n.tr("Login", "goOffline")
+    /// OR
+    internal static let or = L10n.tr("Login", "or")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

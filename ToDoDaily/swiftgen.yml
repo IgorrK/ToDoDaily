@@ -1,5 +1,9 @@
-## Note: all of the config entries below are just examples with placeholders. Be sure to edit and adjust to your needs when uncommenting.
-
+fonts:
+  inputs:
+    - ToDoDaily/Resources/Fonts
+  outputs:
+    - templateName: swift5
+      output: ToDoDaily/Resources/AutomaticallyGenerated/UIFont-Constants.swift
 xcassets:
   inputs:
     - ToDoDaily/Resources/Images.xcassets
