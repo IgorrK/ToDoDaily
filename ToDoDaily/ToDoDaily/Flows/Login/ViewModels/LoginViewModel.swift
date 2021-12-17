@@ -21,7 +21,7 @@ final class LoginViewModel: ObservableObject, InteractiveViewModel {
 
     // MARK: - InteractiveViewModel
     
-    func handleInputEvent(_ event: Event) {
+    func handleInput(event: Event) {
         switch event {
         case .onGoogleSignIn:
             services.authManager.logIn()

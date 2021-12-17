@@ -12,6 +12,6 @@ typealias EventType = Hashable
 protocol InteractiveViewModel {
     associatedtype Event: EventType
 
-    func handleInputEvent(_ event: Event)
+    func handleInput(event: Event)
 }
 

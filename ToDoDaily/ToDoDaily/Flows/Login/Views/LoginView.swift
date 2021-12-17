@@ -71,7 +71,7 @@ private extension LoginView {
     var bottomView: some View {
         VStack(spacing: 16.0) {
             GoogleSignInButton {
-                viewModel.handleInputEvent(.onGoogleSignIn)
+                viewModel.handleInput(event: .onGoogleSignIn)
             }
             .frame(height: 48.0)
             
@@ -88,7 +88,7 @@ private extension LoginView {
             
             HStack {
                 Button(L10n.Login.goOffline) {
-                    viewModel.handleInputEvent(.onGoOffline)
+                    viewModel.handleInput(event: .onGoOffline)
                 }
                 .buttonStyle(SecondaryButtonStyle())
                 .frame(maxWidth: .infinity)
