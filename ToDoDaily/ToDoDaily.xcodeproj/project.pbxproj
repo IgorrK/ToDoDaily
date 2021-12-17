@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		8465FBA0276C166A00CB2E1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8465FB9F276C166A00CB2E1D /* GoogleService-Info.plist */; };
 		84C26F7C276B727400BEBEF0 /* ToDoDailyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26F7B276B727400BEBEF0 /* ToDoDailyApp.swift */; };
 		84C26F7E276B727400BEBEF0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26F7D276B727400BEBEF0 /* ContentView.swift */; };
 		84C26F80276B727700BEBEF0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84C26F7F276B727700BEBEF0 /* Images.xcassets */; };
@@ -36,6 +37,7 @@
 /* Begin PBXFileReference section */
 		378FD58BACD41F008FCC5F3F /* Pods-ToDoDaily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoDaily.debug.xcconfig"; path = "Target Support Files/Pods-ToDoDaily/Pods-ToDoDaily.debug.xcconfig"; sourceTree = "<group>"; };
 		5D595A9983B29CD103043183 /* Pods-ToDoDaily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoDaily.release.xcconfig"; path = "Target Support Files/Pods-ToDoDaily/Pods-ToDoDaily.release.xcconfig"; sourceTree = "<group>"; };
+		8465FB9F276C166A00CB2E1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8486E40225582005AB4968ED /* Pods_ToDoDaily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoDaily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C26F78276B727400BEBEF0 /* ToDoDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C26F7B276B727400BEBEF0 /* ToDoDailyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDailyApp.swift; sourceTree = "<group>"; };
@@ -62,6 +64,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8465FB9E276C15D600CB2E1D /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				8465FB9F276C166A00CB2E1D /* GoogleService-Info.plist */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
 		84C26F6F276B727400BEBEF0 = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +122,7 @@
 		84C26F8F276B73AC00BEBEF0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8465FB9E276C15D600CB2E1D /* Firebase */,
 				84C26F97276B83F800BEBEF0 /* AutomaticallyGenerated */,
 				84C26F7F276B727700BEBEF0 /* Images.xcassets */,
 				84C26F9A276B854500BEBEF0 /* Colors.xcassets */,
@@ -162,9 +173,11 @@
 			buildConfigurationList = 84C26F8B276B727700BEBEF0 /* Build configuration list for PBXNativeTarget "ToDoDaily" */;
 			buildPhases = (
 				AEE497996D8419E05E7652E7 /* [CP] Check Pods Manifest.lock */,
+				8465FBA1276C167000CB2E1D /* Link GoogleService-Info.plist */,
 				84C26F74276B727400BEBEF0 /* Sources */,
 				84C26F75276B727400BEBEF0 /* Frameworks */,
 				84C26F76276B727400BEBEF0 /* Resources */,
+				47283DE8B3485BC409F01DC1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -219,6 +232,7 @@
 			files = (
 				84C26F9B276B854500BEBEF0 /* Colors.xcassets in Resources */,
 				84C26F83276B727700BEBEF0 /* Preview Assets.xcassets in Resources */,
+				8465FBA0276C166A00CB2E1D /* GoogleService-Info.plist in Resources */,
 				84C26FA2276B8A5900BEBEF0 /* Launch Screen.storyboard in Resources */,
 				84C26F80276B727700BEBEF0 /* Images.xcassets in Resources */,
 			);
@@ -227,6 +241,41 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		47283DE8B3485BC409F01DC1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ToDoDaily/Pods-ToDoDaily-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ToDoDaily/Pods-ToDoDaily-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ToDoDaily/Pods-ToDoDaily-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8465FBA1276C167000CB2E1D /* Link GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Link GoogleService-Info.plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script injects the corresponding GoogleService-Info.plist for current environment. The names of .plist files are stored in .xcconfig files as `GOOGLE_PLIST_NAME` constant.\n\n# Directory of .plist files (not included in XCode project)\nPATH_TO_GOOGLE_PLISTS=\"${PROJECT_DIR}/ToDoDaily/Resources/Firebase\"\n\ncp -r \"$PATH_TO_GOOGLE_PLISTS/$GOOGLE_PLIST_NAME\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n";
+		};
 		84C26F95276B7C2700BEBEF0 /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -413,6 +462,7 @@
 				DEVELOPMENT_TEAM = G68HFXQ7G5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				GOOGLE_PLIST_NAME = "GoogleService-Info.plist";
 				INFOPLIST_FILE = ToDoDaily/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -445,6 +495,7 @@
 				DEVELOPMENT_TEAM = G68HFXQ7G5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				GOOGLE_PLIST_NAME = "GoogleService-Info.plist";
 				INFOPLIST_FILE = ToDoDaily/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
