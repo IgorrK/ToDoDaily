@@ -10,12 +10,12 @@ import SwiftUI
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
+  internal enum Colors {
+    internal static let launchBackground = ColorAsset(name: "launchBackground")
+  }
   internal enum Images {
     internal static let iTunesArtwork = ImageAsset(name: "iTunesArtwork")
     internal static let launchIcon = ImageAsset(name: "launchIcon")
-  }
-  internal enum Colors {
-    internal static let launchBackground = ColorAsset(name: "launchBackground")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
