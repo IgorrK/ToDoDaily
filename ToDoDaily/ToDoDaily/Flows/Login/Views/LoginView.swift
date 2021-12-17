@@ -12,6 +12,8 @@ struct LoginView: View {
     
     // MARK: - Properties
     
+    @ObservedObject var viewModel: LoginViewModel
+    
     @State private var primaryAnimation = false
     @State private var secondaryAnimation = false
     @State private var bottomViewAnimation = false
@@ -57,7 +59,7 @@ struct LoginView: View {
         }
         .animation(.linear, value: primaryAnimation)
         .animation(.easeInOut, value: secondaryAnimation)
-        .animation(.interpolatingSpring(mass: 0.3, stiffness: 40.0, damping: 3.0, initialVelocity: 30.0), value: bottomViewAnimation)
+        .animation(.interpolatingSpring(mass: 0.3, stiffness: 40.0, damping: 10.0, initialVelocity: 30.0), value: bottomViewAnimation)
     }
 }
 
@@ -69,7 +71,7 @@ private extension LoginView {
     var bottomView: some View {
         VStack(spacing: 16.0) {
             GoogleSignInButton {
-                
+                viewModel.handleInputEvent(.onGoogleSignIn)
             }
             .frame(height: 48.0)
             
@@ -86,7 +88,7 @@ private extension LoginView {
             
             HStack {
                 Button(L10n.Login.goOffline) {
-                    
+                    viewModel.handleInputEvent(.onGoOffline)
                 }
                 .buttonStyle(SecondaryButtonStyle())
                 .frame(maxWidth: .infinity)
@@ -111,7 +113,7 @@ private extension LoginView {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(viewModel: LoginViewModel(services: MockServices()))
     }
 }
 

@@ -10,9 +10,15 @@ import SwiftUI
 @main
 struct ToDoDailyApp: App {
 
+    // MARK: - Propertise
+    
+    private let services: Services = MockServices()
+    
+    // MARK: - App
+    
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            RootView(router: RootRouter(services: services), viewModel: RootViewModel(services: services))
         }
     }
 }
