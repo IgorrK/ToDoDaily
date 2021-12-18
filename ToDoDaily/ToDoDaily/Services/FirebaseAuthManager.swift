@@ -50,9 +50,9 @@ final class FirebaseAuthManager: AuthManager {
     private func firebaseSignIn(with credential: AuthCredential) {
         Auth.auth().signIn(with: credential) { (authResult, error) in
             if let error = error {
-                print(error.localizedDescription)
+                ConsoleLogger.shared.log("Firebase sign in:", error)
             } else {
-                ConsoleLogger.shared.log(authResult)
+                ConsoleLogger.shared.log(authResult, logLevel: .info)
                 // TODO: - Finish sign in
             }
             
