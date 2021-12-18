@@ -9,8 +9,6 @@ target 'ToDoDaily' do
 
   # Pods for ToDoDaily
  pod 'SwiftGen'
- pod 'Firebase/Auth'
- pod 'GoogleSignIn'
 
 end
 

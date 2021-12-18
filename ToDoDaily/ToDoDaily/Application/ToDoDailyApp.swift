@@ -12,7 +12,7 @@ struct ToDoDailyApp: App {
 
     // MARK: - Propertise
     
-    private let services: Services = MockServices()
+    private let services: Services = AppServices()
     
     // MARK: - App
     

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 protocol Services {
     var defaultsManager: DefaultsManager { get }
@@ -18,7 +19,9 @@ final class AppServices: Services {
         
     init() {
         self.defaultsManager = AppDefaultsManager()
-        self.authManager = AppAuthManager(defaultsManager: self.defaultsManager)
+        self.authManager = FirebaseAuthManager(defaultsManager: self.defaultsManager)
+        
+        FirebaseApp.configure()
     }
 }
 
