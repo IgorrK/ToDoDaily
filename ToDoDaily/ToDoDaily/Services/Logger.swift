@@ -17,7 +17,7 @@ enum LogLevel {
 }
 
 protocol Logger {
-    func log(_ items: Any..., logLevel: LogLevel)
+    func log(_ items: Any..., logLevel: LogLevel, file: String, function: String, line: Int, context: Any?)
 }
 
 final class ConsoleLogger: Logger {
@@ -36,18 +36,18 @@ final class ConsoleLogger: Logger {
     
     // MARK: - Logger
     
-    func log(_ items: Any..., logLevel: LogLevel = .debug) {
+    func log(_ items: Any..., logLevel: LogLevel = .debug, file: String = #file, function: String = #function, line: Int = #line, context: Any? = nil) {
         switch logLevel {
         case .verbose:
-            SwiftyBeaver.verbose(items)
+            SwiftyBeaver.verbose(items, file, function, line: line, context: context)
         case .debug:
-            SwiftyBeaver.debug(items)
+            SwiftyBeaver.debug(items, file, function, line: line, context: context)
         case .info:
-            SwiftyBeaver.info(items)
+            SwiftyBeaver.info(items, file, function, line: line, context: context)
         case .warning:
-            SwiftyBeaver.warning(items)
+            SwiftyBeaver.warning(items, file, function, line: line, context: context)
         case .error:
-            SwiftyBeaver.error(items)
+            SwiftyBeaver.error(items, file, function, line: line, context: context)
         }
     }
 }
