@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct RootView: RoutableView {
+struct RootView: View, RoutableView {
     
     // MARK: - RoutableView
     
     let router: RootRouter
     @ObservedObject var viewModel: RootViewModel
-
+    
     // MARK: - View
     
     var body: some View {

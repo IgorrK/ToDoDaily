@@ -14,9 +14,10 @@ enum RootRoute: RouteType {
 }
 
 struct RootRouter: Routing {
-
+    
     // MARK: - Properties
     
+    @EnvironmentObject var stateContainer: AppStateContainer
     var services: Services
     
     // MARK: - Routing

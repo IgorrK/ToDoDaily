@@ -52,7 +52,6 @@
 		8465FBD4276CFE5400CB2E1D /* DefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBD3276CFE5400CB2E1D /* DefaultsManager.swift */; };
 		8465FBD6276D01FD00CB2E1D /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBD5276D01FD00CB2E1D /* Services.swift */; };
 		8465FBD9276D033D00CB2E1D /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBD8276D033D00CB2E1D /* Routing.swift */; };
-		8465FBDB276D03FF00CB2E1D /* RoutableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBDA276D03FF00CB2E1D /* RoutableView.swift */; };
 		8465FBE0276D04BB00CB2E1D /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBDF276D04BB00CB2E1D /* RootView.swift */; };
 		8465FBE2276D04C600CB2E1D /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBE1276D04C600CB2E1D /* RootRouter.swift */; };
 		84C26F80276B727700BEBEF0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84C26F7F276B727700BEBEF0 /* Images.xcassets */; };
@@ -63,13 +62,19 @@
 		84C26F9D276B85CE00BEBEF0 /* Assets-Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26F9C276B85CE00BEBEF0 /* Assets-Constants.swift */; };
 		84C26FA2276B8A5900BEBEF0 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C26FA1276B8A5900BEBEF0 /* Launch Screen.storyboard */; };
 		84C26FA7276B8C3B00BEBEF0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26FA6276B8C3B00BEBEF0 /* LoginView.swift */; };
-		84C26FAF276B906600BEBEF0 /* ToDoDailyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26FAE276B906600BEBEF0 /* ToDoDailyApp.swift */; };
 		84C26FB2276B9BE000BEBEF0 /* Application.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84C26FB1276B9BE000BEBEF0 /* Application.strings */; };
 		84C26FB4276B9C6000BEBEF0 /* Strings-Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26FB3276B9C6000BEBEF0 /* Strings-Constants.swift */; };
 		84C26FB8276C0BD000BEBEF0 /* UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26FB7276C0BD000BEBEF0 /* UIScreen.swift */; };
 		84F54F0A276E772B00D843B2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 84F54F09276E772B00D843B2 /* FirebaseAuth */; settings = {ATTRIBUTES = (Required, ); }; };
 		84F54F0D276E780900D843B2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 84F54F0C276E780900D843B2 /* GoogleSignIn */; };
 		84F54F10276E7F9800D843B2 /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 84F54F0F276E7F9800D843B2 /* SwiftyBeaver */; };
+		84F54F18276EA16200D843B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F54F17276EA16200D843B2 /* AppDelegate.swift */; };
+		84F54F1A276EA34100D843B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F54F19276EA34100D843B2 /* SceneDelegate.swift */; };
+		84F54F1C276EB07700D843B2 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F54F1B276EB07700D843B2 /* AppState.swift */; };
+		84F54F1E276EB31400D843B2 /* RoutableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F54F1D276EB31400D843B2 /* RoutableView.swift */; };
+		84F54F20277097DA00D843B2 /* CircularHUD in Resources */ = {isa = PBXBuildFile; fileRef = 84F54F1F277097DA00D843B2 /* CircularHUD */; };
+		84F54F22277097F600D843B2 /* CircularHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 84F54F21277097F600D843B2 /* CircularHUD */; };
+		84F54F242770AB5C00D843B2 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F54F232770AB5C00D843B2 /* UIView.swift */; };
 		D028BF8665A8EAC338C1BB86 /* Pods_ToDoDaily.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8486E40225582005AB4968ED /* Pods_ToDoDaily.framework */; };
 /* End PBXBuildFile section */
 
@@ -107,7 +112,6 @@
 		8465FBD3276CFE5400CB2E1D /* DefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsManager.swift; sourceTree = "<group>"; };
 		8465FBD5276D01FD00CB2E1D /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		8465FBD8276D033D00CB2E1D /* Routing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
-		8465FBDA276D03FF00CB2E1D /* RoutableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutableView.swift; sourceTree = "<group>"; };
 		8465FBDF276D04BB00CB2E1D /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		8465FBE1276D04C600CB2E1D /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
 		8486E40225582005AB4968ED /* Pods_ToDoDaily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoDaily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,10 +125,15 @@
 		84C26F9E276B884300BEBEF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84C26FA1276B8A5900BEBEF0 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		84C26FA6276B8C3B00BEBEF0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		84C26FAE276B906600BEBEF0 /* ToDoDailyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoDailyApp.swift; sourceTree = "<group>"; };
 		84C26FB1276B9BE000BEBEF0 /* Application.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Application.strings; sourceTree = "<group>"; };
 		84C26FB3276B9C6000BEBEF0 /* Strings-Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strings-Constants.swift"; sourceTree = "<group>"; };
 		84C26FB7276C0BD000BEBEF0 /* UIScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreen.swift; sourceTree = "<group>"; };
+		84F54F17276EA16200D843B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		84F54F19276EA34100D843B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		84F54F1B276EB07700D843B2 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		84F54F1D276EB31400D843B2 /* RoutableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutableView.swift; sourceTree = "<group>"; };
+		84F54F1F277097DA00D843B2 /* CircularHUD */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CircularHUD; path = ../CircularHUD; sourceTree = "<group>"; };
+		84F54F232770AB5C00D843B2 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +144,7 @@
 				D028BF8665A8EAC338C1BB86 /* Pods_ToDoDaily.framework in Frameworks */,
 				84F54F0A276E772B00D843B2 /* FirebaseAuth in Frameworks */,
 				84F54F0D276E780900D843B2 /* GoogleSignIn in Frameworks */,
+				84F54F22277097F600D843B2 /* CircularHUD in Frameworks */,
 				84F54F10276E7F9800D843B2 /* SwiftyBeaver in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,7 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				8465FBD8276D033D00CB2E1D /* Routing.swift */,
-				8465FBDA276D03FF00CB2E1D /* RoutableView.swift */,
+				84F54F1D276EB31400D843B2 /* RoutableView.swift */,
 				841C1250276D54C800EDEFD8 /* InteractiveViewModel.swift */,
 			);
 			path = Base;
@@ -298,6 +308,7 @@
 				84C26F79276B727400BEBEF0 /* Products */,
 				DE77C766B6822C9D344614B5 /* Pods */,
 				F0A169FE3F75534FA1DF47B7 /* Frameworks */,
+				84F54F1F277097DA00D843B2 /* CircularHUD */,
 			);
 			sourceTree = "<group>";
 		};
@@ -337,7 +348,9 @@
 		84C26F8E276B735600BEBEF0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				84C26FAE276B906600BEBEF0 /* ToDoDailyApp.swift */,
+				84F54F17276EA16200D843B2 /* AppDelegate.swift */,
+				84F54F19276EA34100D843B2 /* SceneDelegate.swift */,
+				84F54F1B276EB07700D843B2 /* AppState.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -424,8 +437,9 @@
 		84C26FB6276C0BC200BEBEF0 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				84C26FB7276C0BD000BEBEF0 /* UIScreen.swift */,
 				841C1252276D64F200EDEFD8 /* UIApplication.swift */,
+				84C26FB7276C0BD000BEBEF0 /* UIScreen.swift */,
+				84F54F232770AB5C00D843B2 /* UIView.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -469,6 +483,7 @@
 				84F54F09276E772B00D843B2 /* FirebaseAuth */,
 				84F54F0C276E780900D843B2 /* GoogleSignIn */,
 				84F54F0F276E7F9800D843B2 /* SwiftyBeaver */,
+				84F54F21277097F600D843B2 /* CircularHUD */,
 			);
 			productName = ToDoDaily;
 			productReference = 84C26F78276B727400BEBEF0 /* ToDoDaily.app */;
@@ -526,6 +541,7 @@
 				8465FBC2276CEE0400CB2E1D /* Roboto-BlackItalic.ttf in Resources */,
 				8465FBBF276CEE0400CB2E1D /* Roboto-LightItalic.ttf in Resources */,
 				84C26F9B276B854500BEBEF0 /* Colors.xcassets in Resources */,
+				84F54F20277097DA00D843B2 /* CircularHUD in Resources */,
 				8465FBBB276CEE0400CB2E1D /* Roboto-Regular.ttf in Resources */,
 				8465FBBE276CEE0400CB2E1D /* Roboto-BoldItalic.ttf in Resources */,
 				8465FBC5276CEE0400CB2E1D /* Roboto-Black.ttf in Resources */,
@@ -614,14 +630,17 @@
 			files = (
 				841C124F276D10C900EDEFD8 /* LoginViewModel.swift in Sources */,
 				8465FBC7276CEED500CB2E1D /* UIFont-Constants.swift in Sources */,
+				84F54F1E276EB31400D843B2 /* RoutableView.swift in Sources */,
 				841C1248276D0AE900EDEFD8 /* RootViewModel.swift in Sources */,
+				84F54F242770AB5C00D843B2 /* UIView.swift in Sources */,
 				841C1253276D64F200EDEFD8 /* UIApplication.swift in Sources */,
+				84F54F18276EA16200D843B2 /* AppDelegate.swift in Sources */,
 				8465FBD2276CFCB700CB2E1D /* FirebaseAuthManager.swift in Sources */,
-				8465FBDB276D03FF00CB2E1D /* RoutableView.swift in Sources */,
 				8465FBCA276CF0EE00CB2E1D /* Font.swift in Sources */,
 				84C26FB4276B9C6000BEBEF0 /* Strings-Constants.swift in Sources */,
 				841C1251276D54C800EDEFD8 /* InteractiveViewModel.swift in Sources */,
 				841C1255276E308D00EDEFD8 /* Logger.swift in Sources */,
+				84F54F1A276EA34100D843B2 /* SceneDelegate.swift in Sources */,
 				84C26FA7276B8C3B00BEBEF0 /* LoginView.swift in Sources */,
 				841C124C276D0DCC00EDEFD8 /* MainView.swift in Sources */,
 				8465FBE0276D04BB00CB2E1D /* RootView.swift in Sources */,
@@ -633,8 +652,8 @@
 				8465FBD9276D033D00CB2E1D /* Routing.swift in Sources */,
 				8465FBA7276CA2A900CB2E1D /* Typealiases.swift in Sources */,
 				8465FBCC276CF2DA00CB2E1D /* View.swift in Sources */,
-				84C26FAF276B906600BEBEF0 /* ToDoDailyApp.swift in Sources */,
 				8465FBE2276D04C600CB2E1D /* RootRouter.swift in Sources */,
+				84F54F1C276EB07700D843B2 /* AppState.swift in Sources */,
 				8465FBD6276D01FD00CB2E1D /* Services.swift in Sources */,
 				84C26FB8276C0BD000BEBEF0 /* UIScreen.swift in Sources */,
 				84C26F9D276B85CE00BEBEF0 /* Assets-Constants.swift in Sources */,
@@ -920,6 +939,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 84F54F0E276E7F9800D843B2 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */;
 			productName = SwiftyBeaver;
+		};
+		84F54F21277097F600D843B2 /* CircularHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CircularHUD;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -13,6 +13,6 @@ typealias RouteType = Hashable
 protocol Routing {
     associatedtype Route: RouteType
     associatedtype View: SwiftUI.View
-    
+        
     @ViewBuilder func view(for route: Route) -> Self.View
 }

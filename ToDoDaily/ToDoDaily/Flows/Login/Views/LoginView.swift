@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UserNotifications
 
 struct LoginView: View {
     
@@ -17,7 +16,7 @@ struct LoginView: View {
     @State private var primaryAnimation = false
     @State private var secondaryAnimation = false
     @State private var bottomViewAnimation = false
-    
+        
     // MARK: - View
     
     var body: some View {
