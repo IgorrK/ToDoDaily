@@ -20,15 +20,17 @@ protocol AuthManager {
 final class AuthState: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var error: Error?
+    @Published var isLoading: Bool = false
 }
 
 final class FirebaseAuthManager: AuthManager {
     
     // MARK: - Properties
     
-    public var state: AuthState = AuthState()
+    var state: AuthState = AuthState()
     private var defaultsManager: DefaultsManager
-    
+    private var anyCancellables = Set<AnyCancellable>()
+
     // MARK: - Lifecycle
     
     init(defaultsManager: DefaultsManager) {
@@ -42,74 +44,95 @@ final class FirebaseAuthManager: AuthManager {
         state.isLoggedIn = self.defaultsManager.getDefault(.isLoggedIn)
     }
     
-    private func processError(_ error: AuthError) {
+    private func processError(_ error: Error) {
         state.isLoggedIn = false
         state.error = error
     }
     
+    private func processLogIn(_ result: AuthDataResult) {
+        state.isLoggedIn = true
+        defaultsManager.setDefault(.isLoggedIn, value: state.isLoggedIn)
+    }
+    
     private func firebaseSignIn(with credential: AuthCredential) {
-        Auth.auth().signIn(with: credential) { (authResult, error) in
+        state.isLoading = true
+        Auth.auth().signIn(with: credential) { [weak self] (authResult, error) in
+            self?.state.isLoading = false
             if let error = error {
-                ConsoleLogger.shared.log("Firebase sign in:", error)
+                self?.processError(error)
+            } else if let result = authResult {
+                self?.processLogIn(result)
             } else {
-                ConsoleLogger.shared.log(authResult, logLevel: .info)
-                // TODO: - Finish sign in
+                self?.processError(AuthError.missingAuthDataResult)
             }
-            
         }
     }
     
     // MARK: - Public methods
     
     public func logIn() {
-        // TODO: Firebase sign-in
+        
+        // Combine publisher
+        var credential: AuthCredential?
+        let googleSignInSubject = PassthroughSubject<AuthCredential, Error>()
+
+        googleSignInSubject
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .finished:
+                    ConsoleLogger.shared.log("finished")
+                    if let credential = credential {
+                        self?.firebaseSignIn(with: credential)
+                    } else {
+                        self?.processError(AuthError.missingAuthCredential)
+                    }
+                case .failure(let error):
+                    self?.processError(error)
+                }
+        }, receiveValue: { value in
+            credential = value
+        }).store(in: &anyCancellables)
+
+        // Properties
         guard let clientID = FirebaseApp.app()?.options.clientID else {
-            processError(.missingClientId)
+            googleSignInSubject.send(completion: .failure(AuthError.missingClientId))
             return
-            
         }
         
         guard let presentingViewController = UIApplication.shared.rootViewController else {
-            processError(.missingPresentingVC)
+            googleSignInSubject.send(completion: .failure(AuthError.missingPresentingVC))
             return
         }
         
-        
         // Create Google Sign In configuration object.
         let config = GIDConfiguration(clientID: clientID)
-        // Start the sign in flow!
-        GIDSignIn.sharedInstance.signIn(with: config, presenting: presentingViewController) { [weak self] user, error in
+        // Start the sign in flow
+        GIDSignIn.sharedInstance.signIn(with: config, presenting: presentingViewController) { user, error in
             if let error = error {
-                self?.state.isLoggedIn = false
-                
                 if let signInError = AuthError.GoogleSignInError(rawValue: (error as NSError).code) {
-                    ConsoleLogger.shared.log("sign in error occured:", signInError)
-                    
                     switch signInError {
                     case .canceled:
                         break // Not an error
                     default:
-                        self?.processError(.googleSignIn(signInError))
+                        googleSignInSubject.send(completion: .failure(AuthError.googleSignIn(signInError)))
                     }
                 }
-                
                 return
             }
-            
             
             guard
                 let authentication = user?.authentication,
                 let idToken = authentication.idToken
             else {
-                self?.processError(.missingAuthProvider)
+                googleSignInSubject.send(completion: .failure(AuthError.missingAuthProvider))
                 return
             }
             
             let credential = GoogleAuthProvider.credential(withIDToken: idToken,
                                                            accessToken: authentication.accessToken)
-            self?.firebaseSignIn(with: credential)
+            googleSignInSubject.send(credential)
+            googleSignInSubject.send(completion: .finished)
         }
-        
     }
     
     public func logOut() {
@@ -121,7 +144,6 @@ final class FirebaseAuthManager: AuthManager {
         } catch {
             ConsoleLogger.shared.log(error)
         }
-
     }
 }
 
@@ -131,6 +153,8 @@ extension FirebaseAuthManager {
         case missingClientId
         case missingPresentingVC
         case missingAuthProvider
+        case missingAuthCredential
+        case missingAuthDataResult
         case googleSignIn(GoogleSignInError)
         
         enum GoogleSignInError: Int, Error {

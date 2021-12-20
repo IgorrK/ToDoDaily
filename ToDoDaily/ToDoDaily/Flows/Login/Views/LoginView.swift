@@ -16,7 +16,9 @@ struct LoginView: View {
     @State private var primaryAnimation = false
     @State private var secondaryAnimation = false
     @State private var bottomViewAnimation = false
-        
+    
+    @EnvironmentObject var appStateContainer: AppStateContainer
+    
     // MARK: - View
     
     var body: some View {
@@ -44,17 +46,8 @@ struct LoginView: View {
                 .edgesIgnoringSafeArea(.all)
         )
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                primaryAnimation = true
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                secondaryAnimation = true
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                bottomViewAnimation = true
-            }
-            
+            viewModel.bind(to: appStateContainer)
+            performAnimations()
         }
         .animation(.linear, value: primaryAnimation)
         .animation(.easeInOut, value: secondaryAnimation)
@@ -62,6 +55,21 @@ struct LoginView: View {
     }
 }
 
+// MARK: - Private methods
+private extension LoginView {
+    func performAnimations() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            primaryAnimation = true
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            secondaryAnimation = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            bottomViewAnimation = true
+        }
+    }
+}
 
 // MARK: - Subviews
 private extension LoginView {
@@ -98,6 +106,7 @@ private extension LoginView {
         .padding(.horizontal, 32.0)
         .padding(.bottom, 32.0)
         .transition(.move(edge: .bottom))
+        // TODO: show alert on error
     }
     
     @ViewBuilder

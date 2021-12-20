@@ -6,19 +6,25 @@
 //
 
 import Foundation
+import SwiftUI
+import Combine
 
 final class LoginViewModel: ObservableObject, InteractiveViewModel {
-
+    
     // MARK: - Propertes
- 
+    
     private let services: Services
-
+    
+    private var anyCancellables = Set<AnyCancellable>()
+    @Published var error: Error?
+    
     // MARK: - Lifecycle
     
     init(services: Services) {
         self.services = services
+        setBindings()
     }
-
+    
     // MARK: - InteractiveViewModel
     
     func handleInput(event: Event) {
@@ -28,6 +34,26 @@ final class LoginViewModel: ObservableObject, InteractiveViewModel {
         case .onGoOffline:
             break
         }
+    }
+    
+    // MARK: - Private methods
+    
+    private func setBindings() {
+        self.services.authManager.state.$error
+            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .sink { [weak self] value in
+                self?.error = value
+            }
+            .store(in: &self.anyCancellables)
+    }
+    
+    
+    // MARK: - Public methods
+    
+    func bind(to appStateContainer: AppStateContainer) {
+        services.authManager.state.$isLoading.sink { value in
+            appStateContainer.hudState.showsHUD = value
+        }.store(in: &anyCancellables)
     }
 }
 
