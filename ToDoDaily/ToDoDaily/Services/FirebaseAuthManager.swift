@@ -41,7 +41,7 @@ final class FirebaseAuthManager: AuthManager {
     // MARK: - Private methods
     
     private func setupValues() {
-        state.isLoggedIn = self.defaultsManager.getDefault(.isLoggedIn)
+        state.isLoggedIn = Auth.auth().currentUser != nil
     }
     
     private func processError(_ error: Error) {

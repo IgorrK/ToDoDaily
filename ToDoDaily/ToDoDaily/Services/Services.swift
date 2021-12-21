@@ -18,10 +18,10 @@ final class AppServices: Services {
     var defaultsManager: DefaultsManager
         
     init() {
+        FirebaseApp.configure()
+
         self.defaultsManager = AppDefaultsManager()
         self.authManager = FirebaseAuthManager(defaultsManager: self.defaultsManager)
-        
-        FirebaseApp.configure()
     }
 }
 
