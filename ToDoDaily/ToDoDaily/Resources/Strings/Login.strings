@@ -8,3 +8,7 @@
 
 "or" = "OR";
 "goOffline" = "Go Offline";
+
+"authError.description" = "Failed to log in";
+"authError.failureReason" = "It's not your fault, but a server error";
+"authError.recoverySuggestion" = "Please try again later";

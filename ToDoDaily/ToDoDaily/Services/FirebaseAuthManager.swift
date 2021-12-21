@@ -30,7 +30,7 @@ final class FirebaseAuthManager: AuthManager {
     var state: AuthState = AuthState()
     private var defaultsManager: DefaultsManager
     private var anyCancellables = Set<AnyCancellable>()
-
+    
     // MARK: - Lifecycle
     
     init(defaultsManager: DefaultsManager) {
@@ -75,7 +75,7 @@ final class FirebaseAuthManager: AuthManager {
         // Combine publisher
         var credential: AuthCredential?
         let googleSignInSubject = PassthroughSubject<AuthCredential, Error>()
-
+        
         googleSignInSubject
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
@@ -89,10 +89,10 @@ final class FirebaseAuthManager: AuthManager {
                 case .failure(let error):
                     self?.processError(error)
                 }
-        }, receiveValue: { value in
-            credential = value
-        }).store(in: &anyCancellables)
-
+            }, receiveValue: { value in
+                credential = value
+            }).store(in: &anyCancellables)
+        
         // Properties
         guard let clientID = FirebaseApp.app()?.options.clientID else {
             googleSignInSubject.send(completion: .failure(AuthError.missingClientId))
@@ -137,10 +137,10 @@ final class FirebaseAuthManager: AuthManager {
     
     public func logOut() {
         do {
-          try Auth.auth().signOut()
+            try Auth.auth().signOut()
             state.isLoggedIn = false
             defaultsManager.setDefault(.isLoggedIn, value: true)
-
+            
         } catch {
             ConsoleLogger.shared.log(error)
         }
@@ -149,7 +149,7 @@ final class FirebaseAuthManager: AuthManager {
 
 // MARK: - Errors
 extension FirebaseAuthManager {
-    enum AuthError: Error {
+    enum AuthError: LocalizedError {
         case missingClientId
         case missingPresentingVC
         case missingAuthProvider
@@ -166,8 +166,21 @@ extension FirebaseAuthManager {
             case noCurrentUser = -7
             case scopesAlreadyGranted = -8
         }
+        
+        // MARK: - LocalizedError
+        
+        var errorDescription: String? {
+            return L10n.Login.AuthError.description
+        }
+        
+        var failureReason: String? {
+            return L10n.Login.AuthError.failureReason
+        }
+        
+        var recoverySuggestion: String? {
+            return L10n.Login.AuthError.recoverySuggestion
+        }
     }
-    
 }
 
 final class MockAuthManager: AuthManager {

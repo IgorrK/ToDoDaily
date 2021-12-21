@@ -13,12 +13,22 @@ internal enum L10n {
   internal enum Application {
     /// ToDo Daily
     internal static let name = L10n.tr("Application", "name")
+    /// OK
+    internal static let ok = L10n.tr("Application", "ok")
   }
   internal enum Login {
     /// Go Offline
     internal static let goOffline = L10n.tr("Login", "goOffline")
     /// OR
     internal static let or = L10n.tr("Login", "or")
+    internal enum AuthError {
+      /// Failed to log in
+      internal static let description = L10n.tr("Login", "authError.description")
+      /// It's not your fault, but a server error
+      internal static let failureReason = L10n.tr("Login", "authError.failureReason")
+      /// Please try again later
+      internal static let recoverySuggestion = L10n.tr("Login", "authError.recoverySuggestion")
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

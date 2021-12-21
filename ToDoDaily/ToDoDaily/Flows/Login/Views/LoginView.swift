@@ -49,6 +49,7 @@ struct LoginView: View {
             viewModel.bind(to: appStateContainer)
             performAnimations()
         }
+        .alert(error: $viewModel.error)
         .animation(.linear, value: primaryAnimation)
         .animation(.easeInOut, value: secondaryAnimation)
         .animation(.interpolatingSpring(mass: 0.3, stiffness: 40.0, damping: 10.0, initialVelocity: 30.0), value: bottomViewAnimation)
