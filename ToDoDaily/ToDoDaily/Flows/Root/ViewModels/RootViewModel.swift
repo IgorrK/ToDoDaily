@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import Model
 
 final class RootViewModel: ObservableObject {
 
@@ -17,7 +18,7 @@ final class RootViewModel: ObservableObject {
 
     private var anyCancellables = Set<AnyCancellable>()
 
-    @Published var isLoggedIn: Bool = false
+    @Published var state: State = .notAuthorized
     
     // MARK: - Lifecycle
     
@@ -29,8 +30,17 @@ final class RootViewModel: ObservableObject {
     // MARK: - Private methods
     
     private func setBindings() {
-        self.services.authManager.state.$isLoggedIn.sink { [weak self] value in
-            self?.isLoggedIn = value
+        self.services.authManager.dataContainer.$state.sink { [weak self] value in
+            withAnimation {
+                switch value {
+                case .notAuthorized:
+                    self?.state = .notAuthorized
+                case .authorizedNewUser(let user):
+                    self?.state = .newUser(user)
+                case .authorizedExistingUser:
+                    self?.state = .authorized
+                }
+            }
         }.store(in: &self.anyCancellables)
     }
     
@@ -38,5 +48,14 @@ final class RootViewModel: ObservableObject {
     
     func logIn() {
         services.authManager.logIn()
+    }
+}
+
+// MARK: - Nested types
+extension RootViewModel {
+    enum State  {
+        case notAuthorized
+        case newUser(User)
+        case authorized
     }
 }

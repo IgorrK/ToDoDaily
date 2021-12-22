@@ -17,11 +17,14 @@ struct RootView: View, RoutableView {
     // MARK: - View
     
     var body: some View {
-        switch viewModel.isLoggedIn {
-        case true:
-            router.view(for: .main)
-        case false:
+        switch viewModel.state {
+        case .notAuthorized:
             router.view(for: .auth)
+        case .newUser(let user):
+            router.view(for: .onboarding(user))
+                .transition(.move(edge: .bottom))
+        case .authorized:
+            router.view(for: .main)
         }
     }
 }

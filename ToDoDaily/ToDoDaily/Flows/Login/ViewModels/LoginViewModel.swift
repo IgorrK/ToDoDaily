@@ -39,7 +39,7 @@ final class LoginViewModel: ObservableObject, InteractiveViewModel {
     // MARK: - Private methods
     
     private func setBindings() {
-        self.services.authManager.state.$error
+        self.services.authManager.dataContainer.$error
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .sink { [weak self] value in
                 self?.error = value
@@ -51,7 +51,7 @@ final class LoginViewModel: ObservableObject, InteractiveViewModel {
     // MARK: - Public methods
     
     func bind(to appStateContainer: AppStateContainer) {
-        services.authManager.state.$isLoading.sink { value in
+        services.authManager.dataContainer.$isLoading.sink { value in
             appStateContainer.hudState.showsHUD = value
         }.store(in: &anyCancellables)
     }

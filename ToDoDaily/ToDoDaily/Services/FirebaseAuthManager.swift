@@ -10,15 +10,28 @@ import Combine
 import Firebase
 import FirebaseAuth
 import GoogleSignIn
+import Model
 
 protocol AuthManager {
-    var state: AuthState { get }
+    var dataContainer: AuthDataContainer { get }
     func logIn()
     func logOut()
 }
 
-final class AuthState: ObservableObject {
-    @Published var isLoggedIn: Bool = false
+final class AuthDataContainer: ObservableObject {
+    
+    // MARK: - Nested types
+    
+    enum State {
+        case notAuthorized
+        case authorizedNewUser(Model.User)
+        case authorizedExistingUser(Model.User)
+    }
+    
+    // MARK: - Properties
+    
+    @Published var state: State = .notAuthorized
+    @Published var isNewUser: Bool = false
     @Published var error: Error?
     @Published var isLoading: Bool = false
 }
@@ -27,7 +40,7 @@ final class FirebaseAuthManager: AuthManager {
     
     // MARK: - Properties
     
-    var state: AuthState = AuthState()
+    var dataContainer: AuthDataContainer = AuthDataContainer()
     private var defaultsManager: DefaultsManager
     private var anyCancellables = Set<AnyCancellable>()
     
@@ -41,23 +54,27 @@ final class FirebaseAuthManager: AuthManager {
     // MARK: - Private methods
     
     private func setupValues() {
-        state.isLoggedIn = Auth.auth().currentUser != nil
+//        if let currentUser = Auth.auth().currentUser {
+//            ConsoleLogger.shared.log(Model.User(firebaseUser: currentUser))
+//            dataContainer.state = .authorizedExistingUser(Model.User(firebaseUser: currentUser))
+//        }
+        dataContainer.state = .notAuthorized
     }
     
     private func processError(_ error: Error) {
-        state.isLoggedIn = false
-        state.error = error
+        dataContainer.state = .notAuthorized
+        dataContainer.error = error
     }
     
     private func processLogIn(_ result: AuthDataResult) {
-        state.isLoggedIn = true
-        defaultsManager.setDefault(.isLoggedIn, value: state.isLoggedIn)
+        dataContainer.state = .authorizedNewUser(Model.User(firebaseUser: result.user))
+        defaultsManager.setDefault(.isLoggedIn, value: true)
     }
     
     private func firebaseSignIn(with credential: AuthCredential) {
-        state.isLoading = true
+        dataContainer.isLoading = true
         Auth.auth().signIn(with: credential) { [weak self] (authResult, error) in
-            self?.state.isLoading = false
+            self?.dataContainer.isLoading = false
             if let error = error {
                 self?.processError(error)
             } else if let result = authResult {
@@ -138,7 +155,7 @@ final class FirebaseAuthManager: AuthManager {
     public func logOut() {
         do {
             try Auth.auth().signOut()
-            state.isLoggedIn = false
+            dataContainer.state = .notAuthorized
             defaultsManager.setDefault(.isLoggedIn, value: true)
             
         } catch {
@@ -184,19 +201,19 @@ extension FirebaseAuthManager {
 }
 
 final class MockAuthManager: AuthManager {
-    var state: AuthState = AuthState()
+    var dataContainer: AuthDataContainer = AuthDataContainer()
     
     var didLogin = false
     var didLogOut = false
     
     func logIn() {
         didLogin = true
-        state.isLoggedIn = true
+        dataContainer.state = .authorizedNewUser(Model.User.mockUser)
     }
     
     func logOut() {
         didLogOut = true
-        state.isLoggedIn = false
+        dataContainer.state = .notAuthorized
     }
     
 }

@@ -7,9 +7,11 @@
 
 import Foundation
 import SwiftUI
+import Model
 
 enum RootRoute: RouteType {
     case auth
+    case onboarding(User)
     case main
 }
 
@@ -26,6 +28,8 @@ struct RootRouter: Routing {
         switch route {
         case .auth:
             LoginView(viewModel: LoginViewModel(services: services))
+        case.onboarding(let user):
+            ProfileView(viewModel: ProfileViewModel(user: user))
         case .main:
             MainView()
         }
