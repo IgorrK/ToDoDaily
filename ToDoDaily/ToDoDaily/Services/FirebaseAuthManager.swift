@@ -54,10 +54,10 @@ final class FirebaseAuthManager: AuthManager {
     // MARK: - Private methods
     
     private func setupValues() {
-//        if let currentUser = Auth.auth().currentUser {
-//            ConsoleLogger.shared.log(Model.User(firebaseUser: currentUser))
-//            dataContainer.state = .authorizedExistingUser(Model.User(firebaseUser: currentUser))
-//        }
+        //        if let currentUser = Auth.auth().currentUser {
+        //            ConsoleLogger.shared.log(Model.User(firebaseUser: currentUser))
+        //            dataContainer.state = .authorizedExistingUser(Model.User(firebaseUser: currentUser))
+        //        }
         dataContainer.state = .notAuthorized
     }
     
@@ -69,6 +69,53 @@ final class FirebaseAuthManager: AuthManager {
     private func processLogIn(_ result: AuthDataResult) {
         dataContainer.state = .authorizedNewUser(Model.User(firebaseUser: result.user))
         defaultsManager.setDefault(.isLoggedIn, value: true)
+    }
+    
+    private func googleSignIn() -> Future<AuthCredential, Error> {
+        
+        return Future() { promise in
+            
+            // Properties
+            guard let clientID = FirebaseApp.app()?.options.clientID else {
+                promise(.failure(AuthError.missingClientId))
+                return
+            }
+            
+            guard let presentingViewController = UIApplication.shared.rootViewController else {
+                promise(.failure(AuthError.missingPresentingVC))
+                return
+            }
+            
+            // Create Google Sign In configuration object.
+            let config = GIDConfiguration(clientID: clientID)
+            
+            // Start the sign in flow
+            GIDSignIn.sharedInstance.signIn(with: config, presenting: presentingViewController) { user, error in
+                if let error = error {
+                    if let signInError = AuthError.GoogleSignInError(rawValue: (error as NSError).code) {
+                        switch signInError {
+                        case .canceled:
+                            break // Not an error
+                        default:
+                            promise(.failure(AuthError.googleSignIn(signInError)))
+                        }
+                    }
+                    return
+                }
+                
+                guard
+                    let authentication = user?.authentication,
+                    let idToken = authentication.idToken
+                else {
+                    promise(.failure(AuthError.missingAuthProvider))
+                    return
+                }
+                
+                let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                               accessToken: authentication.accessToken)
+                promise(.success(credential))
+            }
+        }
     }
     
     private func firebaseSignIn(with credential: AuthCredential) {
@@ -88,68 +135,23 @@ final class FirebaseAuthManager: AuthManager {
     // MARK: - Public methods
     
     public func logIn() {
-        
-        // Combine publisher
         var credential: AuthCredential?
-        let googleSignInSubject = PassthroughSubject<AuthCredential, Error>()
         
-        googleSignInSubject
-            .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case .finished:
-                    ConsoleLogger.shared.log("finished")
-                    if let credential = credential {
-                        self?.firebaseSignIn(with: credential)
-                    } else {
-                        self?.processError(AuthError.missingAuthCredential)
-                    }
-                case .failure(let error):
-                    self?.processError(error)
+        googleSignIn().sink(receiveCompletion: { [weak self] completion in
+            switch completion {
+            case .finished:
+                ConsoleLogger.shared.log("finished")
+                if let credential = credential {
+                    self?.firebaseSignIn(with: credential)
+                } else {
+                    self?.processError(AuthError.missingAuthCredential)
                 }
-            }, receiveValue: { value in
-                credential = value
-            }).store(in: &anyCancellables)
-        
-        // Properties
-        guard let clientID = FirebaseApp.app()?.options.clientID else {
-            googleSignInSubject.send(completion: .failure(AuthError.missingClientId))
-            return
-        }
-        
-        guard let presentingViewController = UIApplication.shared.rootViewController else {
-            googleSignInSubject.send(completion: .failure(AuthError.missingPresentingVC))
-            return
-        }
-        
-        // Create Google Sign In configuration object.
-        let config = GIDConfiguration(clientID: clientID)
-        // Start the sign in flow
-        GIDSignIn.sharedInstance.signIn(with: config, presenting: presentingViewController) { user, error in
-            if let error = error {
-                if let signInError = AuthError.GoogleSignInError(rawValue: (error as NSError).code) {
-                    switch signInError {
-                    case .canceled:
-                        break // Not an error
-                    default:
-                        googleSignInSubject.send(completion: .failure(AuthError.googleSignIn(signInError)))
-                    }
-                }
-                return
+            case .failure(let error):
+                self?.processError(error)
             }
-            
-            guard
-                let authentication = user?.authentication,
-                let idToken = authentication.idToken
-            else {
-                googleSignInSubject.send(completion: .failure(AuthError.missingAuthProvider))
-                return
-            }
-            
-            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                           accessToken: authentication.accessToken)
-            googleSignInSubject.send(credential)
-            googleSignInSubject.send(completion: .finished)
-        }
+        }, receiveValue: { value in
+            credential = value
+        }).store(in: &anyCancellables)
     }
     
     public func logOut() {
