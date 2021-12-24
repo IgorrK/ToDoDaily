@@ -140,7 +140,6 @@ final class FirebaseAuthManager: AuthManager {
         googleSignIn().sink(receiveCompletion: { [weak self] completion in
             switch completion {
             case .finished:
-                ConsoleLogger.shared.log("finished")
                 if let credential = credential {
                     self?.firebaseSignIn(with: credential)
                 } else {

@@ -12,6 +12,7 @@ import SwiftUI
 internal enum Asset {
   internal enum Colors {
     internal static let primaryBackground = ColorAsset(name: "primaryBackground")
+    internal static let red = ColorAsset(name: "red")
     internal static let secondaryButtonBackground = ColorAsset(name: "secondaryButtonBackground")
     internal static let secondaryButtonForeground = ColorAsset(name: "secondaryButtonForeground")
     internal static let secondaryShadow = ColorAsset(name: "secondaryShadow")

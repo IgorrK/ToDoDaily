@@ -13,11 +13,11 @@ public struct User: Equatable, Hashable {
     
     public var id: String
     public var name: String
-    public var photoURL: URL?
+    public var photoURL: String?
     
     // MARK: - Lifecycle
     
-    public init(id: String, name: String, photoURL: URL?) {
+    public init(id: String, name: String, photoURL: String?) {
         self.id = id
         self.name = name
         self.photoURL = photoURL

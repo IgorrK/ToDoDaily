@@ -13,7 +13,7 @@ extension Model.User {
     init(firebaseUser: FirebaseAuth.User) {
         self.init(id: firebaseUser.uid,
                   name: firebaseUser.displayName ?? "",
-                  photoURL: firebaseUser.photoURL)
+                  photoURL: firebaseUser.photoURL?.absoluteString)
     }
     
     static var mockUser: Model.User {
