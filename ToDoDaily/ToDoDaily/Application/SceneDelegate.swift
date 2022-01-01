@@ -15,7 +15,7 @@ final class SceneDelegate: NSObject, UIWindowSceneDelegate {
     
     @UIApplicationDelegateAdaptor var delegate: AppDelegate
     
-    private lazy var appStateContainer = AppStateContainer()
+    private var appStateContainer: AppStateContainer { Environment(\.appStateContainer).wrappedValue }
     
     private let services: Services = AppServices()
     
@@ -45,7 +45,6 @@ final class SceneDelegate: NSObject, UIWindowSceneDelegate {
     private func setupKeyWindow(in scene: UIWindowScene) -> UIWindow {
         let rootView = RootView(router: RootRouter(services: services),
                                 viewModel: RootViewModel(services: services))
-            .environmentObject(appStateContainer)
         
         let window = UIWindow(windowScene: scene)
         window.rootViewController = UIHostingController(rootView: rootView)

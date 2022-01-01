@@ -45,4 +45,8 @@ extension View {
                       dismissButton: .default(Text(L10n.Application.ok)))
             })
     }
+    
+    func circularHUD(isShowing: Published<Bool>.Publisher) -> some View {
+        self.modifier(CircularHUDModifier(isShowing: isShowing))
+    }
 }

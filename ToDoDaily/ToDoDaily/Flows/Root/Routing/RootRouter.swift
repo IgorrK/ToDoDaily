@@ -19,7 +19,6 @@ struct RootRouter: Routing {
     
     // MARK: - Properties
     
-    @EnvironmentObject var stateContainer: AppStateContainer
     var services: Services
     
     // MARK: - Routing
@@ -29,7 +28,7 @@ struct RootRouter: Routing {
         case .auth:
             LoginView(viewModel: LoginViewModel(services: services))
         case.onboarding(let user):
-            ProfileView(viewModel: ProfileViewModel(user: user))
+            ProfileView(viewModel: ProfileViewModel(user: user, services: services))
         case .main:
             MainView()
         }

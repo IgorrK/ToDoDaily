@@ -28,12 +28,47 @@ final class AuthDataContainer: ObservableObject {
         case authorizedExistingUser(Model.User)
     }
     
+    enum Event {
+        case authorizedExistingUser(Model.User)
+        case authorizedNewUser(Model.User)
+        case updatedUserProfile(Model.User)
+        case error(Error)
+        case logOut
+    }
+    
     // MARK: - Properties
     
-    @Published var state: State = .notAuthorized
-    @Published var isNewUser: Bool = false
+    @Published private(set) var state: State = .notAuthorized
+    @Published var user: Model.User? = nil
     @Published var error: Error?
     @Published var isLoading: Bool = false
+    
+    // MARK: - Public methods
+    
+    func handle(event: Event) {
+        switch (event, self.state) {
+        case (.authorizedNewUser(let user), _):
+            self.user = user
+            self.state = .authorizedNewUser(user)
+        case (.authorizedExistingUser(let user), _):
+            self.user = user
+            self.state = .authorizedExistingUser(user)
+        case (.updatedUserProfile(let user), .authorizedNewUser):
+            self.user = user
+            self.state = .authorizedExistingUser(user)
+        case (.updatedUserProfile(let user), .authorizedExistingUser):
+            self.user = user
+            self.state = .authorizedExistingUser(user)
+        case (.error(let error), _):
+            self.state = .notAuthorized
+            self.error = error
+        case (.logOut, _):
+            self.state = .notAuthorized
+            self.user = nil
+        default:
+            break
+        }
+    }
 }
 
 final class FirebaseAuthManager: AuthManager {
@@ -54,20 +89,18 @@ final class FirebaseAuthManager: AuthManager {
     // MARK: - Private methods
     
     private func setupValues() {
-        //        if let currentUser = Auth.auth().currentUser {
-        //            ConsoleLogger.shared.log(Model.User(firebaseUser: currentUser))
-        //            dataContainer.state = .authorizedExistingUser(Model.User(firebaseUser: currentUser))
-        //        }
-        dataContainer.state = .notAuthorized
+        if let currentUser = Auth.auth().currentUser {
+            ConsoleLogger.shared.log(Model.User(firebaseUser: currentUser))
+            dataContainer.handle(event: .authorizedExistingUser(Model.User(firebaseUser: currentUser)))
+        }
     }
     
     private func processError(_ error: Error) {
-        dataContainer.state = .notAuthorized
-        dataContainer.error = error
+        dataContainer.handle(event: .error(error))
     }
     
     private func processLogIn(_ result: AuthDataResult) {
-        dataContainer.state = .authorizedNewUser(Model.User(firebaseUser: result.user))
+        dataContainer.handle(event: .authorizedNewUser(Model.User(firebaseUser: result.user)))
         defaultsManager.setDefault(.isLoggedIn, value: true)
     }
     
@@ -156,7 +189,7 @@ final class FirebaseAuthManager: AuthManager {
     public func logOut() {
         do {
             try Auth.auth().signOut()
-            dataContainer.state = .notAuthorized
+            dataContainer.handle(event: .logOut)
             defaultsManager.setDefault(.isLoggedIn, value: true)
             
         } catch {
@@ -209,12 +242,11 @@ final class MockAuthManager: AuthManager {
     
     func logIn() {
         didLogin = true
-        dataContainer.state = .authorizedNewUser(Model.User.mockUser)
+        dataContainer.handle(event: .authorizedNewUser(Model.User.mockUser))
     }
     
     func logOut() {
         didLogOut = true
-        dataContainer.state = .notAuthorized
+        dataContainer.handle(event: .logOut)
     }
-    
 }

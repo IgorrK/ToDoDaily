@@ -1,0 +1,12 @@
+/* 
+  Profile.strings
+  ToDoDaily
+
+  Created by Igor Kulik on 31.12.2021.
+  
+*/
+
+"title" = "Your Profile";
+"name.header" = "Your name:";
+"name.placeholder" = "Name:";
+"name.validation" = "Name cannot be empty";

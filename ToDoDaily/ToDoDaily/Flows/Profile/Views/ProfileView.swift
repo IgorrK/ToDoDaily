@@ -8,12 +8,14 @@
 import SwiftUI
 import Model
 import WebImage
+import ImagePicker
 
 struct ProfileView: View {
     
     // MARK: - Properties
     
     @ObservedObject var viewModel: ProfileViewModel
+    @State private var showsImagePicker = false
     
     // MARK: - View
     
@@ -21,50 +23,21 @@ struct ProfileView: View {
         NavigationView {
             Form {
                 HStack(alignment: .center) {
-                    ZStack(alignment: .topTrailing) {
-                        Button(action: {
-                            ConsoleLogger.shared.log("onTap")
-                        }, label: {
-                            profileImage
-                                .aspectRatio(contentMode: .fill)
-                                .clipShape(Circle())
-                                .frame(width: 160.0, height: 160.0, alignment: .center)
-                                .secondaryShadowStyle()
-                                .animation(.linear, value: viewModel.input.profileImage)
-                        })
-                            .buttonStyle(.plain)
-                        
-                        if viewModel.input.profileImage != nil {
-                            Button(action: {
-                                viewModel.handleInput(event: .setProfileImage(nil))
-                            }, label: {
-                                ZStack(alignment: .center) {
-                                    Asset.Colors.red.color
-                                        .clipShape(Circle())
-                                        .frame(width: 32.0, height: 32.0)
-                                        .secondaryShadowStyle()
-                                    
-                                    Image(systemName: "xmark")
-                                        .resizable()
-                                        .font(.system(size: 10.0, weight: .bold))
-                                        .foregroundColor(.white)
-                                        .frame(width: 16.0, height: 16.0)
-                                }
-                                
-                            })
-                                .buttonStyle(.plain)
-                        }
-                    }
+                    profileImageComponent
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
-                Section(header: Text("Your name:")) {
-                    TextField("Name:", text: $viewModel.input.name)
+                Section(header: Text(L10n.Profile.Name.header)) {
+                    TextField(L10n.Profile.Name.placeholder, text: $viewModel.input.name)
                         .validation(viewModel.input.nameValidation)
                 }
                 
             }
-            .navigationBarTitle("Your Profile")
+            .navigationBarTitle(L10n.Profile.title)
+            .navigationBarItems(trailing: doneButton.disabled(!viewModel.input.isDoneEnabled))
+            .validation(viewModel.input.doneButtonValidation, flag: $viewModel.input.isDoneEnabled)
+            .alert(error: $viewModel.error)
+            .circularHUD(isShowing: viewModel.$isLoading)
             .onAppear { viewModel.handleInput(event: .onAppear) }
         }
     }
@@ -75,18 +48,45 @@ struct ProfileView: View {
             Image(uiImage: profileImage)
                 .resizable()
         } else {
-            Image(systemName: "person.crop.circle")
+            Image(systemName: SFSymbols.Person.Crop.circle)
                 .resizable()
                 .renderingMode(.template)
                 .foregroundColor(.secondary)
         }
     }
     
+    @ViewBuilder
+    private var profileImageComponent: some View {
+        ZStack(alignment: .topTrailing) {
+            Button(action: {
+                showsImagePicker.toggle()
+            }, label: {
+                profileImage
+                    .aspectRatio(contentMode: .fill)
+                    .clipShape(Circle())
+                    .frame(width: 160.0, height: 160.0, alignment: .center)
+                    .secondaryShadowStyle()
+            })
+                .buttonStyle(.plain)
+                .imagePicker(isPresented: $showsImagePicker,
+                             pickedImage: $viewModel.input.profileImage)
+        }
+    }
+    
+    @ViewBuilder
+    private var doneButton: some View {
+        Button(action: {
+            viewModel.handleInput(event: .done)
+        }, label: {
+            Text(L10n.Application.done)
+        })
+    }
+
 }
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(viewModel: ProfileViewModel(user: Model.User.mockUser))
+        ProfileView(viewModel: ProfileViewModel(user: Model.User.mockUser, services: AppServices()))
     }
 }
 

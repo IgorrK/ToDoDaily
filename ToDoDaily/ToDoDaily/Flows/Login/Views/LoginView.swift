@@ -16,9 +16,7 @@ struct LoginView: View {
     @State private var primaryAnimation = false
     @State private var secondaryAnimation = false
     @State private var bottomViewAnimation = false
-    
-    @EnvironmentObject var appStateContainer: AppStateContainer
-    
+        
     // MARK: - View
     
     var body: some View {
@@ -46,10 +44,10 @@ struct LoginView: View {
                 .edgesIgnoringSafeArea(.all)
         )
         .onAppear {
-            viewModel.bind(to: appStateContainer)
             performAnimations()
         }
         .alert(error: $viewModel.error)
+        .circularHUD(isShowing: viewModel.$isLoading)
         .animation(.linear, value: primaryAnimation)
         .animation(.easeInOut, value: secondaryAnimation)
         .animation(.interpolatingSpring(mass: 0.3, stiffness: 40.0, damping: 10.0, initialVelocity: 30.0), value: bottomViewAnimation)

@@ -34,14 +34,23 @@ final class RootViewModel: ObservableObject {
             withAnimation {
                 switch value {
                 case .notAuthorized:
-                    self?.state = .notAuthorized
+                    self?.setState(.notAuthorized)
                 case .authorizedNewUser(let user):
-                    self?.state = .newUser(user)
+                    self?.setState(.newUser(user))
                 case .authorizedExistingUser:
-                    self?.state = .authorized
+                    self?.setState(.authorized)
                 }
             }
         }.store(in: &self.anyCancellables)
+    }
+    
+    private func setState(_ newState: State) {
+        switch (state, newState) {
+        case (.authorized, .authorized):
+            break
+        default:
+            self.state = newState
+        }
     }
     
     // MARK: - Public methods

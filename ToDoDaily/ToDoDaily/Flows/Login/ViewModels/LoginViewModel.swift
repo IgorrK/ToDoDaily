@@ -17,6 +17,7 @@ final class LoginViewModel: ObservableObject, InteractiveViewModel {
     
     private var anyCancellables = Set<AnyCancellable>()
     @Published var error: Error?
+    @Published var isLoading: Bool = false
     
     // MARK: - Lifecycle
     
@@ -39,21 +40,18 @@ final class LoginViewModel: ObservableObject, InteractiveViewModel {
     // MARK: - Private methods
     
     private func setBindings() {
-        self.services.authManager.dataContainer.$error
+        services.authManager.dataContainer.$error
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .sink { [weak self] value in
                 self?.error = value
             }
             .store(in: &self.anyCancellables)
-    }
-    
-    
-    // MARK: - Public methods
-    
-    func bind(to appStateContainer: AppStateContainer) {
-        services.authManager.dataContainer.$isLoading.sink { value in
-            appStateContainer.hudState.showsHUD = value
+        
+        services.authManager.dataContainer.$isLoading.sink { [weak self] value in
+            ConsoleLogger.shared.log(value)
+            self?.isLoading = value
         }.store(in: &anyCancellables)
+        
     }
 }
 

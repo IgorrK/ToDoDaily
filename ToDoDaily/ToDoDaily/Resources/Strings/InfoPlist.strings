@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  ToDoDaily
+
+  Created by Igor Kulik on 24.12.2021.
+  
+*/
+
+"NSCameraUsageDescription" = "Application needs access to camera";
+"NSPhotoLibraryUsageDescription" = "Application needs access to your photo library";

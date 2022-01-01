@@ -1,0 +1,13 @@
+/* 
+  APIErrors.strings
+  ToDoDaily
+
+  Created by Igor Kulik on 31.12.2021.
+  
+*/
+
+"user.description" = "Failed to update user";
+"user.changeRequest.failureReason" = "Internal error";
+"user.commit.failureReason" = "Server error";
+"user.changeRequest.recoverySuggestion" = "Please try again later";
+"user.commit.recoverySuggestion" = "Please try again later";
