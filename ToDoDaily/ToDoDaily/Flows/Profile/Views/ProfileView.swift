@@ -14,24 +14,25 @@ struct ProfileView: View {
     
     // MARK: - Properties
     
+    @Environment(\.presentationMode) private var presentationMode
     @ObservedObject var viewModel: ProfileViewModel
     @State private var showsImagePicker = false
     
     // MARK: - View
     
     var body: some View {
-        NavigationView {
             Form {
                 HStack(alignment: .center) {
                     profileImageComponent
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                
+                .listRowBackground(Asset.Colors.listRowBackground.color)
+
                 Section(header: Text(L10n.Profile.Name.header)) {
                     TextField(L10n.Profile.Name.placeholder, text: $viewModel.input.name)
                         .validation(viewModel.input.nameValidation)
                 }
-                
+                .listRowBackground(Asset.Colors.listRowBackground.color)
             }
             .navigationBarTitle(L10n.Profile.title)
             .navigationBarItems(trailing: doneButton.disabled(!viewModel.input.isDoneEnabled))
@@ -39,7 +40,11 @@ struct ProfileView: View {
             .alert(error: $viewModel.error)
             .circularHUD(isShowing: viewModel.$isLoading)
             .onAppear { viewModel.handleInput(event: .onAppear) }
-        }
+            .onReceive(viewModel.viewDismissalPublisher, perform: { shouldDismiss in
+                if shouldDismiss {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            })
     }
     
     @ViewBuilder

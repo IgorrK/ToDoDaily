@@ -68,6 +68,14 @@ internal enum L10n {
       internal static let validation = L10n.tr("Profile", "name.validation")
     }
   }
+  internal enum Settings {
+    /// Edit Profile
+    internal static let editProfile = L10n.tr("Settings", "editProfile")
+    /// Log Out
+    internal static let logOut = L10n.tr("Settings", "logOut")
+    /// Settings
+    internal static let title = L10n.tr("Settings", "title")
+  }
   internal enum Storage {
     internal enum ImageUploadError {
       /// Failed to upload the image

@@ -8,13 +8,30 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    // MARK: - Properties
+    
+    let router: MainRouter
+    @ObservedObject var viewModel: MainViewModel
+    
+    // MARK: - View
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            }
+            .navigationTitle("Tasks")
+            .navigationBarItems(trailing: NavigationLink(destination: router.view(for: .settings),
+                                                         label: { Image(systemName: SFSymbols.gear) }))
+            .onAppear(perform: { viewModel.handleInput(event: .onAppear) })
+            
+        }
+        
     }
 }
-
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        MainView(router: MainRouter(services: AppServices()), viewModel: MainViewModel())
     }
 }

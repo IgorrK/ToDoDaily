@@ -78,6 +78,10 @@ import SwiftUI
   {{accessModifier}} var color: Color {
     Color(self)
   }
+
+  {{accessModifier}} var uiColor: UIColor {
+    UIColor(named: self.name)!
+  }
 }
 
 {{accessModifier}} extension Color {

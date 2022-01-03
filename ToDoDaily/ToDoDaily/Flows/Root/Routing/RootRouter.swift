@@ -28,9 +28,11 @@ struct RootRouter: Routing {
         case .auth:
             LoginView(viewModel: LoginViewModel(services: services))
         case.onboarding(let user):
-            ProfileView(viewModel: ProfileViewModel(user: user, services: services))
+            NavigationView {
+                ProfileView(viewModel: ProfileViewModel(user: user, services: services))
+            }
         case .main:
-            MainView()
+            MainView(router: MainRouter(services: services), viewModel: MainViewModel())
         }
     }
 }

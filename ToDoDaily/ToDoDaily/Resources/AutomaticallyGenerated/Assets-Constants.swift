@@ -11,6 +11,8 @@ import SwiftUI
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
   internal enum Colors {
+    internal static let listRowBackground = ColorAsset(name: "listRowBackground")
+    internal static let listSeparator = ColorAsset(name: "listSeparator")
     internal static let primaryBackground = ColorAsset(name: "primaryBackground")
     internal static let red = ColorAsset(name: "red")
     internal static let secondaryButtonBackground = ColorAsset(name: "secondaryButtonBackground")
@@ -18,6 +20,8 @@ internal enum Asset {
     internal static let secondaryShadow = ColorAsset(name: "secondaryShadow")
   }
   internal enum Images {
+    internal static let edit = ImageAsset(name: "edit")
+    internal static let logOut = ImageAsset(name: "logOut")
     internal static let iTunesArtwork = ImageAsset(name: "iTunesArtwork")
     internal static let launchIcon = ImageAsset(name: "launchIcon")
   }
@@ -31,6 +35,10 @@ internal struct ColorAsset {
 
   internal var color: Color {
     Color(self)
+  }
+
+  internal var uiColor: UIColor {
+    UIColor(named: self.name)!
   }
 }
 

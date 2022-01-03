@@ -23,6 +23,13 @@ final class ProfileViewModel: ObservableObject {
     @Published var input: Input
     @Published var isLoading: Bool = false
     @Published var error: Error?
+    
+    var viewDismissalPublisher = PassthroughSubject<Bool, Never>()
+    private var shouldDismiss = false {
+        didSet {
+            viewDismissalPublisher.send(shouldDismiss)
+        }
+    }
 
     // MARK: - Lifecycle
     
@@ -56,6 +63,7 @@ final class ProfileViewModel: ObservableObject {
     private func updateProfileIfNeeded() {
         if input.name == user.name && !input.profileImageWasChanged { // i.e. nothing was actually changed
             services.authManager.dataContainer.handle(event: .updatedUserProfile(user))
+            shouldDismiss = true
             return
         }
         
@@ -79,6 +87,7 @@ final class ProfileViewModel: ObservableObject {
             }, receiveValue: { [weak self] user in
                 self?.user = user
                 self?.services.authManager.dataContainer.handle(event: .updatedUserProfile(updatedUser))
+                self?.shouldDismiss = true
             })
             .store(in: &anyCancellables)
     }
