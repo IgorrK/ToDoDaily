@@ -29,7 +29,7 @@ struct SettingsView: View {
             }
             .navigationTitle(L10n.Settings.title)
             .background(
-                NavigationLink(destination: router.view(for: .profile(viewModel.user!)), isActive: $showsProfile, label: {})
+                NavigationLink(destination: router.view(for: .profile), isActive: $showsProfile, label: {})
             )
             .onAppear {
                 UITableView.appearance().backgroundColor = Asset.Colors.primaryBackground.uiColor

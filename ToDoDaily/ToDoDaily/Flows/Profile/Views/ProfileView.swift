@@ -39,6 +39,8 @@ struct ProfileView: View {
             .validation(viewModel.input.doneButtonValidation, flag: $viewModel.input.isDoneEnabled)
             .alert(error: $viewModel.error)
             .circularHUD(isShowing: viewModel.$isLoading)
+            .imagePicker(isPresented: $showsImagePicker,
+                         pickedImage: $viewModel.input.profileImage)
             .onAppear { viewModel.handleInput(event: .onAppear) }
             .onReceive(viewModel.viewDismissalPublisher, perform: { shouldDismiss in
                 if shouldDismiss {
@@ -51,6 +53,9 @@ struct ProfileView: View {
     private var profileImage: some View {
         if let profileImage = viewModel.input.profileImage {
             Image(uiImage: profileImage)
+                .resizable()
+        } else if let currentProfileImage = viewModel.currentProfileImage {
+            Image(uiImage: currentProfileImage)
                 .resizable()
         } else {
             Image(systemName: SFSymbols.Person.Crop.circle)
@@ -73,8 +78,6 @@ struct ProfileView: View {
                     .secondaryShadowStyle()
             })
                 .buttonStyle(.plain)
-                .imagePicker(isPresented: $showsImagePicker,
-                             pickedImage: $viewModel.input.profileImage)
         }
     }
     
@@ -91,7 +94,7 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(viewModel: ProfileViewModel(user: Model.User.mockUser, services: AppServices()))
+        ProfileView(viewModel: ProfileViewModel(services: AppServices()))
     }
 }
 

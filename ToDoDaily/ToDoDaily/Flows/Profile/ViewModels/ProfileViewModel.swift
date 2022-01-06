@@ -16,13 +16,16 @@ final class ProfileViewModel: ObservableObject {
     // MARK: - Properties
     
     private let services: Services
-    private var user: User
     private var anyCancellables = Set<AnyCancellable>()
-    private let imageLoader: WebImageLoader?
-    
+    private var imageLoader: WebImageLoader?
+    private var user: User? { dataContainer.user }
+    private var dataContainer: UserDataContainer { Environment(\.userDataContainer).wrappedValue}
+
     @Published var input: Input
+    
     @Published var isLoading: Bool = false
     @Published var error: Error?
+    @Published var currentProfileImage: UIImage?
     
     var viewDismissalPublisher = PassthroughSubject<Bool, Never>()
     private var shouldDismiss = false {
@@ -33,17 +36,9 @@ final class ProfileViewModel: ObservableObject {
 
     // MARK: - Lifecycle
     
-    init(user: User, services: Services) {
-        self.user = user
+    init(services: Services) {
         self.services = services
         self.input = Input()
-     
-        if let url = user.photoURL {
-            self.imageLoader = WebImageLoader(urlString: url)
-        } else {
-            self.imageLoader = nil
-        }
-        
         setBindings()
     }
     
@@ -54,14 +49,12 @@ final class ProfileViewModel: ObservableObject {
             .sink { [weak self] (_) in
             self?.objectWillChange.send()
         }.store(in: &anyCancellables)
-        
-        imageLoader?.$image.sink { [weak self] image in
-            self?.input.profileImage = image
-        }.store(in: &anyCancellables)
     }
     
     private func updateProfileIfNeeded() {
-        if input.name == user.name && !input.profileImageWasChanged { // i.e. nothing was actually changed
+        guard let user = user else { return }
+        
+        if input.name == user.name && input.profileImage == nil { // i.e. nothing was actually changed
             services.authManager.dataContainer.handle(event: .updatedUserProfile(user))
             shouldDismiss = true
             return
@@ -85,16 +78,15 @@ final class ProfileViewModel: ObservableObject {
                     self?.error = error
                 }
             }, receiveValue: { [weak self] user in
-                self?.user = user
                 self?.services.authManager.dataContainer.handle(event: .updatedUserProfile(updatedUser))
+                self?.input.profileImage = nil
                 self?.shouldDismiss = true
             })
             .store(in: &anyCancellables)
     }
     
     private func uploadImageIfNeeded() -> AnyPublisher<String?, Error> {
-        if let pickedImage = input.profileImage,
-           input.profileImageWasChanged {
+        if let pickedImage = input.profileImage {
             return StorageManager.upload(image: pickedImage)
                 .map { $0 as String? }
                 .eraseToAnyPublisher()
@@ -111,19 +103,25 @@ final class ProfileViewModel: ObservableObject {
 extension ProfileViewModel: InteractiveViewModel {
     enum Event: Hashable {
         case onAppear
-        case setProfileImage(UIImage?)
         case done
     }
     
     func handleInput(event: Event) {
         switch event {
         case .onAppear:
-            imageLoader?.load()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [unowned self] in
-                self.input.setUser(self.user)
+            if let url = user?.photoURL {
+                imageLoader = WebImageLoader(urlString: url)
+                imageLoader?.$image.sink { [weak self] image in
+                    self?.currentProfileImage = image
+                }.store(in: &anyCancellables)
+                imageLoader?.load()
+            }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [weak self] in
+                if let user = self?.user {
+                    self?.input.setUser(user)
+                }
             })
-        case .setProfileImage(let image):
-            input.setProfileImage(image)
         case .done:
             updateProfileIfNeeded()
         }
@@ -141,7 +139,6 @@ extension ProfileViewModel {
         @Published var isDoneEnabled: Bool = false
         
         private var anyCancellables = Set<AnyCancellable>()
-        fileprivate var profileImageWasChanged: Bool = false
         
         // MARK: - Lifecycle
         
@@ -156,12 +153,7 @@ extension ProfileViewModel {
         fileprivate func setUser(_ user: User) {
             name = user.name
         }
-        
-        fileprivate func setProfileImage(_ image: UIImage?) {
-            profileImageWasChanged = true
-            profileImage = image
-        }
-        
+
         // MARK: - Validation
                 
         lazy var nameValidation: Validation.Publisher = {

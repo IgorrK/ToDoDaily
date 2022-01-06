@@ -10,7 +10,7 @@ import SwiftUI
 import Model
 
 enum SettingsRoute: RouteType {
-    case profile(Model.User)
+    case profile
 }
 
 struct SettingsRouter: Routing {
@@ -23,8 +23,8 @@ struct SettingsRouter: Routing {
     
     func view(for route: SettingsRoute) -> some View {
         switch route {
-        case .profile(let user):
-            return ProfileView(viewModel: ProfileViewModel(user: user, services: services))
+        case .profile:
+            return ProfileView(viewModel: ProfileViewModel(services: services))
         }
     }
 }

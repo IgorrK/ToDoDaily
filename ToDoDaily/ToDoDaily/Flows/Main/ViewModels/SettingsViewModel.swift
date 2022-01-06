@@ -15,13 +15,12 @@ final class SettingsViewModel: ObservableObject {
     private let services: Services
     var menuItems = SettingsItem.allCases
 
-    @Published var user: Model.User?
+    var user: Model.User? { services.authManager.dataContainer.user }
     
     // MARK: - Lifecycle
     
     init(services: Services) {
         self.services = services
-        self.user = services.authManager.dataContainer.user
     }
 }
 

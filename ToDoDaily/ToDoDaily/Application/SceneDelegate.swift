@@ -16,6 +16,7 @@ final class SceneDelegate: NSObject, UIWindowSceneDelegate {
     @UIApplicationDelegateAdaptor var delegate: AppDelegate
     
     private var appStateContainer: AppStateContainer { Environment(\.appStateContainer).wrappedValue }
+    private var userDataContainer: UserDataContainer { Environment(\.userDataContainer).wrappedValue}
     
     private let services: Services = AppServices()
     

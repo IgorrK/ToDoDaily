@@ -29,7 +29,7 @@ struct RootRouter: Routing {
             LoginView(viewModel: LoginViewModel(services: services))
         case.onboarding(let user):
             NavigationView {
-                ProfileView(viewModel: ProfileViewModel(user: user, services: services))
+                ProfileView(viewModel: ProfileViewModel(services: services))
             }
         case .main:
             MainView(router: MainRouter(services: services), viewModel: MainViewModel())
