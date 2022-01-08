@@ -390,6 +390,13 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		84A513A02789E456005309B3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		84C26F6F276B727400BEBEF0 = {
 			isa = PBXGroup;
 			children = (
@@ -466,6 +473,7 @@
 		84C26F90276B73BA00BEBEF0 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				84A513A02789E456005309B3 /* Model */,
 				84C26F84276B727700BEBEF0 /* Persistence.swift */,
 				84C26F86276B727700BEBEF0 /* ToDoDaily.xcdatamodeld */,
 			);

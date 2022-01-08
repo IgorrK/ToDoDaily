@@ -17,6 +17,15 @@ struct RootView: View, RoutableView {
     // MARK: - View
     
     var body: some View {
+        rootView
+            .onAppear {
+                UITableView.appearance().backgroundColor = Asset.Colors.primaryBackground.uiColor
+                UITableView.appearance().separatorColor = Asset.Colors.listSeparator.uiColor
+            }
+    }
+    
+    @ViewBuilder
+    private var rootView: some View {
         switch viewModel.state {
         case .notAuthorized:
             router.view(for: .auth)

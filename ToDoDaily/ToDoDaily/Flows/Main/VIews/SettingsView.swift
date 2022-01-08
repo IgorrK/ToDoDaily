@@ -31,10 +31,6 @@ struct SettingsView: View {
             .background(
                 NavigationLink(destination: router.view(for: .profile), isActive: $showsProfile, label: {})
             )
-            .onAppear {
-                UITableView.appearance().backgroundColor = Asset.Colors.primaryBackground.uiColor
-                UITableView.appearance().separatorColor = Asset.Colors.listSeparator.uiColor
-            }
         }
     }
 }

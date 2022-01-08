@@ -17,4 +17,5 @@ struct SFSymbols {
     
     static var xmark: String { "xmark" }
     static var gear: String { "gear" }    
+    static var plus: String { "plus" }
 }

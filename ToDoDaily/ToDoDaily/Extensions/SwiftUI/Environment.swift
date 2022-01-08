@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct AppStateContainerKey: EnvironmentKey {
     static let defaultValue: AppStateContainer = AppStateContainer()
@@ -14,6 +15,11 @@ struct AppStateContainerKey: EnvironmentKey {
 struct UserDataContainerKey: EnvironmentKey {
     static let defaultValue: UserDataContainer = UserDataContainer()
 }
+
+struct ManagedObjectContextKey: EnvironmentKey {
+    static let defaultValue: NSManagedObjectContext = PersistenceController.shared.container.viewContext
+}
+
 
 extension EnvironmentValues {
     var appStateContainer: AppStateContainer {
@@ -25,4 +31,9 @@ extension EnvironmentValues {
         get { self[UserDataContainerKey.self] }
         set { self[UserDataContainerKey.self] = newValue }
     }
+    
+    var managedObjectContext: NSManagedObjectContext {
+        get { self[ManagedObjectContextKey.self] }
+    }
+
 }
