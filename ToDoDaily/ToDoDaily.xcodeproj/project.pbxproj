@@ -92,7 +92,6 @@
 		84F54F1A276EA34100D843B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F54F19276EA34100D843B2 /* SceneDelegate.swift */; };
 		84F54F1C276EB07700D843B2 /* AppStateContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F54F1B276EB07700D843B2 /* AppStateContainer.swift */; };
 		84F54F1E276EB31400D843B2 /* RoutableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F54F1D276EB31400D843B2 /* RoutableView.swift */; };
-		84F54F20277097DA00D843B2 /* CircularHUD in Resources */ = {isa = PBXBuildFile; fileRef = 84F54F1F277097DA00D843B2 /* CircularHUD */; };
 		84F54F22277097F600D843B2 /* CircularHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 84F54F21277097F600D843B2 /* CircularHUD */; };
 		84F54F242770AB5C00D843B2 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F54F232770AB5C00D843B2 /* UIView.swift */; };
 		84F54F2E2771F9AB00D843B2 /* Model in Frameworks */ = {isa = PBXBuildFile; productRef = 84F54F2D2771F9AB00D843B2 /* Model */; };
@@ -152,6 +151,7 @@
 		8471D352277B687A00CB4E1F /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
 		8475B406278724E8006E8449 /* UserDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataContainer.swift; sourceTree = "<group>"; };
 		8486E40225582005AB4968ED /* Pods_ToDoDaily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoDaily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84A5139F2789CF7F005309B3 /* CircularHUD */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CircularHUD; sourceTree = "<group>"; };
 		84C26F78276B727400BEBEF0 /* ToDoDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C26F7F276B727700BEBEF0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		84C26F82276B727700BEBEF0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -177,7 +177,6 @@
 		84F54F19276EA34100D843B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		84F54F1B276EB07700D843B2 /* AppStateContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateContainer.swift; sourceTree = "<group>"; };
 		84F54F1D276EB31400D843B2 /* RoutableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutableView.swift; sourceTree = "<group>"; };
-		84F54F1F277097DA00D843B2 /* CircularHUD */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CircularHUD; path = ../CircularHUD; sourceTree = "<group>"; };
 		84F54F232770AB5C00D843B2 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		84F54F2C2771F99300D843B2 /* Model */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Model; sourceTree = "<group>"; };
 		84F54F302771FAC500D843B2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -398,7 +397,7 @@
 				F0A169FE3F75534FA1DF47B7 /* Frameworks */,
 				DE77C766B6822C9D344614B5 /* Pods */,
 				84C26F79276B727400BEBEF0 /* Products */,
-				84F54F1F277097DA00D843B2 /* CircularHUD */,
+				84A5139F2789CF7F005309B3 /* CircularHUD */,
 				8471D345277675AD00CB4E1F /* ImagePicker */,
 				84F54F2C2771F99300D843B2 /* Model */,
 				84F54F3927731CED00D843B2 /* Validation */,
@@ -718,7 +717,6 @@
 				841E7E29277F373300C25895 /* Storage.strings in Resources */,
 				8465FBBF276CEE0400CB2E1D /* Roboto-LightItalic.ttf in Resources */,
 				84C26F9B276B854500BEBEF0 /* Colors.xcassets in Resources */,
-				84F54F20277097DA00D843B2 /* CircularHUD in Resources */,
 				8465FBBB276CEE0400CB2E1D /* Roboto-Regular.ttf in Resources */,
 				8465FBBE276CEE0400CB2E1D /* Roboto-BoldItalic.ttf in Resources */,
 				8465FBC5276CEE0400CB2E1D /* Roboto-Black.ttf in Resources */,
