@@ -54,7 +54,7 @@ struct AddTaskView: View {
                                     .labelsHidden()
                             }
                             
-                            Toggle(L10n.AddTask.alert, isOn: $viewModel.input.isAlertEnabled)
+                            Toggle(L10n.AddTask.notifyMe, isOn: $viewModel.input.isNotificationEnabled)
                             
                             
                         }

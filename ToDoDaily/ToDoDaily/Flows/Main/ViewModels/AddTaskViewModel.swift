@@ -54,8 +54,8 @@ private extension AddTaskViewModel {
         if input.isDueDateEnabled {
             task.dueDate = input.dueDate
             
-            if input.isAlertEnabled {
-                shcheduleAlert(for: input.dueDate)
+            if input.isNotificationEnabled {
+                scheduleNotification(for: input.dueDate)
             }
         }
         
@@ -67,7 +67,7 @@ private extension AddTaskViewModel {
         }
     }
     
-    func shcheduleAlert(for date: Date) {
+    func scheduleNotification(for date: Date) {
         
     }
 }
@@ -81,7 +81,7 @@ extension AddTaskViewModel {
         @Published var descriptionText = ""
         
         @Published var isDueDateEnabled = false
-        @Published var isAlertEnabled = false
+        @Published var isNotificationEnabled = false
         @Published var dueDate = Date()
         @Published var isSaveEnabled = false
         

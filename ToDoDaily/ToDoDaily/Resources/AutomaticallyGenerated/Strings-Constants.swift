@@ -11,12 +11,12 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
   internal enum AddTask {
-    /// Alert
-    internal static let alert = L10n.tr("AddTask", "alert")
     /// Description
     internal static let description = L10n.tr("AddTask", "description")
     /// Due Date
     internal static let dueDate = L10n.tr("AddTask", "dueDate")
+    /// Notify Me
+    internal static let notifyMe = L10n.tr("AddTask", "notifyMe")
     /// Add Task
     internal static let title = L10n.tr("AddTask", "title")
   }

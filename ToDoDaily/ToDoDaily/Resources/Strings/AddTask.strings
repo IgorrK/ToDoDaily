@@ -9,4 +9,4 @@
 "title" = "Add Task";
 "description" = "Description";
 "dueDate" = "Due Date";
-"alert" = "Alert";
+"notifyMe" = "Notify Me";
