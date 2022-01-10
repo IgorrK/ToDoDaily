@@ -10,6 +10,16 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  internal enum AddTask {
+    /// Alert
+    internal static let alert = L10n.tr("AddTask", "alert")
+    /// Description
+    internal static let description = L10n.tr("AddTask", "description")
+    /// Due Date
+    internal static let dueDate = L10n.tr("AddTask", "dueDate")
+    /// Add Task
+    internal static let title = L10n.tr("AddTask", "title")
+  }
   internal enum APIErrors {
     internal enum User {
       /// Failed to update user
@@ -35,6 +45,8 @@ internal enum L10n {
     internal static let name = L10n.tr("Application", "name")
     /// OK
     internal static let ok = L10n.tr("Application", "ok")
+    /// Save
+    internal static let save = L10n.tr("Application", "save")
   }
   internal enum InfoPlist {
     /// Application needs access to camera

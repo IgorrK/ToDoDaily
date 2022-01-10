@@ -13,7 +13,8 @@ struct MainView: View {
     
     let router: MainRouter
     @ObservedObject var viewModel: MainViewModel
-
+    @State private var isAddTaskPresented = false
+    
     // MARK: - View
     
     var body: some View {
@@ -24,7 +25,7 @@ struct MainView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
-                Button(action: { viewModel.handleInput(event: .addTask) }) {
+                Button(action: { isAddTaskPresented.toggle() }) {
                     Image(systemName: SFSymbols.plus)
                 }
                 .frame(width: 50.0, height: 50.0)
@@ -38,8 +39,10 @@ struct MainView: View {
             .navigationBarItems(trailing: NavigationLink(destination: router.view(for: .settings),
                                                          label: { Image(systemName: SFSymbols.gear) }))
             .onAppear(perform: { viewModel.handleInput(event: .onAppear) })
+            .sheet(isPresented: $isAddTaskPresented) {
+                router.view(for: .addTask)
+            }
         }
-        
     }
 }
 

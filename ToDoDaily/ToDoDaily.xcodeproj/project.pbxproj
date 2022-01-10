@@ -66,6 +66,10 @@
 		8471D353277B687A00CB4E1F /* FirebaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D352277B687A00CB4E1F /* FirebaseStorage.swift */; };
 		8471D355277B68BF00CB4E1F /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 8471D354277B68BF00CB4E1F /* FirebaseStorage */; };
 		8475B407278724E8006E8449 /* UserDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8475B406278724E8006E8449 /* UserDataContainer.swift */; };
+		84A513AD278C802C005309B3 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A513AC278C802C005309B3 /* AddTaskView.swift */; };
+		84A513AF278C8080005309B3 /* AddTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A513AE278C8080005309B3 /* AddTaskViewModel.swift */; };
+		84A513B5278C8BF7005309B3 /* CharacterLimit in Frameworks */ = {isa = PBXBuildFile; productRef = 84A513B4278C8BF7005309B3 /* CharacterLimit */; };
+		84A513B7278CDBCC005309B3 /* AddTask.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84A513B6278CDBCC005309B3 /* AddTask.strings */; };
 		84C26F80276B727700BEBEF0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84C26F7F276B727700BEBEF0 /* Images.xcassets */; };
 		84C26F83276B727700BEBEF0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84C26F82276B727700BEBEF0 /* Preview Assets.xcassets */; };
 		84C26F85276B727700BEBEF0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26F84276B727700BEBEF0 /* Persistence.swift */; };
@@ -152,6 +156,10 @@
 		8475B406278724E8006E8449 /* UserDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataContainer.swift; sourceTree = "<group>"; };
 		8486E40225582005AB4968ED /* Pods_ToDoDaily.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoDaily.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84A5139F2789CF7F005309B3 /* CircularHUD */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CircularHUD; sourceTree = "<group>"; };
+		84A513AC278C802C005309B3 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		84A513AE278C8080005309B3 /* AddTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewModel.swift; sourceTree = "<group>"; };
+		84A513B3278C8BD1005309B3 /* CharacterLimit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CharacterLimit; sourceTree = "<group>"; };
+		84A513B6278CDBCC005309B3 /* AddTask.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = AddTask.strings; sourceTree = "<group>"; };
 		84C26F78276B727400BEBEF0 /* ToDoDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C26F7F276B727700BEBEF0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		84C26F82276B727700BEBEF0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -192,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84F54F2E2771F9AB00D843B2 /* Model in Frameworks */,
+				84A513B5278C8BF7005309B3 /* CharacterLimit in Frameworks */,
 				84F54F3E27734E5D00D843B2 /* WebImage in Frameworks */,
 				D028BF8665A8EAC338C1BB86 /* Pods_ToDoDaily.framework in Frameworks */,
 				8471D355277B68BF00CB4E1F /* FirebaseStorage in Frameworks */,
@@ -230,6 +239,7 @@
 		841C124A276D0DBF00EDEFD8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				84A513AC278C802C005309B3 /* AddTaskView.swift */,
 				841C124B276D0DCC00EDEFD8 /* MainView.swift */,
 				84C37ABE2780F690005FB28F /* SettingsView.swift */,
 			);
@@ -404,6 +414,7 @@
 				F0A169FE3F75534FA1DF47B7 /* Frameworks */,
 				DE77C766B6822C9D344614B5 /* Pods */,
 				84C26F79276B727400BEBEF0 /* Products */,
+				84A513B3278C8BD1005309B3 /* CharacterLimit */,
 				84A5139F2789CF7F005309B3 /* CircularHUD */,
 				8471D345277675AD00CB4E1F /* ImagePicker */,
 				84F54F2C2771F99300D843B2 /* Model */,
@@ -529,6 +540,7 @@
 				841E7E2A277F3E8800C25895 /* APIErrors.strings */,
 				841E7E2C277F3F5100C25895 /* Profile.strings */,
 				84CFB72E2781002800016AE0 /* Settings.strings */,
+				84A513B6278CDBCC005309B3 /* AddTask.strings */,
 			);
 			path = Strings;
 			sourceTree = "<group>";
@@ -556,6 +568,7 @@
 		84C37AB82780B85E005FB28F /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				84A513AE278C8080005309B3 /* AddTaskViewModel.swift */,
 				84C37AB92780B86C005FB28F /* MainViewModel.swift */,
 				84C37AC02780F69E005FB28F /* SettingsViewModel.swift */,
 			);
@@ -665,6 +678,7 @@
 				84F54F3D27734E5D00D843B2 /* WebImage */,
 				8471D346277675D400CB4E1F /* ImagePicker */,
 				8471D354277B68BF00CB4E1F /* FirebaseStorage */,
+				84A513B4278C8BF7005309B3 /* CharacterLimit */,
 			);
 			productName = ToDoDaily;
 			productReference = 84C26F78276B727400BEBEF0 /* ToDoDaily.app */;
@@ -738,6 +752,7 @@
 				84CFB72F2781002800016AE0 /* Settings.strings in Resources */,
 				8465FBC1276CEE0400CB2E1D /* LICENSE.txt in Resources */,
 				8465FBC4276CEE0400CB2E1D /* Roboto-Thin.ttf in Resources */,
+				84A513B7278CDBCC005309B3 /* AddTask.strings in Resources */,
 				8465FBC3276CEE0400CB2E1D /* Roboto-Bold.ttf in Resources */,
 				84C26F80276B727700BEBEF0 /* Images.xcassets in Resources */,
 				8465FBBC276CEE0400CB2E1D /* Roboto-MediumItalic.ttf in Resources */,
@@ -831,6 +846,7 @@
 				84C26FB4276B9C6000BEBEF0 /* Strings-Constants.swift in Sources */,
 				84C37ABA2780B86C005FB28F /* MainViewModel.swift in Sources */,
 				841C1251276D54C800EDEFD8 /* InteractiveViewModel.swift in Sources */,
+				84A513AF278C8080005309B3 /* AddTaskViewModel.swift in Sources */,
 				841C1255276E308D00EDEFD8 /* Logger.swift in Sources */,
 				84C37ABD2780B9A5005FB28F /* MainRouter.swift in Sources */,
 				84F54F1A276EA34100D843B2 /* SceneDelegate.swift in Sources */,
@@ -840,6 +856,7 @@
 				8465FBE0276D04BB00CB2E1D /* RootView.swift in Sources */,
 				8465FBCF276CF9FD00CB2E1D /* SecondaryButtonStyle.swift in Sources */,
 				8471D350277B59F600CB4E1F /* CircularHUDModifier.swift in Sources */,
+				84A513AD278C802C005309B3 /* AddTaskView.swift in Sources */,
 				84F54F36277208B900D843B2 /* ProfileView.swift in Sources */,
 				84C37ABF2780F690005FB28F /* SettingsView.swift in Sources */,
 				84C26F85276B727700BEBEF0 /* Persistence.swift in Sources */,
@@ -1134,6 +1151,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 84F54F08276E735100D843B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		84A513B4278C8BF7005309B3 /* CharacterLimit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CharacterLimit;
 		};
 		84F54F09276E772B00D843B2 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -1,0 +1,12 @@
+/* 
+  AddTask.strings
+  ToDoDaily
+
+  Created by Igor Kulik on 10.01.2022.
+  
+*/
+
+"title" = "Add Task";
+"description" = "Description";
+"dueDate" = "Due Date";
+"alert" = "Alert";

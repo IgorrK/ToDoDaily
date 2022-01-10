@@ -11,6 +11,7 @@ import Model
 
 enum MainRoute: RouteType {
     case settings
+    case addTask
 }
 
 struct MainRouter: Routing {
@@ -24,8 +25,10 @@ struct MainRouter: Routing {
     func view(for route: MainRoute) -> some View {
         switch route {
         case .settings:
-            return SettingsView(router: SettingsRouter(services: services),
+            SettingsView(router: SettingsRouter(services: services),
                                 viewModel: SettingsViewModel(services: services))
+        case .addTask:
+            AddTaskView(viewModel: AddTaskViewModel())
         }
     }
 }
