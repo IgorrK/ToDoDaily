@@ -11,22 +11,52 @@ import CharacterLimit
 import Combine
 import CoreData
 import SwiftUI
+import PermissionManager
 
 final class AddTaskViewModel: ObservableObject {
-
+    
     // MARK: - Properties
     private var managedObjectContext: NSManagedObjectContext { Environment(\.managedObjectContext).wrappedValue }
-
+    
     @Published var input = Input()
-
-    private var anyCancellable: AnyCancellable? = nil
-
+    
+    private var anyCancellables = Set<AnyCancellable>()
+    
     // MARK: - Lifecycle
     
     init() {
-        self.anyCancellable = input.objectWillChange.sink { [weak self] (_) in
-            self?.objectWillChange.send()
-        }
+        setBindings()
+    }
+    
+    // MARK: - Private methods
+    
+    private func setBindings() {
+        input.objectWillChange
+            .sink { _ in
+                DispatchQueue.main.async { [weak self] in
+                    self?.objectWillChange.send()
+                }
+            }
+            .store(in: &anyCancellables)
+        
+        input.$isNotificationEnabled
+            .dropFirst()
+            .sink { value in
+                guard value else { return }
+                PermissionManager.resolvePermission(for: .userNotifications, completion: { status in
+                    DispatchQueue.main.async { [weak self] in
+                        switch status {
+                        case .authorized:
+                            self?.input.isNotificationEnabled = true
+                        case .denied,
+                                .notNow:
+                            self?.input.isNotificationEnabled = false
+                            self?.input.showsPermissionDeniedAlert.toggle()
+                        }
+                    }
+                })
+            }
+            .store(in: &anyCancellables)
     }
 }
 
@@ -35,13 +65,13 @@ extension AddTaskViewModel: InteractiveViewModel {
     enum Event: Hashable {
         case save
     }
-
-   func handleInput(event: Event) {
-       switch event {
-       case .save:
-           saveTaskFromInput()
-       }
-   }
+    
+    func handleInput(event: Event) {
+        switch event {
+        case .save:
+            saveTaskFromInput()
+        }
+    }
 }
 
 // MARK: - Private methods
@@ -75,7 +105,7 @@ private extension AddTaskViewModel {
 // MARK: - Input and Validation
 extension AddTaskViewModel {
     final class Input: ObservableObject {
-     
+        
         // MARK: - Lifecycle
         
         @Published var descriptionText = ""
@@ -84,6 +114,7 @@ extension AddTaskViewModel {
         @Published var isNotificationEnabled = false
         @Published var dueDate = Date()
         @Published var isSaveEnabled = false
+        @Published var showsPermissionDeniedAlert = false
         
         // MARK: - Validation
         

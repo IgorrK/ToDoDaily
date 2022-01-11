@@ -10,7 +10,7 @@ import AVFoundation
 
 struct CameraPermissionResolver: PermissionResolver {
     
-    func resolvePermission(_ callback: @escaping Callback<ImagePicker.PermissionManager.PermisionStatus>) {
+    func resolvePermission(_ callback: @escaping Callback<PermissionManager.PermisionStatus>) {
         let status = AVCaptureDevice.authorizationStatus(for: .video)
         switch status {
         case .authorized:

@@ -9,7 +9,7 @@ import Foundation
 import Photos
 
 struct PhotoLibraryPermissionResolver: PermissionResolver {
-    func resolvePermission(_ callback: @escaping Callback<ImagePicker.PermissionManager.PermisionStatus>) {
+    func resolvePermission(_ callback: @escaping Callback<PermissionManager.PermisionStatus>) {
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
         case .authorized, .limited:

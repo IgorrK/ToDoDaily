@@ -70,6 +70,7 @@
 		84A513AF278C8080005309B3 /* AddTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A513AE278C8080005309B3 /* AddTaskViewModel.swift */; };
 		84A513B5278C8BF7005309B3 /* CharacterLimit in Frameworks */ = {isa = PBXBuildFile; productRef = 84A513B4278C8BF7005309B3 /* CharacterLimit */; };
 		84A513B7278CDBCC005309B3 /* AddTask.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84A513B6278CDBCC005309B3 /* AddTask.strings */; };
+		84A513BA278CE1F1005309B3 /* PermissionManager in Frameworks */ = {isa = PBXBuildFile; productRef = 84A513B9278CE1F1005309B3 /* PermissionManager */; };
 		84C26F80276B727700BEBEF0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84C26F7F276B727700BEBEF0 /* Images.xcassets */; };
 		84C26F83276B727700BEBEF0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84C26F82276B727700BEBEF0 /* Preview Assets.xcassets */; };
 		84C26F85276B727700BEBEF0 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C26F84276B727700BEBEF0 /* Persistence.swift */; };
@@ -160,6 +161,7 @@
 		84A513AE278C8080005309B3 /* AddTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewModel.swift; sourceTree = "<group>"; };
 		84A513B3278C8BD1005309B3 /* CharacterLimit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CharacterLimit; sourceTree = "<group>"; };
 		84A513B6278CDBCC005309B3 /* AddTask.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = AddTask.strings; sourceTree = "<group>"; };
+		84A513BB278CEB19005309B3 /* PermissionManager */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PermissionManager; sourceTree = "<group>"; };
 		84C26F78276B727400BEBEF0 /* ToDoDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C26F7F276B727700BEBEF0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		84C26F82276B727700BEBEF0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				84F54F3E27734E5D00D843B2 /* WebImage in Frameworks */,
 				D028BF8665A8EAC338C1BB86 /* Pods_ToDoDaily.framework in Frameworks */,
 				8471D355277B68BF00CB4E1F /* FirebaseStorage in Frameworks */,
+				84A513BA278CE1F1005309B3 /* PermissionManager in Frameworks */,
 				84F54F0A276E772B00D843B2 /* FirebaseAuth in Frameworks */,
 				84F54F0D276E780900D843B2 /* GoogleSignIn in Frameworks */,
 				84F54F3B27731D0700D843B2 /* Validation in Frameworks */,
@@ -417,6 +420,7 @@
 				84A513B3278C8BD1005309B3 /* CharacterLimit */,
 				84A5139F2789CF7F005309B3 /* CircularHUD */,
 				8471D345277675AD00CB4E1F /* ImagePicker */,
+				84A513BB278CEB19005309B3 /* PermissionManager */,
 				84F54F2C2771F99300D843B2 /* Model */,
 				84F54F3927731CED00D843B2 /* Validation */,
 				84F54F3C27732BEA00D843B2 /* WebImage */,
@@ -679,6 +683,7 @@
 				8471D346277675D400CB4E1F /* ImagePicker */,
 				8471D354277B68BF00CB4E1F /* FirebaseStorage */,
 				84A513B4278C8BF7005309B3 /* CharacterLimit */,
+				84A513B9278CE1F1005309B3 /* PermissionManager */,
 			);
 			productName = ToDoDaily;
 			productReference = 84C26F78276B727400BEBEF0 /* ToDoDaily.app */;
@@ -1155,6 +1160,10 @@
 		84A513B4278C8BF7005309B3 /* CharacterLimit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CharacterLimit;
+		};
+		84A513B9278CE1F1005309B3 /* PermissionManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PermissionManager;
 		};
 		84F54F09276E772B00D843B2 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

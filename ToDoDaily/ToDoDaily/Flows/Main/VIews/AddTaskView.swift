@@ -13,7 +13,7 @@ struct AddTaskView: View {
     
     @Environment(\.presentationMode) private var presentationMode
     @ObservedObject var viewModel: AddTaskViewModel
-    
+        
     // MARK: - View
     
     var body: some View {
@@ -64,6 +64,7 @@ struct AddTaskView: View {
             .navigationBarTitle(L10n.AddTask.title)
             .navigationBarItems(trailing: saveButton.disabled(!viewModel.input.isSaveEnabled))
             .validation(viewModel.input.saveButtonValidation, flag: $viewModel.input.isSaveEnabled)
+            .permissionDeniedAlert(permissionType: .userNotifications, isPresented: $viewModel.input.showsPermissionDeniedAlert)
         }
     }
 }

@@ -13,15 +13,4 @@ internal struct Localizable {
         static var camera: String { "sources.camera".localized }
         static var photoLibrary: String { "sources.photoLibrary".localized }
     }
-    
-    struct Permissions {
-        
-        struct Title {
-            static var photoLibrary: String { "permissions.title.photoLibrary".localized }
-            static var camera: String { "permissions.title.camera".localized }
-        }
-        
-        static var settings: String { "permissions.settings".localized }
-        static var notNow: String { "permissions.notNow".localized }
-    }
 }

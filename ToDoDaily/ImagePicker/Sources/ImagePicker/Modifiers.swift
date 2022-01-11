@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import UIKit
+import PermissionManager
 
 extension ImagePicker {
     
@@ -22,13 +23,22 @@ extension ImagePicker {
         @State private var showsPermissionDeniedAlert: Bool = false
         @State private var pickerSourceType: ImagePicker.SourceType = .photoLibrary
         
+        private var permissionType: PermissionManager.PermissionType {
+            switch pickerSourceType {
+            case .camera:
+                return .camera
+            case .photoLibrary:
+                return .photoLibrary
+            }
+        }
+        
         // MARK: - ViewModifier
         
         func body(content: Content) -> some View {
             return content
                 .actionSheet(isPresented: $isPresented) {
                     let commonButtonAction: EmptyCallback = {
-                        ImagePicker.PermissionManager.resolvePermission(for: pickerSourceType) { status in
+                        PermissionManager.resolvePermission(for: permissionType) { status in
                             switch status {
                             case .authorized:
                                 showsImagePicker.toggle()
@@ -53,20 +63,7 @@ extension ImagePicker {
                                         .cancel()
                                        ])
                 }
-                .alert(isPresented: $showsPermissionDeniedAlert) {
-                    Alert(
-                        title: Text(pickerSourceType.permissionDeniedTitle),
-                        message: Text(pickerSourceType.permissionDeniedMessage),
-                        primaryButton: .default(Text(Localizable.Permissions.settings), action: {
-                            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString),
-                                  UIApplication.shared.canOpenURL(settingsUrl) else {
-                                      return
-                                  }
-                            UIApplication.shared.open(settingsUrl, completionHandler: { _ in })
-                        }),
-                        secondaryButton: .cancel(Text(Localizable.Permissions.notNow), action: {})
-                    )
-                }
+                .permissionDeniedAlert(permissionType: permissionType, isPresented: $showsPermissionDeniedAlert)
                 .sheet(isPresented: $showsImagePicker) {
                     ImagePicker.picker(sourceType: pickerSourceType, selectedImage: $pickedImage)
                 }

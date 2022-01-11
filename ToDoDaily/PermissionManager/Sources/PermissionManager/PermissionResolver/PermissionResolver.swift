@@ -8,5 +8,5 @@
 import Foundation
 
 protocol PermissionResolver {
-    func resolvePermission(_ callback: @escaping Callback<ImagePicker.PermissionManager.PermisionStatus>)
+    func resolvePermission(_ callback: @escaping Callback<PermissionManager.PermisionStatus>)
 }

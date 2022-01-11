@@ -2,12 +2,12 @@
 //  File.swift
 //  
 //
-//  Created by Igor Kulik on 28.12.2021.
+//  Created by Igor Kulik on 11.01.2022.
 //
 
 import Foundation
 
-extension ImagePicker.SourceType {
+extension PermissionManager.PermissionType {
     
     var permissionDeniedTitle: String {
         switch self {
@@ -15,6 +15,8 @@ extension ImagePicker.SourceType {
             return Localizable.Permissions.Title.photoLibrary
         case .camera:
             return Localizable.Permissions.Title.camera
+        case .userNotifications:
+            return Localizable.Permissions.Title.userNotifications
         }
     }
     
@@ -24,6 +26,8 @@ extension ImagePicker.SourceType {
             return Bundle.main.object(forInfoDictionaryKey: "NSPhotoLibraryUsageDescription") as? String ?? ""
         case .camera:
             return Bundle.main.object(forInfoDictionaryKey: "NSCameraUsageDescription") as? String ?? ""
+        case .userNotifications:
+            return ""
         }
     }
 }

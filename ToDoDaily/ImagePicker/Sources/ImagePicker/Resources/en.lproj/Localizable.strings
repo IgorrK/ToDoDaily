@@ -2,9 +2,3 @@
 "sources.title" = "Choose a source";
 "sources.camera" = "Camera";
 "sources.photoLibrary" = "Photo Library";
-
-"permissions.title.photoLibrary" = "Please Allow the Application to Access Your Photos";
-"permissions.title.camera" = "Please Allow the Application to Access Your Camera";
-
-"permissions.settings" = "Settings";
-"permissions.notNow" = "Not Now";
