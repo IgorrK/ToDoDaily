@@ -12,6 +12,7 @@ import Combine
 import CoreData
 import SwiftUI
 import PermissionManager
+import UserNotifications
 
 final class AddTaskViewModel: ObservableObject {
     
@@ -85,7 +86,7 @@ private extension AddTaskViewModel {
             task.dueDate = input.dueDate
             
             if input.isNotificationEnabled {
-                scheduleNotification(for: input.dueDate)
+                task.notificationId = scheduleNotification(for: task)
             }
         }
         
@@ -97,8 +98,24 @@ private extension AddTaskViewModel {
         }
     }
     
-    func scheduleNotification(for date: Date) {
+    func scheduleNotification(for task: TaskItem) -> UUID? {
+        guard let dueDate = task.dueDate else {
+            return nil
+        }
+        let content = UNMutableNotificationContent()
+        content.subtitle = task.text ?? ""
+        content.sound = UNNotificationSound.default
+
+        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: dueDate)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+
+        let identifier = UUID()
         
+        let request = UNNotificationRequest(identifier: identifier.uuidString, content: content, trigger: trigger)
+
+        UNUserNotificationCenter.current().add(request)
+        
+        return identifier
     }
 }
 
