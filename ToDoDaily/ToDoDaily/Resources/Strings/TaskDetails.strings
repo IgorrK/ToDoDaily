@@ -1,12 +1,13 @@
 /* 
-  AddTask.strings
+ TaskDetails.strings
   ToDoDaily
 
   Created by Igor Kulik on 10.01.2022.
   
 */
 
-"title" = "Add Task";
+"addTask.title" = "Add Task";
+"taskDetails.title" = "Task";
 "description" = "Description";
 "dueDate" = "Due Date";
 "notifyMe" = "Notify Me";

@@ -29,6 +29,8 @@ final class MainViewModel: NSObject, ObservableObject {
     }()
     
     @Published var tasks = [TaskItem]()
+    @Published var showsDetailView = false
+    @Published var selectedTask: TaskItem? = nil
     
     // MARK: - Lifecycle
     
@@ -38,7 +40,6 @@ final class MainViewModel: NSObject, ObservableObject {
 
 private extension MainViewModel {
     func fetchTasks() {
-        ConsoleLogger.shared.log("")
         do {
             try fetchedResultsController.performFetch()
             if let tasks = fetchedResultsController.fetchedObjects {
@@ -46,21 +47,6 @@ private extension MainViewModel {
             }
         } catch {
             ConsoleLogger.shared.log("fetching error:", error)
-        }
-    }
-    
-    func addTask() {
-        ConsoleLogger.shared.log("Adding a task...")
-        let testData = ["Clean the toilet", "Sniff some bebra", "Go outside", "Listen to Deftones", "Attend spaceship piloting courses"]
-        let task = TaskItem(context: managedObjectContext)
-        task.id = UUID()
-        task.createdAt = Date()
-        task.text = testData.randomElement()!
-        do {
-            try managedObjectContext.save()
-            ConsoleLogger.shared.log("...success")
-        } catch {
-            ConsoleLogger.shared.log("error saving entity:", error)
         }
     }
 }
@@ -79,15 +65,16 @@ extension MainViewModel: NSFetchedResultsControllerDelegate {
 extension MainViewModel: InteractiveViewModel {
     enum Event: Hashable {
         case onAppear
-        case addTask
+        case onTaskSelection(TaskItem)
     }
     
     func handleInput(event: Event) {
         switch event {
         case .onAppear:
             fetchTasks()
-        case .addTask:
-            addTask()
+        case .onTaskSelection(let task):
+            selectedTask = task
+            showsDetailView = true
         }
     }
 }

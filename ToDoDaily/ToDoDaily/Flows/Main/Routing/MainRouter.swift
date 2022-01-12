@@ -28,7 +28,7 @@ struct MainRouter: Routing {
             SettingsView(router: SettingsRouter(services: services),
                                 viewModel: SettingsViewModel(services: services))
         case .addTask:
-            AddTaskView(viewModel: AddTaskViewModel())
+            TaskDetailsView(viewModel: TaskDetailsViewModel(displayMode: .addTask))
         }
     }
 }

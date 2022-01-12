@@ -21,7 +21,10 @@ struct MainView: View {
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
                 List(viewModel.tasks) { task in
-                    Text(task.text ?? "")
+                    Text(task.text ?? "").onTapGesture {
+                        viewModel.handleInput(event: .onTaskSelection(task))
+                    }
+                    
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
@@ -42,6 +45,13 @@ struct MainView: View {
             .sheet(isPresented: $isAddTaskPresented) {
                 router.view(for: .addTask)
             }
+            .sheet(isPresented: $viewModel.showsDetailView, content: {
+                if let selectedTask = viewModel.selectedTask {
+                    TaskDetailsView(viewModel: TaskDetailsViewModel(displayMode: .details(selectedTask)))
+                } else {
+                    EmptyView()
+                }
+            })
         }
     }
 }
