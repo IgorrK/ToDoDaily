@@ -33,6 +33,7 @@ final class MainViewModel: NSObject, ObservableObject {
     @Published var showsDetailView = false
     @Published var selectedTask: TaskItem? = nil
     @Published var filterType: FilterType
+    @Published var isAnimatingTaskCompletion = false
     
     // MARK: - Lifecycle
     
@@ -65,6 +66,10 @@ private extension MainViewModel {
         do {
             try managedObjectContext.save()
             ConsoleLogger.shared.log("...success")
+            isAnimatingTaskCompletion.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                self?.isAnimatingTaskCompletion.toggle()
+            }
         } catch {
             ConsoleLogger.shared.log("error saving entity:", error)
         }

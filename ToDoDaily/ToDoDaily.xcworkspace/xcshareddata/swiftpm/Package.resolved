@@ -110,6 +110,15 @@
         }
       },
       {
+        "package": "Lottie",
+        "repositoryURL": "https://github.com/airbnb/lottie-ios",
+        "state": {
+          "branch": "master",
+          "revision": "dcf5f75004b8e4bb7fe7770a9dd10a23319cfedd",
+          "version": null
+        }
+      },
+      {
         "package": "nanopb",
         "repositoryURL": "https://github.com/firebase/nanopb.git",
         "state": {

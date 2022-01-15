@@ -35,7 +35,7 @@ struct TaskDetailsView: View {
                                 Text(L10n.TaskDetails.description)
                                     .opacity(0.5)
                                     .padding(.top, 8.0)
-                                    .padding(.leading, 4.0)
+                                    .padding(.leading, -4.0)
                                 
                                 Spacer()
                             }

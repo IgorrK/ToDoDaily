@@ -47,7 +47,12 @@ struct MainView: View {
                 .padding(.trailing, 28.0)
                 .padding(.bottom, 20.0)
                 .buttonStyle(CircularButtonStyle())
+                
+                if viewModel.isAnimatingTaskCompletion {
+                    TaskCompletedView()
+                }
             }
+            .animation(.linear, value: viewModel.isAnimatingTaskCompletion)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationTitle(L10n.Main.title)
             .navigationBarItems(trailing: NavigationLink(destination: router.view(for: .settings),
