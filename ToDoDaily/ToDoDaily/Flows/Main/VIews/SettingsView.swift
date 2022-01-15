@@ -25,7 +25,7 @@ struct SettingsView: View {
                         handleRowAction(item)
                     }, label: { SettingsRow(item: item) })
                 }
-                .listRowBackground(Asset.Colors.listRowBackground.color)                
+                .listRowBackground(Asset.Colors.listRowBackground.color)
             }
             .navigationTitle(L10n.Settings.title)
             .background(

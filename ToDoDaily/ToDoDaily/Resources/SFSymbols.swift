@@ -16,6 +16,33 @@ struct SFSymbols {
     }
     
     static var xmark: String { "xmark" }
-    static var gear: String { "gear" }    
+    static var gear: String { "gear" }
     static var plus: String { "plus" }
+    
+    struct Checkmark {
+        static var `default` = "checkmark"
+        
+        struct Square {
+            static var `default` = "checkmark.square"
+            static var fill = "checkmark.square.fill"
+        }
+        
+        struct Circle {
+            static var fill = "checkmark.circle.fill"
+        }
+    }
+    
+    struct Square {
+        struct And {
+            static var pencil = "square.and.pencil"
+        }
+    }
+    
+    static var trash = "trash"
+    
+    struct Doc {
+        struct On {
+            static var doc = "doc.on.doc"
+        }
+    }
 }

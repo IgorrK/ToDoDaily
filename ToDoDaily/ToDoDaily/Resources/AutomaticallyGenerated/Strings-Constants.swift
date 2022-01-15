@@ -58,6 +58,18 @@ internal enum L10n {
       internal static let recoverySuggestion = L10n.tr("Login", "authError.recoverySuggestion")
     }
   }
+  internal enum Main {
+    /// Complete
+    internal static let complete = L10n.tr("Main", "complete")
+    /// Copy
+    internal static let copy = L10n.tr("Main", "copy")
+    /// Edit
+    internal static let edit = L10n.tr("Main", "edit")
+    /// Remove
+    internal static let remove = L10n.tr("Main", "remove")
+    /// Tasks
+    internal static let title = L10n.tr("Main", "title")
+  }
   internal enum Profile {
     /// Your Profile
     internal static let title = L10n.tr("Profile", "title")
@@ -103,12 +115,16 @@ internal enum L10n {
     }
   }
   internal enum TaskDetails {
+    /// Complete task
+    internal static let completeTask = L10n.tr("TaskDetails", "completeTask")
     /// Description
     internal static let description = L10n.tr("TaskDetails", "description")
     /// Due Date
     internal static let dueDate = L10n.tr("TaskDetails", "dueDate")
     /// Notify Me
     internal static let notifyMe = L10n.tr("TaskDetails", "notifyMe")
+    /// Remove Task
+    internal static let removeTask = L10n.tr("TaskDetails", "removeTask")
     internal enum AddTask {
       /// Add Task
       internal static let title = L10n.tr("TaskDetails", "addTask.title")

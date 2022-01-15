@@ -34,6 +34,7 @@ struct ProfileView: View {
                 }
                 .listRowBackground(Asset.Colors.listRowBackground.color)
             }
+            .listRowBackground(Asset.Colors.listRowBackground.color)
             .navigationBarTitle(L10n.Profile.title)
             .navigationBarItems(trailing: doneButton.disabled(!viewModel.input.isDoneEnabled))
             .validation(viewModel.input.doneButtonValidation, flag: $viewModel.input.isDoneEnabled)

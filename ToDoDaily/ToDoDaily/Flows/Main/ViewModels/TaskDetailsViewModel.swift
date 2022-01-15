@@ -78,6 +78,7 @@ final class TaskDetailsViewModel: ObservableObject {
 extension TaskDetailsViewModel: InteractiveViewModel {
     enum Event: Hashable {
         case save
+        case complete
         case delete
     }
     
@@ -85,6 +86,8 @@ extension TaskDetailsViewModel: InteractiveViewModel {
         switch event {
         case .save:
             saveTaskFromInput()
+        case .complete:
+            completeTask()
         case .delete:
             deleteExistingTask()
         }
@@ -111,7 +114,7 @@ extension TaskDetailsViewModel {
             case .addTask:
                 return L10n.Application.save
             case .details:
-                return L10n.Application.done
+                return L10n.Application.save
             }
         }
     }
@@ -153,6 +156,16 @@ private extension TaskDetailsViewModel {
         }
     }
     
+    func completeTask() {
+        task?.isDone = true
+        do {
+            try managedObjectContext.save()
+            ConsoleLogger.shared.log("...success")
+        } catch {
+            ConsoleLogger.shared.log("error saving entity:", error)
+        }
+    }
+    
     func scheduleNotification(for task: TaskItem) -> UUID? {
         guard let dueDate = task.dueDate else {
             return nil
@@ -184,7 +197,7 @@ private extension TaskDetailsViewModel {
                 try managedObjectContext.save()
                 ConsoleLogger.shared.log("...success")
             } catch {
-                ConsoleLogger.shared.log("error saving entity:", error)
+                ConsoleLogger.shared.log("error deleting entity:", error)
             }
         }
     }

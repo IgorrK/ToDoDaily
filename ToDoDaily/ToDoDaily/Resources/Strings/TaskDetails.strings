@@ -8,6 +8,9 @@
 
 "addTask.title" = "Add Task";
 "taskDetails.title" = "Task";
+"completeTask" = "Complete task";
 "description" = "Description";
 "dueDate" = "Due Date";
 "notifyMe" = "Notify Me";
+"removeTask" = "Remove Task";
+

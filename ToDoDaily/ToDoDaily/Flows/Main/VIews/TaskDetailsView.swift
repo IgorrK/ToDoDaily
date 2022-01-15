@@ -13,7 +13,7 @@ struct TaskDetailsView: View {
     
     @Environment(\.presentationMode) private var presentationMode
     @ObservedObject var viewModel: TaskDetailsViewModel
-        
+    
     @State private var defaultFooterHeight = 0.0
     
     // MARK: - View
@@ -21,6 +21,30 @@ struct TaskDetailsView: View {
     var body: some View {
         NavigationView {
             Form {
+                Section {
+                    Button(action: {
+                        viewModel.handleInput(event: .complete)
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        HStack {
+                            Text(L10n.TaskDetails.completeTask)
+                                .fontWeight(.semibold)
+                            
+                            Spacer()
+                            
+                            Image(systemName: SFSymbols.Checkmark.Circle.fill)
+                                .renderingMode(.template)
+                                .foregroundColor(Asset.Colors.green.color)
+                                .font(.system(size: 24.0))
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .listRowBackground(
+                        Asset.Colors.listRowBackground.color
+                            .overlay(Asset.Colors.green.color.opacity(0.2))
+                    )
+                }
+                
                 Section(footer: EmptyView()
                             .characterLimit(viewModel.input.descriptionTextCharacterLimit,
                                             text: $viewModel.input.descriptionText)) {
@@ -41,8 +65,10 @@ struct TaskDetailsView: View {
                         TextEditor(text: $viewModel.input.descriptionText)
                             .validation(viewModel.input.descriptionTextValidation)
                             .frame(height: 120)
+                            .padding(.horizontal, -8.0)
                     }
                 }
+                .listRowBackground(Asset.Colors.listRowBackground.color)
                 
                 Section {
                     LazyVStack {
@@ -61,10 +87,12 @@ struct TaskDetailsView: View {
                         }
                     }
                 }
+                .listRowBackground(Asset.Colors.listRowBackground.color)
                 
                 footer
                     .listRowBackground(Color.clear)
             }
+            .listRowBackground(Asset.Colors.listRowBackground.color)
             .navigationBarTitle(viewModel.title)
             .navigationBarItems(trailing: saveButton.disabled(!viewModel.input.isSaveEnabled))
             .validation(viewModel.input.saveButtonValidation, flag: $viewModel.input.isSaveEnabled)
@@ -96,7 +124,8 @@ private extension TaskDetailsView {
                     viewModel.handleInput(event: .delete)
                     presentationMode.wrappedValue.dismiss()
                 }) {
-                    Text("Delete Task")
+                    Text(L10n.TaskDetails.removeTask)
+                        .fontWeight(.medium)
                         .foregroundColor(Asset.Colors.red.color)
                 }
                 .buttonStyle(.plain)

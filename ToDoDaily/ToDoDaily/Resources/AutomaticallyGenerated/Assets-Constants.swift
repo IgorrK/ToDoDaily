@@ -11,9 +11,11 @@ import SwiftUI
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
   internal enum Colors {
+    internal static let green = ColorAsset(name: "green")
     internal static let listRowBackground = ColorAsset(name: "listRowBackground")
     internal static let listSeparator = ColorAsset(name: "listSeparator")
     internal static let primaryBackground = ColorAsset(name: "primaryBackground")
+    internal static let primaryBorder = ColorAsset(name: "primaryBorder")
     internal static let red = ColorAsset(name: "red")
     internal static let secondaryButtonBackground = ColorAsset(name: "secondaryButtonBackground")
     internal static let secondaryButtonForeground = ColorAsset(name: "secondaryButtonForeground")

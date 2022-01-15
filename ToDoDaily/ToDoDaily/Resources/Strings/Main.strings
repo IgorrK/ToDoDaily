@@ -1,0 +1,13 @@
+/* 
+  Main.strings
+  ToDoDaily
+
+  Created by Igor Kulik on 14.01.2022.
+  
+*/
+
+"title" = "Tasks";
+"complete" = "Complete";
+"edit" = "Edit";
+"copy" = "Copy";
+"remove" = "Remove";
