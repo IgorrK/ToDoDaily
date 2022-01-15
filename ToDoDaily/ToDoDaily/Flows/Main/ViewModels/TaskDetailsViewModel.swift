@@ -217,7 +217,8 @@ extension TaskDetailsViewModel {
         @Published var isSaveEnabled = false
         @Published var showsPermissionDeniedAlert = false
         @Published var isDeleteEnabled = false
-        
+        @Published var isCompleteEnabled = false
+
         var dueDateRange: PartialRangeFrom<Date>
                 
         // MARK: - Validation
@@ -242,6 +243,7 @@ extension TaskDetailsViewModel {
         
         init(task: TaskItem) {
             self.isDeleteEnabled = true
+            self.isCompleteEnabled = true
             
             if let descriptionText = task.text,
                !descriptionText.isEmpty {

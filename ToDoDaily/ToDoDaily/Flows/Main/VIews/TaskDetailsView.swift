@@ -21,29 +21,8 @@ struct TaskDetailsView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section {
-                    Button(action: {
-                        viewModel.handleInput(event: .complete)
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        HStack {
-                            Text(L10n.TaskDetails.completeTask)
-                                .fontWeight(.semibold)
-                            
-                            Spacer()
-                            
-                            Image(systemName: SFSymbols.Checkmark.Circle.fill)
-                                .renderingMode(.template)
-                                .foregroundColor(Asset.Colors.green.color)
-                                .font(.system(size: 24.0))
-                        }
-                    }
-                    .buttonStyle(.plain)
-                    .listRowBackground(
-                        Asset.Colors.listRowBackground.color
-                            .overlay(Asset.Colors.green.color.opacity(0.2))
-                    )
-                }
+               
+                header
                 
                 Section(footer: EmptyView()
                             .characterLimit(viewModel.input.descriptionTextCharacterLimit,
@@ -107,7 +86,8 @@ struct TaskDetailsView: View {
 // MARK: - Subviews
 private extension TaskDetailsView {
     
-    @ViewBuilder var saveButton: some View {
+    @ViewBuilder
+    var saveButton: some View {
         Button(action: {
             viewModel.handleInput(event: .save)
             presentationMode.wrappedValue.dismiss()
@@ -116,7 +96,39 @@ private extension TaskDetailsView {
         })
     }
     
-    @ViewBuilder var footer: some View {
+    @ViewBuilder
+    var header: some View {
+        if viewModel.input.isCompleteEnabled {
+            Section {
+                Button(action: {
+                    viewModel.handleInput(event: .complete)
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    HStack {
+                        Text(L10n.TaskDetails.completeTask)
+                            .fontWeight(.semibold)
+                        
+                        Spacer()
+                        
+                        Image(systemName: SFSymbols.Checkmark.Circle.fill)
+                            .renderingMode(.template)
+                            .foregroundColor(Asset.Colors.green.color)
+                            .font(.system(size: 24.0))
+                    }
+                }
+                .buttonStyle(.plain)
+                .listRowBackground(
+                    Asset.Colors.listRowBackground.color
+                        .overlay(Asset.Colors.green.color.opacity(0.2))
+                )
+            }
+        } else {
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    var footer: some View {
         if viewModel.input.isDeleteEnabled {
             HStack(alignment: .center) {
                 Spacer()
