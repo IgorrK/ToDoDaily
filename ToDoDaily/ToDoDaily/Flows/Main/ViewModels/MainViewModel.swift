@@ -34,17 +34,50 @@ final class MainViewModel: NSObject, ObservableObject {
     @Published var selectedTask: TaskItem? = nil
     @Published var filterType: FilterType
     @Published var isAnimatingTaskCompletion = false
+    @Published var searchTerm = ""
+    
+    @Published var layoutType: LayoutType = .oneByTwo
+    
+    private var anyCancellables = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
     
     init(filterType: FilterType = .onlyActual) {
         self.filterType = filterType
+        super.init()
+        setBindings()
     }
 }
 
 // MARK: - Private methods
 
 private extension MainViewModel {
+    func setBindings() {
+        $searchTerm
+            .dropFirst()
+            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .sink { [weak self] value in
+                ConsoleLogger.shared.log("search:", value)
+                guard let sSelf = self else { return }
+                
+                var predicate: NSPredicate?
+                if !value.isEmpty {
+                    let searchTermPredicate =  NSPredicate(format:"text contains[cd] %@", value)
+                    
+                    if let existingPredicate = sSelf.filterType.predicate {
+                        predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [existingPredicate, searchTermPredicate])
+                    } else {
+                        predicate = searchTermPredicate
+                    }
+                } else {
+                    predicate = sSelf.filterType.predicate
+                }
+                sSelf.fetchedResultsController.fetchRequest.predicate = predicate
+                sSelf.fetchTasks()
+            }
+            .store(in: &anyCancellables)
+    }
+    
     func fetchTasks() {
         do {
             try fetchedResultsController.performFetch()
@@ -88,6 +121,13 @@ private extension MainViewModel {
             ConsoleLogger.shared.log("error deleting entity:", error)
         }
     }
+    
+    func switchLayout() {
+        guard let nextLayout = LayoutType(rawValue: layoutType.rawValue + 1) ?? LayoutType(rawValue: 0) else {
+            return
+        }
+        layoutType = nextLayout
+    }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
@@ -120,6 +160,11 @@ extension MainViewModel {
             }
         }
     }
+    
+    enum LayoutType: Int, CaseIterable {
+        case oneByTwo
+        case twoByTwo        
+    }
 }
 
 // MARK: - InteractiveViewModel
@@ -131,7 +176,7 @@ extension MainViewModel: InteractiveViewModel {
         case editTask(TaskItem)
         case copyTask(TaskItem)
         case removeTask(TaskItem)
-        case onDelete(IndexSet)
+        case switchLayout
     }
     
     func handleInput(event: Event) {
@@ -148,8 +193,8 @@ extension MainViewModel: InteractiveViewModel {
             copy(task: task)
         case .removeTask(let task):
             remove(task: task)
-        case .onDelete(let indexSet):
-            ConsoleLogger.shared.log(indexSet)
+        case .switchLayout:
+            switchLayout()
         }
     }
 }

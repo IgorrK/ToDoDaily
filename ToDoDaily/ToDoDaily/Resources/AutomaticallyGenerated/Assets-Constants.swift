@@ -14,6 +14,7 @@ internal enum Asset {
     internal static let green = ColorAsset(name: "green")
     internal static let listRowBackground = ColorAsset(name: "listRowBackground")
     internal static let listSeparator = ColorAsset(name: "listSeparator")
+    internal static let overlayBackground = ColorAsset(name: "overlayBackground")
     internal static let primaryBackground = ColorAsset(name: "primaryBackground")
     internal static let primaryBorder = ColorAsset(name: "primaryBorder")
     internal static let red = ColorAsset(name: "red")

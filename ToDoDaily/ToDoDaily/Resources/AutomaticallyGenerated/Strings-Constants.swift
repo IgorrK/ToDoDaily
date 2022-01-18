@@ -67,6 +67,8 @@ internal enum L10n {
     internal static let edit = L10n.tr("Main", "edit")
     /// Remove
     internal static let remove = L10n.tr("Main", "remove")
+    /// Search your tasks
+    internal static let searchBarPlaceholder = L10n.tr("Main", "searchBarPlaceholder")
     /// Tasks
     internal static let title = L10n.tr("Main", "title")
   }

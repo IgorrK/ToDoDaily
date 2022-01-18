@@ -31,6 +31,7 @@
 		841E7E2B277F3E8800C25895 /* APIErrors.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841E7E2A277F3E8800C25895 /* APIErrors.strings */; };
 		841E7E2D277F3F5100C25895 /* Profile.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841E7E2C277F3F5100C25895 /* Profile.strings */; };
 		841E7E2F277F403C00C25895 /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841E7E2E277F403C00C25895 /* SFSymbols.swift */; };
+		8436EEC02796343000D2BBD0 /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 8436EEBF2796343000D2BBD0 /* Grid */; };
 		8465FBA0276C166A00CB2E1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8465FB9F276C166A00CB2E1D /* GoogleService-Info.plist */; };
 		8465FBA4276C1B8C00CB2E1D /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBA3276C1B8C00CB2E1D /* GoogleSignInButton.swift */; };
 		8465FBA7276CA2A900CB2E1D /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBA6276CA2A900CB2E1D /* Typealiases.swift */; };
@@ -226,6 +227,7 @@
 				84F54F0A276E772B00D843B2 /* FirebaseAuth in Frameworks */,
 				84F54F0D276E780900D843B2 /* GoogleSignIn in Frameworks */,
 				84F54F3B27731D0700D843B2 /* Validation in Frameworks */,
+				8436EEC02796343000D2BBD0 /* Grid in Frameworks */,
 				84F54F22277097F600D843B2 /* CircularHUD in Frameworks */,
 				8471D347277675D400CB4E1F /* ImagePicker in Frameworks */,
 				84F54F10276E7F9800D843B2 /* SwiftyBeaver in Frameworks */,
@@ -732,6 +734,7 @@
 				84A513B4278C8BF7005309B3 /* CharacterLimit */,
 				84A513B9278CE1F1005309B3 /* PermissionManager */,
 				84CFB67427924987006270C8 /* Lottie */,
+				8436EEBF2796343000D2BBD0 /* Grid */,
 			);
 			productName = ToDoDaily;
 			productReference = 84C26F78276B727400BEBEF0 /* ToDoDaily.app */;
@@ -769,6 +772,7 @@
 				84F54F0B276E780900D843B2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				84F54F0E276E7F9800D843B2 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
 				84CFB67327924987006270C8 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				8436EEBE2796342F00D2BBD0 /* XCRemoteSwiftPackageReference "swiftui-grid" */,
 			);
 			productRefGroup = 84C26F79276B727400BEBEF0 /* Products */;
 			projectDirPath = "";
@@ -1177,6 +1181,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8436EEBE2796342F00D2BBD0 /* XCRemoteSwiftPackageReference "swiftui-grid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/spacenation/swiftui-grid";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		84CFB67327924987006270C8 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -1212,6 +1224,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8436EEBF2796343000D2BBD0 /* Grid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8436EEBE2796342F00D2BBD0 /* XCRemoteSwiftPackageReference "swiftui-grid" */;
+			productName = Grid;
+		};
 		8471D346277675D400CB4E1F /* ImagePicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ImagePicker;

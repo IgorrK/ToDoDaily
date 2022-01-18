@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Grid
 
 struct MainView: View {
     
@@ -23,22 +24,57 @@ struct MainView: View {
                 Asset.Colors.primaryBackground.color
                     .edgesIgnoringSafeArea(.all)
                 
+                
+                
                 ScrollView {
-                    LazyVGrid(columns: [GridItem(.flexible())],
-                              spacing: 8.0) {
-                        
-                        ForEach($viewModel.tasks, id:\.self) { $item in
+                    
+                    ZStack {
+                        Grid(viewModel.tasks, id:\.self) { item in
+                            let binding = Binding(
+                                get: { item },
+                                set: { _ in }
+                            )
+                            
                             Button(action: processInput(.taskSelected(item))) {
-                                TaskListCell(task: $item)
+                                TaskListCell(task: binding)
                             }
                             .buttonStyle(.plain)
                             .contextMenu { contextMenu(for: item) }
+                            
                         }
+                        .padding(.horizontal)
+                        
+                        .gridStyle(viewModel.layoutType.gridStyle)
+                        .padding(.top, 60.0)
+                        
+                        // Top Layer (Header)
+                        GeometryReader { gr in
+                            
+                            let offset: CGFloat = {
+                                let delta = 44.0 + (UIApplication.shared.currentKeyWindow?.safeAreaInsets.top ?? 0.0)
+                                let origin = gr.frame(in: .global).origin.y
+                                guard origin < delta else { return 0.0 }
+                                
+                                if origin < 0.0 {
+                                    return abs(origin) + delta
+                                } else {
+                                    return delta - origin
+                                }
+                            }()
+                            
+                            VStack {
+                                header
+                                    .offset(y: offset + 8.0)
+                                
+                                Spacer()
+                            }
+                        }
+                        
                     }
-                              .padding(.horizontal)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .animation(.linear, value: viewModel.tasks)
+                .animation(.linear, value: viewModel.layoutType)
                 
                 Button(action: { isAddTaskPresented.toggle() }) {
                     Image(systemName: SFSymbols.plus)
@@ -55,7 +91,8 @@ struct MainView: View {
             .animation(.linear, value: viewModel.isAnimatingTaskCompletion)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationTitle(L10n.Main.title)
-            .navigationBarItems(trailing: NavigationLink(destination: router.view(for: .settings),
+            .navigationBarItems(trailing: NavigationLink(destination: router.view(for: .settings)
+                                                            .navigationBarTitleDisplayMode(.large),
                                                          label: { Image(systemName: SFSymbols.gear) }))
             .onAppear(perform: processInput(.onAppear))
             .sheet(isPresented: $isAddTaskPresented) {
@@ -100,6 +137,39 @@ private extension MainView {
             }
         }
     }
+    
+    @ViewBuilder
+    var header: some View {
+        HStack {
+            HStack {
+                TextField("", text: $viewModel.searchTerm)
+                    .placeholderStyle(when: viewModel.searchTerm.isEmpty,
+                                      placeholder: {
+                        Text(L10n.Main.searchBarPlaceholder)
+                            .foregroundColor(.primary.opacity(0.65))
+                    })
+                
+                Button(action: {
+                    viewModel.handleInput(event: .switchLayout)
+                }) {
+                    Image(systemName: viewModel.layoutType.iconName)
+                        .renderingMode(.template)
+                        .foregroundColor(Asset.Colors.secondaryButtonForeground.color)
+                        .font(.system(size: 18.0, weight: .bold))
+                }
+                .foregroundColor(Color.primary)
+            }
+            .padding(.horizontal)
+            .frame(maxWidth: .infinity)
+            .frame(height: 44.0)
+            .background(
+                Asset.Colors.overlayBackground.color
+                    .clipShape(RoundedRectangle(cornerRadius: 8.0, style: .continuous))
+                    .secondaryShadowStyle()
+            )
+        }
+        .padding(.horizontal, 26.0)
+    }
 }
 
 // MARK: - Private methods
@@ -122,7 +192,7 @@ fileprivate struct CircularButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         ZStack {
             
-            Asset.Colors.secondaryButtonBackground.color
+            Asset.Colors.overlayBackground.color
                 .secondaryShadowStyle()
                 .overlay(Asset.Colors.secondaryShadow.color
                             .opacity(configuration.isPressed ? 0.2 : 0.0))
@@ -142,5 +212,25 @@ fileprivate struct CircularButtonStyle: ButtonStyle {
         .background(Asset.Colors.secondaryButtonBackground.color
                         .clipShape(Circle())
                         .secondaryShadowStyle())
+    }
+}
+
+fileprivate extension MainViewModel.LayoutType {
+    var iconName: String {
+        switch self {
+        case .oneByTwo:
+            return SFSymbols.Rectangle.Grid.oneByTwo
+        case .twoByTwo:
+            return SFSymbols.Rectangle.Grid.twoByTwo
+        }
+    }
+    
+    var gridStyle: some GridStyle {
+        switch self {
+        case .oneByTwo:
+            return StaggeredGridStyle(.vertical, tracks: 1, spacing: 8.0)
+        case .twoByTwo:
+            return StaggeredGridStyle(.vertical, tracks: 2, spacing: 8.0)
+        }
     }
 }

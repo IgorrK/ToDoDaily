@@ -9,7 +9,7 @@ import UIKit
 
 extension UIApplication {
     var currentKeyWindow: UIWindow? {
-        UIApplication.shared.connectedScenes
+        self.connectedScenes
             .filter { $0.activationState == .foregroundActive }
             .map { $0 as? UIWindowScene }
             .compactMap { $0 }

@@ -50,3 +50,26 @@ extension View {
         self.modifier(CircularHUDModifier(isShowing: isShowing))
     }
 }
+
+// MARK: - Placeholder
+extension View {
+    func placeholderStyle<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+            return self.modifier(Placeholder(placeholder: placeholder(), show: shouldShow, alignment: alignment))
+        }
+}
+
+fileprivate struct Placeholder<P: View>: ViewModifier {
+    var placeholder: P
+    var show: Bool
+    var alignment: Alignment
+    
+    func body(content: Content) -> some View {
+        ZStack(alignment: alignment) {
+            if show { placeholder }
+            content
+        }
+    }
+}

@@ -45,4 +45,11 @@ struct SFSymbols {
             static var doc = "doc.on.doc"
         }
     }
+    
+    struct Rectangle {
+        struct Grid {
+            static var oneByTwo = "rectangle.grid.1x2"
+            static var twoByTwo = "rectangle.grid.2x2"
+        }
+    }
 }
