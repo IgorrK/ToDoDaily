@@ -52,4 +52,14 @@ struct SFSymbols {
             static var twoByTwo = "rectangle.grid.2x2"
         }
     }
+    
+    struct Line {
+        struct Three {
+            struct Horizontal {
+                struct Decrease {
+                    static var circle = "line.3.horizontal.decrease.circle"
+                }
+            }
+        }
+    }
 }

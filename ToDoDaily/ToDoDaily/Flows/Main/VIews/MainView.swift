@@ -15,6 +15,7 @@ struct MainView: View {
     let router: MainRouter
     @ObservedObject var viewModel: MainViewModel
     @State private var isAddTaskPresented = false
+    @State private var selection: Int = 0
     
     // MARK: - View
     
@@ -23,8 +24,6 @@ struct MainView: View {
             ZStack(alignment: .bottomTrailing) {
                 Asset.Colors.primaryBackground.color
                     .edgesIgnoringSafeArea(.all)
-                
-                
                 
                 ScrollView {
                     
@@ -94,7 +93,10 @@ struct MainView: View {
             .navigationBarItems(trailing: NavigationLink(destination: router.view(for: .settings)
                                                             .navigationBarTitleDisplayMode(.large),
                                                          label: { Image(systemName: SFSymbols.gear) }))
-            .onAppear(perform: processInput(.onAppear))
+            .onAppear {
+                UITextField.appearance().clearButtonMode = .whileEditing
+                viewModel.handleInput(event: .onAppear)
+            }
             .sheet(isPresented: $isAddTaskPresented) {
                 router.view(for: .addTask)
             }
@@ -158,6 +160,19 @@ private extension MainView {
                         .font(.system(size: 18.0, weight: .bold))
                 }
                 .foregroundColor(Color.primary)
+                       
+                Menu(content: {
+                    Picker("", selection: $viewModel.filterType) {
+                        ForEach(viewModel.filterTypeDataSource, id: \.self) { filterType in
+                            Text(filterType.name).tag(filterType.rawValue)
+                        }
+                    }
+                }, label: {
+                    Image(systemName: SFSymbols.Line.Three.Horizontal.Decrease.circle)
+                        .renderingMode(.template)
+                        .foregroundColor(Asset.Colors.secondaryButtonForeground.color)
+                        .font(.system(size: 20.0, weight: .bold))
+                })
             }
             .padding(.horizontal)
             .frame(maxWidth: .infinity)
@@ -212,6 +227,19 @@ fileprivate struct CircularButtonStyle: ButtonStyle {
         .background(Asset.Colors.secondaryButtonBackground.color
                         .clipShape(Circle())
                         .secondaryShadowStyle())
+    }
+}
+
+fileprivate extension MainViewModel.FilterType {
+    var name: String {
+        switch self {
+        case .onlyActual:
+            return "Actual"
+        case .completed:
+            return "Completed"
+        case .all:
+            return "All"
+        }
     }
 }
 

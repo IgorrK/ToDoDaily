@@ -38,6 +38,8 @@ final class MainViewModel: NSObject, ObservableObject {
     
     @Published var layoutType: LayoutType = .oneByTwo
     
+    @Published var filterTypeDataSource = FilterType.allCases
+    
     private var anyCancellables = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
@@ -56,16 +58,15 @@ private extension MainViewModel {
         $searchTerm
             .dropFirst()
             .debounce(for: 0.5, scheduler: RunLoop.main)
-            .sink { [weak self] value in
-                ConsoleLogger.shared.log("search:", value)
+            .sink { [weak self] searchTerm in
                 guard let sSelf = self else { return }
                 
                 var predicate: NSPredicate?
-                if !value.isEmpty {
-                    let searchTermPredicate =  NSPredicate(format:"text contains[cd] %@", value)
+                if !searchTerm.isEmpty {
+                    let searchTermPredicate = sSelf.searchPredicate(for: searchTerm)
                     
-                    if let existingPredicate = sSelf.filterType.predicate {
-                        predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [existingPredicate, searchTermPredicate])
+                    if let filterPredicate = sSelf.filterType.predicate {
+                        predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [filterPredicate, searchTermPredicate])
                     } else {
                         predicate = searchTermPredicate
                     }
@@ -74,6 +75,29 @@ private extension MainViewModel {
                 }
                 sSelf.fetchedResultsController.fetchRequest.predicate = predicate
                 sSelf.fetchTasks()
+            }
+            .store(in: &anyCancellables)
+        
+        $filterType
+            .dropFirst()
+            .sink { [weak self] filterType in
+                guard let sSelf = self else { return }
+
+                var predicate: NSPredicate?
+                if !sSelf.searchTerm.isEmpty {
+                    let searchTermPredicate = sSelf.searchPredicate(for: sSelf.searchTerm)
+                    
+                    if let filterPredicate = filterType.predicate {
+                        predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [filterPredicate, searchTermPredicate])
+                    } else {
+                        predicate = searchTermPredicate
+                    }
+                } else {
+                    predicate = filterType.predicate
+                }
+                sSelf.fetchedResultsController.fetchRequest.predicate = predicate
+                sSelf.fetchTasks()
+
             }
             .store(in: &anyCancellables)
     }
@@ -128,6 +152,10 @@ private extension MainViewModel {
         }
         layoutType = nextLayout
     }
+    
+    func searchPredicate(for searchTerm: String) -> NSPredicate {
+        return NSPredicate(format:"text contains[cd] %@", searchTerm)
+    }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
@@ -144,7 +172,7 @@ extension MainViewModel: NSFetchedResultsControllerDelegate {
 
 // MARK: - Nested types
 extension MainViewModel {
-    enum FilterType {
+    enum FilterType: Int, CaseIterable {
         case onlyActual
         case completed
         case all
