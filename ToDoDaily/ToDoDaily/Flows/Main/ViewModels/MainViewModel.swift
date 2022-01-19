@@ -14,6 +14,8 @@ final class MainViewModel: NSObject, ObservableObject {
     
     // MARK: - Properties
     
+    var services: Services
+    
     private var managedObjectContext: NSManagedObjectContext { Environment(\.managedObjectContext).wrappedValue }
     
     private lazy var fetchedResultsController: NSFetchedResultsController<TaskItem> = {
@@ -36,7 +38,11 @@ final class MainViewModel: NSObject, ObservableObject {
     @Published var isAnimatingTaskCompletion = false
     @Published var searchTerm = ""
     
-    @Published var layoutType: LayoutType = .oneByTwo
+    @Published var layoutType: LayoutType {
+        didSet {
+            services.defaultsManager.setDefault(.taskListLayoutType, value: layoutType)
+        }
+    }
     
     @Published var filterTypeDataSource = FilterType.allCases
     
@@ -44,8 +50,28 @@ final class MainViewModel: NSObject, ObservableObject {
     
     // MARK: - Lifecycle
     
-    init(filterType: FilterType = .actual) {
-        self.filterType = filterType
+    init(services: Services) {
+        self.services = services
+        self.filterType = {
+            if let storedFilterType: FilterType = services.defaultsManager.getDefault(.taskListFilterType) {
+                return storedFilterType
+            } else {
+                let defaultFilterType: FilterType = .actual
+                services.defaultsManager.setDefault(.taskListFilterType, value: defaultFilterType)
+                return defaultFilterType
+            }
+        }()
+        
+        self.layoutType = {
+            if let storedLayoutType: LayoutType = services.defaultsManager.getDefault(.taskListLayoutType) {
+                return storedLayoutType
+            } else {
+                let defaultLayoutType: LayoutType = .list
+                services.defaultsManager.setDefault(.taskListLayoutType, value: defaultLayoutType)
+                return defaultLayoutType
+            }
+        }()
+        
         super.init()
         setBindings()
     }
@@ -97,7 +123,7 @@ private extension MainViewModel {
                 }
                 sSelf.fetchedResultsController.fetchRequest.predicate = predicate
                 sSelf.fetchTasks()
-
+                sSelf.services.defaultsManager.setDefault(.taskListFilterType, value: filterType)
             }
             .store(in: &anyCancellables)
     }
@@ -162,8 +188,6 @@ private extension MainViewModel {
 extension MainViewModel: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        ConsoleLogger.shared.log("controllerDidChangeContent")
-
         if let objects = controller.fetchedObjects as? [TaskItem] {
             tasks = objects
         }
@@ -190,8 +214,8 @@ extension MainViewModel {
     }
     
     enum LayoutType: Int, CaseIterable {
-        case oneByTwo
-        case twoByTwo        
+        case list
+        case grid        
     }
 }
 

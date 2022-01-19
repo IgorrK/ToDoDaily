@@ -27,12 +27,12 @@ struct RootRouter: Routing {
         switch route {
         case .auth:
             LoginView(viewModel: LoginViewModel(services: services))
-        case.onboarding(let user):
+        case.onboarding:
             NavigationView {
                 ProfileView(viewModel: ProfileViewModel(services: services))
             }
         case .main:
-            MainView(router: MainRouter(services: services), viewModel: MainViewModel())
+            MainView(router: MainRouter(services: services), viewModel: MainViewModel(services: services))
         }
     }
 }

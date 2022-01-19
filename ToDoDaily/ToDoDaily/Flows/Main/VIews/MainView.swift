@@ -198,7 +198,7 @@ private extension MainView {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(router: MainRouter(services: AppServices()), viewModel: MainViewModel())
+        MainView(router: MainRouter(services: AppServices()), viewModel: MainViewModel(services: AppServices()))
     }
 }
 
@@ -246,18 +246,18 @@ fileprivate extension MainViewModel.FilterType {
 fileprivate extension MainViewModel.LayoutType {
     var iconName: String {
         switch self {
-        case .oneByTwo:
+        case .list:
             return SFSymbols.Rectangle.Grid.oneByTwo
-        case .twoByTwo:
+        case .grid:
             return SFSymbols.Rectangle.Grid.twoByTwo
         }
     }
     
     var gridStyle: some GridStyle {
         switch self {
-        case .oneByTwo:
+        case .list:
             return StaggeredGridStyle(.vertical, tracks: 1, spacing: 8.0)
-        case .twoByTwo:
+        case .grid:
             return StaggeredGridStyle(.vertical, tracks: 2, spacing: 8.0)
         }
     }
