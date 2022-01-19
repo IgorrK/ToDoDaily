@@ -44,7 +44,7 @@ final class MainViewModel: NSObject, ObservableObject {
     
     // MARK: - Lifecycle
     
-    init(filterType: FilterType = .onlyActual) {
+    init(filterType: FilterType = .actual) {
         self.filterType = filterType
         super.init()
         setBindings()
@@ -173,13 +173,13 @@ extension MainViewModel: NSFetchedResultsControllerDelegate {
 // MARK: - Nested types
 extension MainViewModel {
     enum FilterType: Int, CaseIterable {
-        case onlyActual
+        case actual
         case completed
         case all
         
         fileprivate var predicate: NSPredicate? {
             switch self {
-            case .onlyActual:
+            case .actual:
                 return NSPredicate(format: "isDone = NO OR isDone = nil")
             case .completed:
                 return NSPredicate(format: "isDone = YES")

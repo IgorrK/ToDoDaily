@@ -66,7 +66,6 @@ private extension TaskListCell {
                             Text(weekdaySymbol)
                                 .scaledSystemFont(size: 14.0, weight: .bold)
                         }
-
                     }
                     
                     Text(dueDate, style: .time)

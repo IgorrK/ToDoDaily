@@ -12,3 +12,7 @@
 "copy" = "Copy";
 "remove" = "Remove";
 "searchBarPlaceholder" = "Search your tasks";
+
+"filter.actual" = "Actual";
+"filter.completed" = "Completed";
+"filter.all" = "All";

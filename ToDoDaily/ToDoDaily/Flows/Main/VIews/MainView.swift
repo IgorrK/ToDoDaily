@@ -233,12 +233,12 @@ fileprivate struct CircularButtonStyle: ButtonStyle {
 fileprivate extension MainViewModel.FilterType {
     var name: String {
         switch self {
-        case .onlyActual:
-            return "Actual"
+        case .actual:
+            return L10n.Main.Filter.actual
         case .completed:
-            return "Completed"
+            return L10n.Main.Filter.completed
         case .all:
-            return "All"
+            return L10n.Main.Filter.all
         }
     }
 }

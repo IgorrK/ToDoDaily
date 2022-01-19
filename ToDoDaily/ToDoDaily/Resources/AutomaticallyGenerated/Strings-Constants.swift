@@ -71,6 +71,14 @@ internal enum L10n {
     internal static let searchBarPlaceholder = L10n.tr("Main", "searchBarPlaceholder")
     /// Tasks
     internal static let title = L10n.tr("Main", "title")
+    internal enum Filter {
+      /// Actual
+      internal static let actual = L10n.tr("Main", "filter.actual")
+      /// All
+      internal static let all = L10n.tr("Main", "filter.all")
+      /// Completed
+      internal static let completed = L10n.tr("Main", "filter.completed")
+    }
   }
   internal enum Profile {
     /// Your Profile
