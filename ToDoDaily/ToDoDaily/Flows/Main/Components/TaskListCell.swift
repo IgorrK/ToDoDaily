@@ -31,6 +31,7 @@ struct TaskListCell: View {
             RoundedRectangle(cornerRadius: 8.0)
                 .stroke(Asset.Colors.primaryBorder.color, lineWidth: 1.0)
         )
+        .opacity(task.isDone ? 0.5 : 1.0)
     }
 }
 
@@ -55,21 +56,21 @@ private extension TaskListCell {
                     HStack(alignment: .center, spacing: 4.0) {
                         
                         Text("\(day)")
-                            .font(.system(size: 40.0, weight: .bold))
+                            .scaledSystemFont(size: 40.0, weight: .bold)
                         
                         VStack(alignment: .leading) {
                             
                             Text(monthSymbol)
-                                .font(.system(size: 14.0, weight: .bold))
+                                .scaledSystemFont(size: 14.0, weight: .bold)
                             
                             Text(weekdaySymbol)
-                                .font(.system(size: 14.0, weight: .bold))
+                                .scaledSystemFont(size: 14.0, weight: .bold)
                         }
-                        
-                        Text(dueDate, style: .time)
-                            .font(.system(size: 20.0, weight: .bold))
-                            .padding(.top, 12.0)
+
                     }
+                    
+                    Text(dueDate, style: .time)
+                        .scaledSystemFont(size: 20.0, weight: .bold)
                     
                     Asset.Colors.listSeparator.color
                         .frame(height: 1.0)

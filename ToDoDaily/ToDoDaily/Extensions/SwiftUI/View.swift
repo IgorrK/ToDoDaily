@@ -73,3 +73,25 @@ fileprivate struct Placeholder<P: View>: ViewModifier {
         }
     }
 }
+
+// MARK: - Scaled font
+
+extension View {
+    func scaledSystemFont(size: CGFloat,
+                          weight: SwiftUI.Font.Weight = .regular,
+                          design: SwiftUI.Font.Design = .default) -> some View {
+        return self.modifier(ScaledSystemFont(size: size, weight: weight, design: design))
+    }
+}
+
+fileprivate struct ScaledSystemFont: ViewModifier {
+    @Environment(\.sizeCategory) var sizeCategory
+    var size: CGFloat
+    var weight: SwiftUI.Font.Weight
+    var design: SwiftUI.Font.Design
+    
+    func body(content: Content) -> some View {
+        let scaledSize = UIFontMetrics.default.scaledValue(for: size)
+        return content.font(.system(size: scaledSize, weight: weight, design: design))
+    }
+}

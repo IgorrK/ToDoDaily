@@ -243,7 +243,7 @@ extension TaskDetailsViewModel {
         
         init(task: TaskItem) {
             self.isDeleteEnabled = true
-            self.isCompleteEnabled = true
+            self.isCompleteEnabled = !task.isDone
             
             if let descriptionText = task.text,
                !descriptionText.isEmpty {
