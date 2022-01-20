@@ -14,8 +14,6 @@ final class MainViewModel: NSObject, ObservableObject {
     
     // MARK: - Properties
     
-    var services: Services
-    
     private var managedObjectContext: NSManagedObjectContext { Environment(\.managedObjectContext).wrappedValue }
     
     private lazy var fetchedResultsController: NSFetchedResultsController<TaskItem> = {
@@ -34,44 +32,35 @@ final class MainViewModel: NSObject, ObservableObject {
     @Published var tasks = [TaskItem]()
     @Published var showsDetailView = false
     @Published var selectedTask: TaskItem? = nil
-    @Published var filterType: FilterType
     @Published var isAnimatingTaskCompletion = false
     @Published var searchTerm = ""
+
+    @Published var filterTypeDataSource = FilterType.allCases
     
-    @Published var layoutType: LayoutType {
+    var preferencesContainer: PreferencesContainer
+    
+    var filterType: FilterType {
         didSet {
-            services.defaultsManager.setDefault(.taskListLayoutType, value: layoutType)
+            preferencesContainer.filterType = filterType
         }
     }
     
-    @Published var filterTypeDataSource = FilterType.allCases
-    
+    @Published var layoutType: LayoutType {
+        didSet {
+            preferencesContainer.layoutType = layoutType
+        }
+    }
+
     private var anyCancellables = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
     
     init(services: Services) {
-        self.services = services
-        self.filterType = {
-            if let storedFilterType: FilterType = services.defaultsManager.getDefault(.taskListFilterType) {
-                return storedFilterType
-            } else {
-                let defaultFilterType: FilterType = .actual
-                services.defaultsManager.setDefault(.taskListFilterType, value: defaultFilterType)
-                return defaultFilterType
-            }
-        }()
-        
-        self.layoutType = {
-            if let storedLayoutType: LayoutType = services.defaultsManager.getDefault(.taskListLayoutType) {
-                return storedLayoutType
-            } else {
-                let defaultLayoutType: LayoutType = .list
-                services.defaultsManager.setDefault(.taskListLayoutType, value: defaultLayoutType)
-                return defaultLayoutType
-            }
-        }()
-        
+        let preferencesContainer = PreferencesContainer(defaultsManager: services.defaultsManager)
+        self.preferencesContainer = preferencesContainer
+        self.layoutType = preferencesContainer.layoutType
+        self.filterType = preferencesContainer.filterType
+
         super.init()
         setBindings()
     }
@@ -103,8 +92,8 @@ private extension MainViewModel {
                 sSelf.fetchTasks()
             }
             .store(in: &anyCancellables)
-        
-        $filterType
+
+        preferencesContainer.$filterType
             .dropFirst()
             .sink { [weak self] filterType in
                 guard let sSelf = self else { return }
@@ -123,7 +112,7 @@ private extension MainViewModel {
                 }
                 sSelf.fetchedResultsController.fetchRequest.predicate = predicate
                 sSelf.fetchTasks()
-                sSelf.services.defaultsManager.setDefault(.taskListFilterType, value: filterType)
+//                sSelf.services.defaultsManager.setDefault(.taskListFilterType, value: filterType)
             }
             .store(in: &anyCancellables)
     }
