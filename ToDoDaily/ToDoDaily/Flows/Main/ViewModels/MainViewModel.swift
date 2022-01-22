@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 import CoreData
+import Model
 
 final class MainViewModel: NSObject, ObservableObject {
     
@@ -53,14 +54,16 @@ final class MainViewModel: NSObject, ObservableObject {
 
     private var anyCancellables = Set<AnyCancellable>()
     
+    private var networkClient: MainNetworking
+    
     // MARK: - Lifecycle
     
-    init(services: Services) {
+    init(services: Services, networkClient: MainNetworking) {
         let preferencesContainer = PreferencesContainer(defaultsManager: services.defaultsManager)
         self.preferencesContainer = preferencesContainer
         self.layoutType = preferencesContainer.layoutType
         self.filterType = preferencesContainer.filterType
-
+        self.networkClient = networkClient
         super.init()
         setBindings()
     }
@@ -112,8 +115,15 @@ private extension MainViewModel {
                 }
                 sSelf.fetchedResultsController.fetchRequest.predicate = predicate
                 sSelf.fetchTasks()
-//                sSelf.services.defaultsManager.setDefault(.taskListFilterType, value: filterType)
             }
+            .store(in: &anyCancellables)
+        
+        networkClient.tasksCollectionListener()
+            .sink(receiveCompletion: { result in
+                ConsoleLogger.shared.log("result:", result)
+            }, receiveValue: { value in
+                ConsoleLogger.shared.log("value:", value)
+            })
             .store(in: &anyCancellables)
     }
     

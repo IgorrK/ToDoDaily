@@ -198,10 +198,10 @@ private extension MainView {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(router: MainRouter(services: AppServices()), viewModel: MainViewModel(services: AppServices()))
+        MainView(router: MainRouter(services: MockServices()),
+                 viewModel: MainViewModel(services: MockServices(), networkClient: MockServices().networkManager))
     }
 }
-
 
 fileprivate struct CircularButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {

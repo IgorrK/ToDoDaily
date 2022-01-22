@@ -17,6 +17,7 @@ protocol AuthManager {
     var dataContainer: UserDataContainer { get }
     func logIn()
     func logOut()
+    func updateCurrentUser(with user: Model.User) -> AnyPublisher<Model.User, Error>
 }
 
 final class FirebaseAuthManager: AuthManager {
@@ -24,7 +25,7 @@ final class FirebaseAuthManager: AuthManager {
     // MARK: - Properties
     
     var dataContainer: UserDataContainer { Environment(\.userDataContainer).wrappedValue}
-
+    
     private var defaultsManager: DefaultsManager
     private var anyCancellables = Set<AnyCancellable>()
     
@@ -115,7 +116,7 @@ final class FirebaseAuthManager: AuthManager {
     
     // MARK: - Public methods
     
-    public func logIn() {
+    func logIn() {
         var credential: AuthCredential?
         
         googleSignIn().sink(receiveCompletion: { [weak self] completion in
@@ -134,7 +135,7 @@ final class FirebaseAuthManager: AuthManager {
         }).store(in: &anyCancellables)
     }
     
-    public func logOut() {
+    func logOut() {
         do {
             try Auth.auth().signOut()
             dataContainer.handle(event: .logOut)
@@ -143,6 +144,26 @@ final class FirebaseAuthManager: AuthManager {
         } catch {
             ConsoleLogger.shared.log(error)
         }
+    }
+    
+    func updateCurrentUser(with user: Model.User) -> AnyPublisher<Model.User, Swift.Error> {
+        return Future<Model.User, Swift.Error>() { promise in
+            guard let request = Auth.auth().currentUser?.createProfileChangeRequest() else {
+                promise(.failure(UpdateUserError.changeRequest))
+                return
+            }
+            request.displayName = user.name
+            let photoURL = URL(string: user.photoURL ?? "")
+            request.photoURL = photoURL
+            /// For some reason, it is impossible to clear user's photo, setiing `photoURL` to `nil` does nothing :/
+            request.commitChanges(completion: { error in
+                if let error = error {
+                    promise(.failure(UpdateUserError.commit(error)))
+                } else {
+                    promise(.success(user))
+                }
+            })
+        }.eraseToAnyPublisher()
     }
 }
 
@@ -180,9 +201,39 @@ extension FirebaseAuthManager {
             return L10n.Login.AuthError.recoverySuggestion
         }
     }
+    
+    enum UpdateUserError: LocalizedError {
+        case changeRequest
+        case commit(Swift.Error)
+        
+        // MARK: - LocalizedError
+        
+        var errorDescription: String? {
+            return L10n.APIErrors.User.description
+        }
+        
+        var failureReason: String? {
+            switch self {
+            case .changeRequest:
+                return L10n.APIErrors.User.ChangeRequest.failureReason
+            case .commit:
+                return L10n.APIErrors.User.Commit.failureReason
+            }
+        }
+        
+        var recoverySuggestion: String? {
+            switch self {
+            case .changeRequest:
+                return L10n.APIErrors.User.ChangeRequest.recoverySuggestion
+            case .commit:
+                return L10n.APIErrors.User.Commit.recoverySuggestion
+            }
+        }
+    }
 }
 
 final class MockAuthManager: AuthManager {
+    
     var dataContainer: UserDataContainer = UserDataContainer()
     
     var didLogin = false
@@ -196,5 +247,11 @@ final class MockAuthManager: AuthManager {
     func logOut() {
         didLogOut = true
         dataContainer.handle(event: .logOut)
+    }
+    
+    func updateCurrentUser(with user: Model.User) -> AnyPublisher<Model.User, Error> {
+        return Future<Model.User, Swift.Error>() { promise in
+            promise(.success(user))
+        }.eraseToAnyPublisher()
     }
 }

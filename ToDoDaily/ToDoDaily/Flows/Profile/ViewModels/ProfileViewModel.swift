@@ -65,9 +65,9 @@ final class ProfileViewModel: ObservableObject {
         
         isLoading = true
         uploadImageIfNeeded()
-            .flatMap { imageURL -> AnyPublisher<Model.User, Error> in
+            .flatMap { [unowned self] imageURL -> AnyPublisher<Model.User, Error> in
                 updatedUser.photoURL = imageURL
-                return FirebaseAPI.updateCurrentUser(with: updatedUser)
+                return self.services.authManager.updateCurrentUser(with: updatedUser)
             }
             .sink(receiveCompletion: { [weak self] result in
                 self?.isLoading = false

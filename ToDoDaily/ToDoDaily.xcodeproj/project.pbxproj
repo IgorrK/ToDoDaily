@@ -21,6 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		8402DFFE279B57B2003957A2 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402DFFD279B57B2003957A2 /* NetworkAgent.swift */; };
+		8402E000279B5858003957A2 /* FirebaseNetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402DFFF279B5858003957A2 /* FirebaseNetworkAgent.swift */; };
+		8402E002279B5CF3003957A2 /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E001279B5CF3003957A2 /* TaskItem.swift */; };
 		841C1248276D0AE900EDEFD8 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841C1247276D0AE900EDEFD8 /* RootViewModel.swift */; };
 		841C124C276D0DCC00EDEFD8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841C124B276D0DCC00EDEFD8 /* MainView.swift */; };
 		841C124F276D10C900EDEFD8 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841C124E276D10C900EDEFD8 /* LoginViewModel.swift */; };
@@ -33,6 +36,13 @@
 		841E7E2F277F403C00C25895 /* SFSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841E7E2E277F403C00C25895 /* SFSymbols.swift */; };
 		8436EEC02796343000D2BBD0 /* Grid in Frameworks */ = {isa = PBXBuildFile; productRef = 8436EEBF2796343000D2BBD0 /* Grid */; };
 		8436EEC22799E7C900D2BBD0 /* PreferencesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436EEC12799E7C800D2BBD0 /* PreferencesContainer.swift */; };
+		8436EEC4279AC0D700D2BBD0 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8436EEC3279AC0D700D2BBD0 /* FirebaseFirestore */; };
+		8436EEC6279ACB5B00D2BBD0 /* Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436EEC5279ACB5B00D2BBD0 /* Optional.swift */; };
+		8436EECD279AD80B00D2BBD0 /* TasksCollectionListenerDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436EECC279AD80B00D2BBD0 /* TasksCollectionListenerDescriptor.swift */; };
+		8436EECF279AD91700D2BBD0 /* MainNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436EECE279AD91700D2BBD0 /* MainNetworking.swift */; };
+		8436EED6279B19B200D2BBD0 /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436EED5279B19B200D2BBD0 /* JSONDecoder.swift */; };
+		8436EEDB279B1A1700D2BBD0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436EED8279B1A1700D2BBD0 /* NetworkManager.swift */; };
+		8436EEDC279B1A1700D2BBD0 /* NetworkOperationDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436EEDA279B1A1700D2BBD0 /* NetworkOperationDescriptors.swift */; };
 		8465FBA0276C166A00CB2E1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8465FB9F276C166A00CB2E1D /* GoogleService-Info.plist */; };
 		8465FBA4276C1B8C00CB2E1D /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBA3276C1B8C00CB2E1D /* GoogleSignInButton.swift */; };
 		8465FBA7276CA2A900CB2E1D /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBA6276CA2A900CB2E1D /* Typealiases.swift */; };
@@ -62,7 +72,6 @@
 		8465FBE2276D04C600CB2E1D /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBE1276D04C600CB2E1D /* RootRouter.swift */; };
 		8471D347277675D400CB4E1F /* ImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8471D346277675D400CB4E1F /* ImagePicker */; };
 		8471D3492776777E00CB4E1F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8471D3482776777E00CB4E1F /* InfoPlist.strings */; };
-		8471D34B277B2BEB00CB4E1F /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D34A277B2BEB00CB4E1F /* FirebaseAPI.swift */; };
 		8471D34D277B321000CB4E1F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D34C277B321000CB4E1F /* Environment.swift */; };
 		8471D350277B59F600CB4E1F /* CircularHUDModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D34F277B59F600CB4E1F /* CircularHUDModifier.swift */; };
 		8471D353277B687A00CB4E1F /* FirebaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8471D352277B687A00CB4E1F /* FirebaseStorage.swift */; };
@@ -121,6 +130,9 @@
 /* Begin PBXFileReference section */
 		378FD58BACD41F008FCC5F3F /* Pods-ToDoDaily.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoDaily.debug.xcconfig"; path = "Target Support Files/Pods-ToDoDaily/Pods-ToDoDaily.debug.xcconfig"; sourceTree = "<group>"; };
 		5D595A9983B29CD103043183 /* Pods-ToDoDaily.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoDaily.release.xcconfig"; path = "Target Support Files/Pods-ToDoDaily/Pods-ToDoDaily.release.xcconfig"; sourceTree = "<group>"; };
+		8402DFFD279B57B2003957A2 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
+		8402DFFF279B5858003957A2 /* FirebaseNetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkAgent.swift; sourceTree = "<group>"; };
+		8402E001279B5CF3003957A2 /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
 		841C1247276D0AE900EDEFD8 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		841C124B276D0DCC00EDEFD8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		841C124E276D10C900EDEFD8 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -132,6 +144,12 @@
 		841E7E2C277F3F5100C25895 /* Profile.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Profile.strings; sourceTree = "<group>"; };
 		841E7E2E277F403C00C25895 /* SFSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbols.swift; sourceTree = "<group>"; };
 		8436EEC12799E7C800D2BBD0 /* PreferencesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesContainer.swift; sourceTree = "<group>"; };
+		8436EEC5279ACB5B00D2BBD0 /* Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional.swift; sourceTree = "<group>"; };
+		8436EECC279AD80B00D2BBD0 /* TasksCollectionListenerDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCollectionListenerDescriptor.swift; sourceTree = "<group>"; };
+		8436EECE279AD91700D2BBD0 /* MainNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNetworking.swift; sourceTree = "<group>"; };
+		8436EED5279B19B200D2BBD0 /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
+		8436EED8279B1A1700D2BBD0 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		8436EEDA279B1A1700D2BBD0 /* NetworkOperationDescriptors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkOperationDescriptors.swift; sourceTree = "<group>"; };
 		8465FB9F276C166A00CB2E1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8465FBA3276C1B8C00CB2E1D /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		8465FBA6276CA2A900CB2E1D /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
@@ -161,7 +179,6 @@
 		8465FBE1276D04C600CB2E1D /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
 		8471D345277675AD00CB4E1F /* ImagePicker */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ImagePicker; sourceTree = "<group>"; };
 		8471D3482776777E00CB4E1F /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
-		8471D34A277B2BEB00CB4E1F /* FirebaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
 		8471D34C277B321000CB4E1F /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		8471D34F277B59F600CB4E1F /* CircularHUDModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularHUDModifier.swift; sourceTree = "<group>"; };
 		8471D352277B687A00CB4E1F /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
@@ -227,6 +244,7 @@
 				8471D355277B68BF00CB4E1F /* FirebaseStorage in Frameworks */,
 				84A513BA278CE1F1005309B3 /* PermissionManager in Frameworks */,
 				84F54F0A276E772B00D843B2 /* FirebaseAuth in Frameworks */,
+				8436EEC4279AC0D700D2BBD0 /* FirebaseFirestore in Frameworks */,
 				84F54F0D276E780900D843B2 /* GoogleSignIn in Frameworks */,
 				84F54F3B27731D0700D843B2 /* Validation in Frameworks */,
 				8436EEC02796343000D2BBD0 /* Grid in Frameworks */,
@@ -250,6 +268,7 @@
 		841C1249276D0DA000EDEFD8 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				8436EECB279AD7DB00D2BBD0 /* Network */,
 				84CFB72B2780FFA000016AE0 /* Components */,
 				84CFB7282780FF5C00016AE0 /* Models */,
 				84C37ABB2780B99A005FB28F /* Routing */,
@@ -275,6 +294,34 @@
 				841C124E276D10C900EDEFD8 /* LoginViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		8436EECB279AD7DB00D2BBD0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8436EECC279AD80B00D2BBD0 /* TasksCollectionListenerDescriptor.swift */,
+				8436EECE279AD91700D2BBD0 /* MainNetworking.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		8436EED7279B1A1700D2BBD0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8436EED9279B1A1700D2BBD0 /* Protocols */,
+				8436EED8279B1A1700D2BBD0 /* NetworkManager.swift */,
+				8402DFFF279B5858003957A2 /* FirebaseNetworkAgent.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		8436EED9279B1A1700D2BBD0 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8402DFFD279B57B2003957A2 /* NetworkAgent.swift */,
+				8436EEDA279B1A1700D2BBD0 /* NetworkOperationDescriptors.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		8465FB9E276C15D600CB2E1D /* Firebase */ = {
@@ -408,7 +455,6 @@
 		8471D351277B685F00CB4E1F /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				8471D34A277B2BEB00CB4E1F /* FirebaseAPI.swift */,
 				8465FBD1276CFCB700CB2E1D /* FirebaseAuthManager.swift */,
 				8471D352277B687A00CB4E1F /* FirebaseStorage.swift */,
 			);
@@ -464,6 +510,7 @@
 				8465FBD7276D033100CB2E1D /* Base */,
 				84C26FB5276C0BBA00BEBEF0 /* Extensions */,
 				84C26FA3276B8C0500BEBEF0 /* Flows */,
+				8436EED7279B1A1700D2BBD0 /* Network */,
 				84C26F90276B73BA00BEBEF0 /* Persistence */,
 				84C26F81276B727700BEBEF0 /* Preview Content */,
 				84C26F8F276B73AC00BEBEF0 /* Resources */,
@@ -618,6 +665,8 @@
 			children = (
 				84CFB66D278F0596006270C8 /* Collection.swift */,
 				84CFB66F278F2148006270C8 /* Date.swift */,
+				8436EEC5279ACB5B00D2BBD0 /* Optional.swift */,
+				8436EED5279B19B200D2BBD0 /* JSONDecoder.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -659,6 +708,7 @@
 		84F54F2F2771FA5400D843B2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8402E001279B5CF3003957A2 /* TaskItem.swift */,
 				84F54F302771FAC500D843B2 /* User.swift */,
 			);
 			path = Model;
@@ -738,6 +788,7 @@
 				84A513B9278CE1F1005309B3 /* PermissionManager */,
 				84CFB67427924987006270C8 /* Lottie */,
 				8436EEBF2796343000D2BBD0 /* Grid */,
+				8436EEC3279AC0D700D2BBD0 /* FirebaseFirestore */,
 			);
 			productName = ToDoDaily;
 			productReference = 84C26F78276B727400BEBEF0 /* ToDoDaily.app */;
@@ -891,7 +942,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8436EEDB279B1A1700D2BBD0 /* NetworkManager.swift in Sources */,
 				841C124F276D10C900EDEFD8 /* LoginViewModel.swift in Sources */,
+				8436EECD279AD80B00D2BBD0 /* TasksCollectionListenerDescriptor.swift in Sources */,
 				8465FBC7276CEED500CB2E1D /* UIFont-Constants.swift in Sources */,
 				84F54F1E276EB31400D843B2 /* RoutableView.swift in Sources */,
 				84C37AC32780F6AB005FB28F /* SettingsRouter.swift in Sources */,
@@ -902,14 +955,16 @@
 				8465FBD2276CFCB700CB2E1D /* FirebaseAuthManager.swift in Sources */,
 				84F54F312771FAC500D843B2 /* User.swift in Sources */,
 				8465FBCA276CF0EE00CB2E1D /* Font.swift in Sources */,
-				8471D34B277B2BEB00CB4E1F /* FirebaseAPI.swift in Sources */,
+				8436EEC6279ACB5B00D2BBD0 /* Optional.swift in Sources */,
 				8475B407278724E8006E8449 /* UserDataContainer.swift in Sources */,
 				841E7E2F277F403C00C25895 /* SFSymbols.swift in Sources */,
 				84C37AC12780F69E005FB28F /* SettingsViewModel.swift in Sources */,
 				84C26FB4276B9C6000BEBEF0 /* Strings-Constants.swift in Sources */,
 				84C37ABA2780B86C005FB28F /* MainViewModel.swift in Sources */,
+				8402E000279B5858003957A2 /* FirebaseNetworkAgent.swift in Sources */,
 				841C1251276D54C800EDEFD8 /* InteractiveViewModel.swift in Sources */,
 				84A513AF278C8080005309B3 /* TaskDetailsViewModel.swift in Sources */,
+				8436EED6279B19B200D2BBD0 /* JSONDecoder.swift in Sources */,
 				84CFB66E278F0596006270C8 /* Collection.swift in Sources */,
 				841C1255276E308D00EDEFD8 /* Logger.swift in Sources */,
 				84C37ABD2780B9A5005FB28F /* MainRouter.swift in Sources */,
@@ -923,6 +978,7 @@
 				8471D350277B59F600CB4E1F /* CircularHUDModifier.swift in Sources */,
 				8436EEC22799E7C900D2BBD0 /* PreferencesContainer.swift in Sources */,
 				84CFB66B278EE496006270C8 /* TaskListCell.swift in Sources */,
+				8436EECF279AD91700D2BBD0 /* MainNetworking.swift in Sources */,
 				84A513AD278C802C005309B3 /* TaskDetailsView.swift in Sources */,
 				84CFB670278F2148006270C8 /* Date.swift in Sources */,
 				84F54F36277208B900D843B2 /* ProfileView.swift in Sources */,
@@ -938,9 +994,12 @@
 				8465FBCC276CF2DA00CB2E1D /* View.swift in Sources */,
 				8465FBE2276D04C600CB2E1D /* RootRouter.swift in Sources */,
 				84F54F1C276EB07700D843B2 /* AppStateContainer.swift in Sources */,
+				8436EEDC279B1A1700D2BBD0 /* NetworkOperationDescriptors.swift in Sources */,
 				8465FBD6276D01FD00CB2E1D /* Services.swift in Sources */,
 				84C26FB8276C0BD000BEBEF0 /* UIScreen.swift in Sources */,
 				84C26F9D276B85CE00BEBEF0 /* Assets-Constants.swift in Sources */,
+				8402DFFE279B57B2003957A2 /* NetworkAgent.swift in Sources */,
+				8402E002279B5CF3003957A2 /* TaskItem.swift in Sources */,
 				84CFB72D2780FFB200016AE0 /* SettingsRow.swift in Sources */,
 				8471D353277B687A00CB4E1F /* FirebaseStorage.swift in Sources */,
 				8471D34D277B321000CB4E1F /* Environment.swift in Sources */,
@@ -1232,6 +1291,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8436EEBE2796342F00D2BBD0 /* XCRemoteSwiftPackageReference "swiftui-grid" */;
 			productName = Grid;
+		};
+		8436EEC3279AC0D700D2BBD0 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84F54F08276E735100D843B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 		8471D346277675D400CB4E1F /* ImagePicker */ = {
 			isa = XCSwiftPackageProductDependency;

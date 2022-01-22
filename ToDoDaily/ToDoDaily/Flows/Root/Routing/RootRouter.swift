@@ -32,7 +32,8 @@ struct RootRouter: Routing {
                 ProfileView(viewModel: ProfileViewModel(services: services))
             }
         case .main:
-            MainView(router: MainRouter(services: services), viewModel: MainViewModel(services: services))
+            MainView(router: MainRouter(services: services),
+                     viewModel: MainViewModel(services: services, networkClient: services.networkManager))
         }
     }
 }
