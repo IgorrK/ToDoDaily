@@ -9,17 +9,13 @@ import Foundation
 import Validation
 import CharacterLimit
 import Combine
-import CoreData
 import SwiftUI
 import PermissionManager
-import UserNotifications
 
 final class TaskDetailsViewModel: ObservableObject {
     
     // MARK: - Properties
-    
-    private var managedObjectContext: NSManagedObjectContext { Environment(\.managedObjectContext).wrappedValue }
-    
+        
     @Published var input: Input
     
     private var anyCancellables = Set<AnyCancellable>()
@@ -27,11 +23,12 @@ final class TaskDetailsViewModel: ObservableObject {
     
     var title: String { displayMode.title }
     var saveButtonTitle: String { displayMode.saveButtonTitle }
-    private var task: TaskItem?
+    private var task: TaskPresentation?
+    let dataStorage: TaskDataStorage
     
     // MARK: - Lifecycle
     
-    init(displayMode: DisplayMode) {
+    init(displayMode: DisplayMode, dataStorage: TaskDataStorage) {
         self.displayMode = displayMode
         switch displayMode {
         case .addTask:
@@ -40,6 +37,7 @@ final class TaskDetailsViewModel: ObservableObject {
             self.task = taskItem
             self.input = Input(task: taskItem)
         }
+        self.dataStorage = dataStorage
         setBindings()
     }
     
@@ -98,7 +96,7 @@ extension TaskDetailsViewModel: InteractiveViewModel {
 extension TaskDetailsViewModel {
     enum DisplayMode {
         case addTask
-        case details(TaskItem)
+        case details(TaskPresentation)
         
         fileprivate var title: String {
             switch self {
@@ -123,82 +121,44 @@ extension TaskDetailsViewModel {
 // MARK: - Private methods
 private extension TaskDetailsViewModel {
     func saveTaskFromInput() {
-        let task: TaskItem = {
-            if let existingTask = self.task {
-                return existingTask
-            } else {
-                let task = TaskItem(context: managedObjectContext)
-                task.id = UUID()
-                task.createdAt = Date()
-                return task
-            }
-        }()
+        var task: TaskPresentation = task ?? TaskPresentation()
         
         task.text = input.descriptionText
         
         if let existingNotificationId = task.notificationId {
-            cancelNotification(id: existingNotificationId.uuidString)
+            NotificationScheduler.cancelNotification(id: existingNotificationId)
         }
         
         if input.isDueDateEnabled {
             task.dueDate = input.dueDate
             
             if input.isNotificationEnabled {
-                task.notificationId = scheduleNotification(for: task)
+                task.notificationId = NotificationScheduler.scheduleNotification(for: task)?.uuidString
             }
         }
         
         do {
-            try managedObjectContext.save()
-            ConsoleLogger.shared.log("...success")
+            try dataStorage.updateTask(using: task)
         } catch {
-            ConsoleLogger.shared.log("error saving entity:", error)
+            ConsoleLogger.shared.log("error saving task:", error, logLevel: .error)
         }
     }
     
     func completeTask() {
-        task?.isDone = true
         do {
-            try managedObjectContext.save()
-            ConsoleLogger.shared.log("...success")
+            let task = try task.unwrap()
+            try dataStorage.completeTask(id: task.id)
         } catch {
-            ConsoleLogger.shared.log("error saving entity:", error)
+            ConsoleLogger.shared.log("error completing task:", error, logLevel: .error)
         }
-    }
-    
-    func scheduleNotification(for task: TaskItem) -> UUID? {
-        guard let dueDate = task.dueDate else {
-            return nil
-        }
-        let content = UNMutableNotificationContent()
-        content.subtitle = task.text ?? ""
-        content.sound = UNNotificationSound.default
-        
-        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: dueDate)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-        
-        let identifier = UUID()
-        
-        let request = UNNotificationRequest(identifier: identifier.uuidString, content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request)
-        
-        return identifier
-    }
-    
-    func cancelNotification(id: String) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
     }
     
     func deleteExistingTask() {
-        if let task = task {
-            managedObjectContext.delete(task)
-            do {
-                try managedObjectContext.save()
-                ConsoleLogger.shared.log("...success")
-            } catch {
-                ConsoleLogger.shared.log("error deleting entity:", error)
-            }
+        do {
+            let task = try task.unwrap()
+            try dataStorage.removeTask(id: task.id)
+        } catch {
+            ConsoleLogger.shared.log("error deleting task:", error, logLevel: .error)
         }
     }
 }
@@ -241,18 +201,12 @@ extension TaskDetailsViewModel {
             self.dueDateRange = Date()...
         }
         
-        init(task: TaskItem) {
+        init(task: TaskPresentation) {
             self.isDeleteEnabled = true
             self.isCompleteEnabled = !task.isDone
             
-            if let descriptionText = task.text,
-               !descriptionText.isEmpty {
-                self.descriptionText = descriptionText
-                self.isSaveEnabled = true
-            } else {
-                self.descriptionText = ""
-                self.isSaveEnabled = false
-            }
+            self.descriptionText = task.text
+            self.isSaveEnabled = !task.text.isEmpty
             
             isNotificationEnabled = task.notificationId != nil
             if let dueDate = task.dueDate {

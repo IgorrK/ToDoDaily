@@ -12,6 +12,7 @@ import Model
 enum MainRoute: RouteType {
     case settings
     case addTask
+    case details(TaskPresentation)
 }
 
 struct MainRouter: Routing {
@@ -19,6 +20,7 @@ struct MainRouter: Routing {
     // MARK: - Properties
     
     var services: Services
+    let dataStorage: TaskDataStorage
     
     // MARK: - Routing
     
@@ -26,9 +28,11 @@ struct MainRouter: Routing {
         switch route {
         case .settings:
             SettingsView(router: SettingsRouter(services: services),
-                                viewModel: SettingsViewModel(services: services))
+                         viewModel: SettingsViewModel(services: services))
         case .addTask:
-            TaskDetailsView(viewModel: TaskDetailsViewModel(displayMode: .addTask))
+            TaskDetailsView(viewModel: TaskDetailsViewModel(displayMode: .addTask, dataStorage: dataStorage))
+        case .details(let task):
+            TaskDetailsView(viewModel: TaskDetailsViewModel(displayMode: .details(task), dataStorage: dataStorage))
         }
     }
 }

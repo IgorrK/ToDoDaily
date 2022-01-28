@@ -10,7 +10,7 @@ import Model
 
 extension Model.TaskItem {
     
-    init(managedObject: TaskItem) throws {
+    init(managedObject: TaskObject) throws {
         let id = try managedObject.id.unwrap().uuidString
         let notificationId = try managedObject.notificationId.unwrap().uuidString
         let createdAt = try managedObject.createdAt.unwrap()

@@ -26,3 +26,7 @@ struct NetworkManager {
         return agent.run(descriptor: descriptor).eraseToAnyPublisher()
     }
 }
+
+extension NetworkManager {
+    static let mock = NetworkManager(agent: MockNetworkAgent())
+}

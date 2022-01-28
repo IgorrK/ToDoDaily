@@ -24,6 +24,11 @@
 		8402DFFE279B57B2003957A2 /* NetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402DFFD279B57B2003957A2 /* NetworkAgent.swift */; };
 		8402E000279B5858003957A2 /* FirebaseNetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402DFFF279B5858003957A2 /* FirebaseNetworkAgent.swift */; };
 		8402E002279B5CF3003957A2 /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E001279B5CF3003957A2 /* TaskItem.swift */; };
+		8402E004279C1714003957A2 /* TaskDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E003279C1714003957A2 /* TaskDataStorage.swift */; };
+		8402E008279F587B003957A2 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E007279F587B003957A2 /* NSManagedObjectContext.swift */; };
+		8402E00D27A36266003957A2 /* TaskPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E00C27A36266003957A2 /* TaskPresentation.swift */; };
+		8402E00F27A3668C003957A2 /* MockNetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E00E27A3668C003957A2 /* MockNetworkAgent.swift */; };
+		8402E01127A3F62B003957A2 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E01027A3F62B003957A2 /* NotificationScheduler.swift */; };
 		841C1248276D0AE900EDEFD8 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841C1247276D0AE900EDEFD8 /* RootViewModel.swift */; };
 		841C124C276D0DCC00EDEFD8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841C124B276D0DCC00EDEFD8 /* MainView.swift */; };
 		841C124F276D10C900EDEFD8 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841C124E276D10C900EDEFD8 /* LoginViewModel.swift */; };
@@ -133,6 +138,12 @@
 		8402DFFD279B57B2003957A2 /* NetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAgent.swift; sourceTree = "<group>"; };
 		8402DFFF279B5858003957A2 /* FirebaseNetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkAgent.swift; sourceTree = "<group>"; };
 		8402E001279B5CF3003957A2 /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
+		8402E003279C1714003957A2 /* TaskDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataStorage.swift; sourceTree = "<group>"; };
+		8402E005279D6F6C003957A2 /* ToDoDaily 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "ToDoDaily 2.xcdatamodel"; sourceTree = "<group>"; };
+		8402E007279F587B003957A2 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
+		8402E00C27A36266003957A2 /* TaskPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPresentation.swift; sourceTree = "<group>"; };
+		8402E00E27A3668C003957A2 /* MockNetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkAgent.swift; sourceTree = "<group>"; };
+		8402E01027A3F62B003957A2 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		841C1247276D0AE900EDEFD8 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		841C124B276D0DCC00EDEFD8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		841C124E276D10C900EDEFD8 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -257,6 +268,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8402E006279F5854003957A2 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				8402E007279F587B003957A2 /* NSManagedObjectContext.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		841C1246276D0AD700EDEFD8 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,9 +287,9 @@
 		841C1249276D0DA000EDEFD8 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				8436EECB279AD7DB00D2BBD0 /* Network */,
 				84CFB72B2780FFA000016AE0 /* Components */,
 				84CFB7282780FF5C00016AE0 /* Models */,
+				8436EECB279AD7DB00D2BBD0 /* Network */,
 				84C37ABB2780B99A005FB28F /* Routing */,
 				84C37AB82780B85E005FB28F /* ViewModels */,
 				841C124A276D0DBF00EDEFD8 /* Views */,
@@ -311,6 +330,7 @@
 				8436EED9279B1A1700D2BBD0 /* Protocols */,
 				8436EED8279B1A1700D2BBD0 /* NetworkManager.swift */,
 				8402DFFF279B5858003957A2 /* FirebaseNetworkAgent.swift */,
+				8402E00E27A3668C003957A2 /* MockNetworkAgent.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -403,6 +423,7 @@
 				8471D351277B685F00CB4E1F /* Firebase */,
 				8465FBD3276CFE5400CB2E1D /* DefaultsManager.swift */,
 				841C1254276E308D00EDEFD8 /* Logger.swift */,
+				8402E01027A3F62B003957A2 /* NotificationScheduler.swift */,
 				8465FBD5276D01FD00CB2E1D /* Services.swift */,
 			);
 			path = Services;
@@ -623,6 +644,7 @@
 		84C26FB5276C0BBA00BEBEF0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8402E006279F5854003957A2 /* CoreData */,
 				84CFB66C278F0589006270C8 /* Foundation */,
 				84F54F2F2771FA5400D843B2 /* Model */,
 				8465FBC8276CF0E300CB2E1D /* SwiftUI */,
@@ -691,6 +713,8 @@
 			isa = PBXGroup;
 			children = (
 				84CFB7292780FF6E00016AE0 /* SettingsItem.swift */,
+				8402E003279C1714003957A2 /* TaskDataStorage.swift */,
+				8402E00C27A36266003957A2 /* TaskPresentation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -942,14 +966,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8402E00D27A36266003957A2 /* TaskPresentation.swift in Sources */,
 				8436EEDB279B1A1700D2BBD0 /* NetworkManager.swift in Sources */,
 				841C124F276D10C900EDEFD8 /* LoginViewModel.swift in Sources */,
 				8436EECD279AD80B00D2BBD0 /* TasksCollectionListenerDescriptor.swift in Sources */,
 				8465FBC7276CEED500CB2E1D /* UIFont-Constants.swift in Sources */,
+				8402E004279C1714003957A2 /* TaskDataStorage.swift in Sources */,
 				84F54F1E276EB31400D843B2 /* RoutableView.swift in Sources */,
 				84C37AC32780F6AB005FB28F /* SettingsRouter.swift in Sources */,
 				841C1248276D0AE900EDEFD8 /* RootViewModel.swift in Sources */,
 				84F54F242770AB5C00D843B2 /* UIView.swift in Sources */,
+				8402E01127A3F62B003957A2 /* NotificationScheduler.swift in Sources */,
 				841C1253276D64F200EDEFD8 /* UIApplication.swift in Sources */,
 				84F54F18276EA16200D843B2 /* AppDelegate.swift in Sources */,
 				8465FBD2276CFCB700CB2E1D /* FirebaseAuthManager.swift in Sources */,
@@ -973,8 +1000,10 @@
 				84C26FA7276B8C3B00BEBEF0 /* LoginView.swift in Sources */,
 				84CFB67A27924D75006270C8 /* TaskCompletedView.swift in Sources */,
 				841C124C276D0DCC00EDEFD8 /* MainView.swift in Sources */,
+				8402E00F27A3668C003957A2 /* MockNetworkAgent.swift in Sources */,
 				8465FBE0276D04BB00CB2E1D /* RootView.swift in Sources */,
 				8465FBCF276CF9FD00CB2E1D /* SecondaryButtonStyle.swift in Sources */,
+				8402E008279F587B003957A2 /* NSManagedObjectContext.swift in Sources */,
 				8471D350277B59F600CB4E1F /* CircularHUDModifier.swift in Sources */,
 				8436EEC22799E7C900D2BBD0 /* PreferencesContainer.swift in Sources */,
 				84CFB66B278EE496006270C8 /* TaskListCell.swift in Sources */,
@@ -1356,9 +1385,10 @@
 		84C26F86276B727700BEBEF0 /* ToDoDaily.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				8402E005279D6F6C003957A2 /* ToDoDaily 2.xcdatamodel */,
 				84C26F87276B727700BEBEF0 /* ToDoDaily.xcdatamodel */,
 			);
-			currentVersion = 84C26F87276B727700BEBEF0 /* ToDoDaily.xcdatamodel */;
+			currentVersion = 8402E005279D6F6C003957A2 /* ToDoDaily 2.xcdatamodel */;
 			path = ToDoDaily.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

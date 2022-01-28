@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="TaskItem" representedClassName="TaskItem" elementID="TaskItem" syncable="YES" codeGenerationType="class">
+    <entity name="TaskObject" representedClassName="TaskObject" elementID="TaskItem" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -10,6 +10,6 @@
         <attribute name="text" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="TaskItem" positionX="-63" positionY="-18" width="128" height="134"/>
+        <element name="TaskObject" positionX="-63" positionY="-18" width="128" height="134"/>
     </elements>
 </model>

@@ -8,34 +8,18 @@
 import Foundation
 import SwiftUI
 import Combine
-import CoreData
 import Model
 
 final class MainViewModel: NSObject, ObservableObject {
     
     // MARK: - Properties
     
-    private var managedObjectContext: NSManagedObjectContext { Environment(\.managedObjectContext).wrappedValue }
-    
-    private lazy var fetchedResultsController: NSFetchedResultsController<TaskItem> = {
-        let fetchRequest = TaskItem.fetchRequest()
-        fetchRequest.predicate = filterType.predicate
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(TaskItem.createdAt), ascending: false)]
-        
-        let controller = NSFetchedResultsController<TaskItem>(fetchRequest: fetchRequest,
-                                                              managedObjectContext: managedObjectContext,
-                                                              sectionNameKeyPath: nil,
-                                                              cacheName: nil)
-        controller.delegate = self
-        return controller
-    }()
-    
-    @Published var tasks = [TaskItem]()
+    @Published var tasks = [TaskPresentation]()
     @Published var showsDetailView = false
-    @Published var selectedTask: TaskItem? = nil
+    @Published var selectedTask: TaskPresentation? = nil
     @Published var isAnimatingTaskCompletion = false
     @Published var searchTerm = ""
-
+    
     @Published var filterTypeDataSource = FilterType.allCases
     
     var preferencesContainer: PreferencesContainer
@@ -51,19 +35,22 @@ final class MainViewModel: NSObject, ObservableObject {
             preferencesContainer.layoutType = layoutType
         }
     }
-
+    
     private var anyCancellables = Set<AnyCancellable>()
     
-    private var networkClient: MainNetworking
+    private var networkManager: MainNetworking
+    
+    let dataStorage: TaskDataStorage
     
     // MARK: - Lifecycle
     
-    init(services: Services, networkClient: MainNetworking) {
+    init(services: Services, dataStorage: TaskDataStorage) {
         let preferencesContainer = PreferencesContainer(defaultsManager: services.defaultsManager)
         self.preferencesContainer = preferencesContainer
         self.layoutType = preferencesContainer.layoutType
         self.filterType = preferencesContainer.filterType
-        self.networkClient = networkClient
+        self.networkManager = services.networkManager
+        self.dataStorage = dataStorage
         super.init()
         setBindings()
     }
@@ -78,96 +65,54 @@ private extension MainViewModel {
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .sink { [weak self] searchTerm in
                 guard let sSelf = self else { return }
-                
-                var predicate: NSPredicate?
-                if !searchTerm.isEmpty {
-                    let searchTermPredicate = sSelf.searchPredicate(for: searchTerm)
-                    
-                    if let filterPredicate = sSelf.filterType.predicate {
-                        predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [filterPredicate, searchTermPredicate])
-                    } else {
-                        predicate = searchTermPredicate
-                    }
-                } else {
-                    predicate = sSelf.filterType.predicate
-                }
-                sSelf.fetchedResultsController.fetchRequest.predicate = predicate
-                sSelf.fetchTasks()
+                sSelf.refineData(with: searchTerm, filterType: sSelf.filterType)
             }
             .store(in: &anyCancellables)
-
+        
         preferencesContainer.$filterType
             .dropFirst()
             .sink { [weak self] filterType in
                 guard let sSelf = self else { return }
-
-                var predicate: NSPredicate?
-                if !sSelf.searchTerm.isEmpty {
-                    let searchTermPredicate = sSelf.searchPredicate(for: sSelf.searchTerm)
-                    
-                    if let filterPredicate = filterType.predicate {
-                        predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [filterPredicate, searchTermPredicate])
-                    } else {
-                        predicate = searchTermPredicate
-                    }
-                } else {
-                    predicate = filterType.predicate
-                }
-                sSelf.fetchedResultsController.fetchRequest.predicate = predicate
-                sSelf.fetchTasks()
+                sSelf.refineData(with: sSelf.searchTerm, filterType: filterType)
             }
             .store(in: &anyCancellables)
         
-        networkClient.tasksCollectionListener()
-            .sink(receiveCompletion: { result in
-                ConsoleLogger.shared.log("result:", result)
-            }, receiveValue: { value in
-                ConsoleLogger.shared.log("value:", value)
-            })
-            .store(in: &anyCancellables)
-    }
-    
-    func fetchTasks() {
-        do {
-            try fetchedResultsController.performFetch()
-            if let tasks = fetchedResultsController.fetchedObjects {
-                self.tasks = tasks
+        dataStorage.$tasks.sink { [weak self] taskObjects in
+            do {
+                self?.tasks = try taskObjects.mapToPresentationModels()
+            } catch {
+                ConsoleLogger.shared.log(error, logLevel: .error)
             }
-        } catch {
-            ConsoleLogger.shared.log("fetching error:", error)
-        }
+            
+        }.store(in: &anyCancellables)
     }
     
-    func showDetails(task: TaskItem) {
+    func showDetails(task: TaskPresentation) {
         selectedTask = task
         showsDetailView = true
     }
     
-    func complete(task: TaskItem) {
-        task.isDone = true
+    func complete(task: TaskPresentation) {
         do {
-            try managedObjectContext.save()
-            ConsoleLogger.shared.log("...success")
+            try dataStorage.completeTask(id: task.id)
             isAnimatingTaskCompletion.toggle()
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
                 self?.isAnimatingTaskCompletion.toggle()
             }
         } catch {
-            ConsoleLogger.shared.log("error saving entity:", error)
+            ConsoleLogger.shared.log("error saving task:", error, logLevel: .error)
         }
     }
     
-    func copy(task: TaskItem) {
+    func copy(task: TaskPresentation) {
         UIPasteboard.general.string = task.text
     }
     
-    func remove(task: TaskItem) {
-        managedObjectContext.delete(task)
+    func remove(task: TaskPresentation) {
         do {
-            try managedObjectContext.save()
-            ConsoleLogger.shared.log("...success")
+            try dataStorage.removeTask(id: task.id)
         } catch {
-            ConsoleLogger.shared.log("error deleting entity:", error)
+            ConsoleLogger.shared.log("error deleting task:", error, logLevel: .error)
         }
     }
     
@@ -178,17 +123,19 @@ private extension MainViewModel {
         layoutType = nextLayout
     }
     
-    func searchPredicate(for searchTerm: String) -> NSPredicate {
-        return NSPredicate(format:"text contains[cd] %@", searchTerm)
+    func refineData(with searchTerm: String, filterType: FilterType) {
+        let predicate = Self.compoundPredicate(searchTerm: searchTerm, filterType: filterType)
+        dataStorage.refine(with: predicate)
     }
-}
-
-// MARK: - NSFetchedResultsControllerDelegate
-extension MainViewModel: NSFetchedResultsControllerDelegate {
     
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        if let objects = controller.fetchedObjects as? [TaskItem] {
-            tasks = objects
+    static func compoundPredicate(searchTerm: String, filterType: FilterType) -> NSPredicate? {
+        guard !searchTerm.isEmpty else { return filterType.predicate }
+        
+        let searchTermPredicate = NSPredicate(format:"text contains[cd] %@", searchTerm)
+        if let filterPredicate = filterType.predicate {
+            return NSCompoundPredicate(andPredicateWithSubpredicates: [filterPredicate, searchTermPredicate])
+        } else {
+            return searchTermPredicate
         }
     }
 }
@@ -214,7 +161,7 @@ extension MainViewModel {
     
     enum LayoutType: Int, CaseIterable {
         case list
-        case grid        
+        case grid
     }
 }
 
@@ -222,18 +169,18 @@ extension MainViewModel {
 extension MainViewModel: InteractiveViewModel {
     enum Event: Hashable {
         case onAppear
-        case taskSelected(TaskItem)
-        case completeTask(TaskItem)
-        case editTask(TaskItem)
-        case copyTask(TaskItem)
-        case removeTask(TaskItem)
+        case taskSelected(TaskPresentation)
+        case completeTask(TaskPresentation)
+        case editTask(TaskPresentation)
+        case copyTask(TaskPresentation)
+        case removeTask(TaskPresentation)
         case switchLayout
     }
     
     func handleInput(event: Event) {
         switch event {
         case .onAppear:
-            fetchTasks()
+            refineData(with: searchTerm, filterType: filterType)
         case .taskSelected(let task):
             showDetails(task: task)
         case .completeTask(let task):
@@ -247,5 +194,17 @@ extension MainViewModel: InteractiveViewModel {
         case .switchLayout:
             switchLayout()
         }
+    }
+}
+
+fileprivate extension TaskObject {
+    func asPresentation() throws -> TaskPresentation {
+        return try TaskPresentation(managedObject: self)
+    }
+}
+
+fileprivate extension Array where Element == TaskObject {
+    func mapToPresentationModels() throws -> [TaskPresentation] {
+        return try self.map({ try $0.asPresentation() })
     }
 }

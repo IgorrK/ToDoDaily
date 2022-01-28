@@ -153,6 +153,7 @@ private extension TaskDetailsView {
 
 struct AddTaskView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskDetailsView(viewModel: TaskDetailsViewModel(displayMode: .addTask))
+        TaskDetailsView(viewModel: TaskDetailsViewModel(displayMode: .addTask,
+                                                        dataStorage: TaskDataStorage(networkManager: NetworkManager.mock, predicate: nil)))
     }
 }

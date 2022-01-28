@@ -102,7 +102,7 @@ struct MainView: View {
             }
             .sheet(isPresented: $viewModel.showsDetailView) {
                 if let selectedTask = viewModel.selectedTask {
-                    TaskDetailsView(viewModel: TaskDetailsViewModel(displayMode: .details(selectedTask)))
+                    router.view(for: .details(selectedTask))
                 } else {
                     EmptyView()
                 }
@@ -114,7 +114,7 @@ struct MainView: View {
 // MARK: - Subviews
 private extension MainView {
     @ViewBuilder
-    func contextMenu(for item: TaskItem) -> some View {
+    func contextMenu(for item: TaskPresentation) -> some View {
         Button(action: processInput(.completeTask(item))) {
             Label(L10n.Main.complete, systemImage: SFSymbols.Checkmark.default)
         }
@@ -198,8 +198,7 @@ private extension MainView {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(router: MainRouter(services: MockServices()),
-                 viewModel: MainViewModel(services: MockServices(), networkClient: MockServices().networkManager))
+        MainView.instance(with: MockServices())
     }
 }
 
@@ -260,5 +259,14 @@ fileprivate extension MainViewModel.LayoutType {
         case .grid:
             return StaggeredGridStyle(.vertical, tracks: 2, spacing: 8.0)
         }
+    }
+}
+
+// MARK: - Factory methods
+extension MainView {
+    static func instance(with services: Services) -> MainView {
+        let dataStorage = TaskDataStorage(networkManager: services.networkManager, predicate: nil)
+        return MainView(router: MainRouter(services: services, dataStorage: dataStorage),
+                        viewModel: MainViewModel(services: services, dataStorage: dataStorage))
     }
 }

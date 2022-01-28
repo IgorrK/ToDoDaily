@@ -11,7 +11,7 @@ struct TaskListCell: View {
     
     // MARK: - Properties
     
-    @Binding var task: TaskItem
+    @Binding var task: TaskPresentation
     
     // MARK: - View
     
@@ -19,7 +19,7 @@ struct TaskListCell: View {
         VStack(spacing: 8.0) {
             header
             
-            Text(task.text ?? "")
+            Text(task.text)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
