@@ -25,6 +25,10 @@ struct NetworkManager {
     func collectionListener<Descriptor: CollectionListenerDescriptor>(_ descriptor: Descriptor) -> AnyPublisher<[Descriptor.ResponseType], Swift.Error> {
         return agent.run(descriptor: descriptor).eraseToAnyPublisher()
     }
+    
+    func update<Descriptor: UpdateOperationDescriptor>(descriptor: Descriptor) -> Future<Void, Error> {
+        return agent.update(descriptor: descriptor)
+    }
 }
 
 extension NetworkManager {

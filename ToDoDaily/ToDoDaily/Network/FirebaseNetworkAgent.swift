@@ -27,7 +27,8 @@ struct FirebaseNetworkAgent: NetworkAgent {
         
         let subject = PassthroughSubject<[Descriptor.ResponseType], Swift.Error>()
 
-        Firestore.firestore().collection(descriptor.collectionName).addSnapshotListener({ querySnapshot, error in
+        
+        Self.collectionReference(with: descriptor.collectionName).addSnapshotListener({ querySnapshot, error in
             if let error = error {
                 subject.send(completion: .failure(error))
                 return
@@ -53,5 +54,23 @@ struct FirebaseNetworkAgent: NetworkAgent {
         })
         
         return subject
+    }
+    
+    func update<Descriptor: UpdateOperationDescriptor>(descriptor: Descriptor) -> Future<Void, Error> {
+        return Future() { promise in
+            Self.collectionReference(with: descriptor.collectionName).document(descriptor.documentId).updateData(descriptor.parameters, completion: { error in
+                if let error = error {
+                    promise(.failure(error))
+                } else {
+                    promise(.success(()))
+                }
+            })
+        }
+    }
+}
+
+private extension FirebaseNetworkAgent {
+    static func collectionReference(with path: String) -> CollectionReference {
+        return Firestore.firestore().collection(path)
     }
 }

@@ -29,6 +29,10 @@
 		8402E00D27A36266003957A2 /* TaskPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E00C27A36266003957A2 /* TaskPresentation.swift */; };
 		8402E00F27A3668C003957A2 /* MockNetworkAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E00E27A3668C003957A2 /* MockNetworkAgent.swift */; };
 		8402E01127A3F62B003957A2 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E01027A3F62B003957A2 /* NotificationScheduler.swift */; };
+		8402E01327A4037F003957A2 /* TaskObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E01227A4037F003957A2 /* TaskObject.swift */; };
+		8402E01527A44051003957A2 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E01427A44051003957A2 /* Encodable.swift */; };
+		8402E01727A44081003957A2 /* JSONEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E01627A44081003957A2 /* JSONEncoder.swift */; };
+		8402E01927A45CC9003957A2 /* UpdateTaskOperationDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E01827A45CC9003957A2 /* UpdateTaskOperationDescriptor.swift */; };
 		841C1248276D0AE900EDEFD8 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841C1247276D0AE900EDEFD8 /* RootViewModel.swift */; };
 		841C124C276D0DCC00EDEFD8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841C124B276D0DCC00EDEFD8 /* MainView.swift */; };
 		841C124F276D10C900EDEFD8 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841C124E276D10C900EDEFD8 /* LoginViewModel.swift */; };
@@ -144,6 +148,10 @@
 		8402E00C27A36266003957A2 /* TaskPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPresentation.swift; sourceTree = "<group>"; };
 		8402E00E27A3668C003957A2 /* MockNetworkAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkAgent.swift; sourceTree = "<group>"; };
 		8402E01027A3F62B003957A2 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		8402E01227A4037F003957A2 /* TaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskObject.swift; sourceTree = "<group>"; };
+		8402E01427A44051003957A2 /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
+		8402E01627A44081003957A2 /* JSONEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONEncoder.swift; sourceTree = "<group>"; };
+		8402E01827A45CC9003957A2 /* UpdateTaskOperationDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTaskOperationDescriptor.swift; sourceTree = "<group>"; };
 		841C1247276D0AE900EDEFD8 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		841C124B276D0DCC00EDEFD8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		841C124E276D10C900EDEFD8 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -272,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				8402E007279F587B003957A2 /* NSManagedObjectContext.swift */,
+				8402E01227A4037F003957A2 /* TaskObject.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -318,8 +327,9 @@
 		8436EECB279AD7DB00D2BBD0 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				8436EECC279AD80B00D2BBD0 /* TasksCollectionListenerDescriptor.swift */,
 				8436EECE279AD91700D2BBD0 /* MainNetworking.swift */,
+				8436EECC279AD80B00D2BBD0 /* TasksCollectionListenerDescriptor.swift */,
+				8402E01827A45CC9003957A2 /* UpdateTaskOperationDescriptor.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -687,8 +697,10 @@
 			children = (
 				84CFB66D278F0596006270C8 /* Collection.swift */,
 				84CFB66F278F2148006270C8 /* Date.swift */,
-				8436EEC5279ACB5B00D2BBD0 /* Optional.swift */,
+				8402E01427A44051003957A2 /* Encodable.swift */,
 				8436EED5279B19B200D2BBD0 /* JSONDecoder.swift */,
+				8402E01627A44081003957A2 /* JSONEncoder.swift */,
+				8436EEC5279ACB5B00D2BBD0 /* Optional.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -978,6 +990,7 @@
 				84F54F242770AB5C00D843B2 /* UIView.swift in Sources */,
 				8402E01127A3F62B003957A2 /* NotificationScheduler.swift in Sources */,
 				841C1253276D64F200EDEFD8 /* UIApplication.swift in Sources */,
+				8402E01927A45CC9003957A2 /* UpdateTaskOperationDescriptor.swift in Sources */,
 				84F54F18276EA16200D843B2 /* AppDelegate.swift in Sources */,
 				8465FBD2276CFCB700CB2E1D /* FirebaseAuthManager.swift in Sources */,
 				84F54F312771FAC500D843B2 /* User.swift in Sources */,
@@ -997,6 +1010,7 @@
 				84C37ABD2780B9A5005FB28F /* MainRouter.swift in Sources */,
 				84F54F1A276EA34100D843B2 /* SceneDelegate.swift in Sources */,
 				84F54F382772091900D843B2 /* ProfileViewModel.swift in Sources */,
+				8402E01527A44051003957A2 /* Encodable.swift in Sources */,
 				84C26FA7276B8C3B00BEBEF0 /* LoginView.swift in Sources */,
 				84CFB67A27924D75006270C8 /* TaskCompletedView.swift in Sources */,
 				841C124C276D0DCC00EDEFD8 /* MainView.swift in Sources */,
@@ -1014,6 +1028,7 @@
 				84C37ABF2780F690005FB28F /* SettingsView.swift in Sources */,
 				84C26F85276B727700BEBEF0 /* Persistence.swift in Sources */,
 				84CFB67827924A3B006270C8 /* LottieView.swift in Sources */,
+				8402E01727A44081003957A2 /* JSONEncoder.swift in Sources */,
 				8465FBD4276CFE5400CB2E1D /* DefaultsManager.swift in Sources */,
 				84C26F88276B727700BEBEF0 /* ToDoDaily.xcdatamodeld in Sources */,
 				8465FBA4276C1B8C00CB2E1D /* GoogleSignInButton.swift in Sources */,
@@ -1027,6 +1042,7 @@
 				8465FBD6276D01FD00CB2E1D /* Services.swift in Sources */,
 				84C26FB8276C0BD000BEBEF0 /* UIScreen.swift in Sources */,
 				84C26F9D276B85CE00BEBEF0 /* Assets-Constants.swift in Sources */,
+				8402E01327A4037F003957A2 /* TaskObject.swift in Sources */,
 				8402DFFE279B57B2003957A2 /* NetworkAgent.swift in Sources */,
 				8402E002279B5CF3003957A2 /* TaskItem.swift in Sources */,
 				84CFB72D2780FFB200016AE0 /* SettingsRow.swift in Sources */,

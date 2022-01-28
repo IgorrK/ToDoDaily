@@ -16,7 +16,6 @@ struct TaskPresentation: Identifiable, Hashable {
     
     // MARK: - Properties
     
-    let createdAt: Date
     var text: String
     var dueDate: Date?
     var notificationId: String?
@@ -26,7 +25,6 @@ struct TaskPresentation: Identifiable, Hashable {
     
     init(managedObject: TaskObject) throws {
         self.id = try managedObject.id.unwrap().uuidString
-        self.createdAt = try managedObject.createdAt.unwrap()
         self.text = try managedObject.text.unwrap()
         self.dueDate = managedObject.dueDate
         self.notificationId = managedObject.notificationId?.uuidString
@@ -35,7 +33,6 @@ struct TaskPresentation: Identifiable, Hashable {
     
     init() {
         self.id = UUID().uuidString
-        self.createdAt = Date()
         self.text = ""
         self.isDone = false
     }

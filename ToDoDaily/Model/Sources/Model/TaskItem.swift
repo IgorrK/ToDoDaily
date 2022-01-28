@@ -14,23 +14,26 @@ public struct TaskItem: Hashable, Codable {
     public var id: String
     public var createdAt: Date
     public var dueDate: Date?
-    public var notificationId: String
+    public var notificationId: String?
     public var isDone: Bool
     public var text: String
+    public var updatedAt: Date
     
     // MARK: - Lifecycle
     
     public init(id: String,
                 createdAt: Date,
                 dueDate: Date?,
-                notificationId: String,
+                notificationId: String?,
                 isDone: Bool,
-                text: String) {
+                text: String,
+                updatedAt: Date) {
         self.id = id
         self.createdAt = createdAt
         self.dueDate = dueDate
         self.notificationId = notificationId
         self.isDone = isDone
         self.text = text
+        self.updatedAt = updatedAt
     }
 }

@@ -10,3 +10,5 @@ import Foundation
 typealias EmptyCallback = () -> Void
 typealias Callback<T> = (T) -> Void
 typealias ResultCallback<T> = Callback<Result<T, Error>>
+typealias JSONDictionary = [AnyHashable: Any]
+typealias JSONArray = [JSONDictionary]

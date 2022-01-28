@@ -196,15 +196,3 @@ extension MainViewModel: InteractiveViewModel {
         }
     }
 }
-
-fileprivate extension TaskObject {
-    func asPresentation() throws -> TaskPresentation {
-        return try TaskPresentation(managedObject: self)
-    }
-}
-
-fileprivate extension Array where Element == TaskObject {
-    func mapToPresentationModels() throws -> [TaskPresentation] {
-        return try self.map({ try $0.asPresentation() })
-    }
-}
