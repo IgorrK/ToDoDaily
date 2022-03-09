@@ -129,7 +129,7 @@ final class TaskDataStorage: NSObject, ObservableObject {
             models.forEach { model in
                 let object = existingObjects.first(where: { $0.id?.uuidString == model.id })
                 let resolution = TaskModelVersionResolver.resolveVersionBetween(remoteModel: model, localModel: object)
-                performResoution(resolution)
+                performResolution(resolution)
             }
             
             try managedObjectContext.save()
@@ -138,7 +138,7 @@ final class TaskDataStorage: NSObject, ObservableObject {
         }
     }
     
-    private func performResoution(_ resolution: TaskModelVersionResolver.Resolution) {
+    private func performResolution(_ resolution: TaskModelVersionResolver.Resolution) {
         switch resolution {
         case .createAndUpdateLocal(let remoteModel):
             let object = TaskObject.newInstance(context: managedObjectContext)
