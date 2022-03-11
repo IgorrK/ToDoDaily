@@ -25,7 +25,7 @@ final class AppAuthManager: AuthManager {
     
     init(defaultsManager: DefaultsManager) {
         self.defaultsManager = defaultsManager
-        self.credentialsProvider = FirebaseAuthCredentialsProvider()
+        self.credentialsProvider = OfflineAuthCredentialsProvider(defaultsManager: defaultsManager)//FirebaseAuthCredentialsProvider()
         setBindings()
         checkExistingUser()
     }

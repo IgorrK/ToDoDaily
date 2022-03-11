@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct User: Equatable, Hashable {
+public struct User: Equatable, Hashable, Codable {
     
     // MARK: - Properties
     

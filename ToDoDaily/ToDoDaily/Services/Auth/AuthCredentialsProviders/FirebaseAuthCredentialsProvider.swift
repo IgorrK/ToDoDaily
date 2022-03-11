@@ -14,7 +14,7 @@ import GoogleSignIn
 
 final class FirebaseAuthCredentialsProvider: AuthCredentialsProvider {
     
-    // MARK: - AuthProvider
+    // MARK: - AuthCredentialsProvider
 
     var activityPublisher = PassthroughSubject<Bool, Never>()
     

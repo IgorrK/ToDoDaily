@@ -11,6 +11,7 @@ enum DefaultsKey: String {
     case isLoggedIn
     case taskListLayoutType
     case taskListFilterType
+    case currentUser
 }
 
 typealias DefaultsStorable = RawRepresentable
@@ -24,6 +25,11 @@ protocol DefaultsManager {
     
     func getDefault<T: DefaultsStorable>(_ key: DefaultsKey) -> T?
     func setDefault<T: DefaultsStorable>(_ key: DefaultsKey, value: T)
+    
+    func getDefault<T: Codable>(_ key: DefaultsKey) -> T?
+    func setDefault<T: Codable>(_ key: DefaultsKey, value: T)
+    
+    func removeDefault(_ key: DefaultsKey)
 }
 
 final class AppDefaultsManager: DefaultsManager {
@@ -53,6 +59,21 @@ final class AppDefaultsManager: DefaultsManager {
     func setDefault<T: DefaultsStorable>(_ key: DefaultsKey, value: T) {
         UserDefaults.standard.setValue(value.rawValue, forKey: key.rawValue)
     }
+    
+    func getDefault<T: Codable>(_ key: DefaultsKey) -> T? {
+        guard let data = UserDefaults.standard.data(forKey: key.rawValue) else { return nil }
+        return try? JSONDecoder.defaultResponseDecoder.decode(T.self, from: data)
+    }
+    
+    func setDefault<T: Codable>(_ key: DefaultsKey, value: T) {
+        if let data = try? JSONEncoder.default.encode(value) {
+            UserDefaults.standard.setValue(data, forKey: key.rawValue)
+        }
+    }
+    
+    func removeDefault(_ key: DefaultsKey) {
+        UserDefaults.standard.setValue(nil, forKey: key.rawValue)
+    }
 }
 
 final class MockDefaultsManager: DefaultsManager {
@@ -61,6 +82,8 @@ final class MockDefaultsManager: DefaultsManager {
     var didGetDefaultString = false
     var didSetDefaultString = false
     var didSetDefaultStorable = false
+    var didSetDefaultCodable = false
+    var didRemoveDefault = false
 
     func getDefault(_ key: DefaultsKey) -> Bool {
         didGetDefaultBool = true
@@ -86,5 +109,17 @@ final class MockDefaultsManager: DefaultsManager {
     
     func setDefault<T: DefaultsStorable>(_ key: DefaultsKey, value: T) {
         didSetDefaultStorable = true
+    }
+    
+    func getDefault<T: Codable>(_ key: DefaultsKey) -> T? {
+        return nil
+    }
+    
+    func setDefault<T: Codable>(_ key: DefaultsKey, value: T) {
+        didSetDefaultCodable = true
+    }
+    
+    func removeDefault(_ key: DefaultsKey) {
+        didRemoveDefault = true
     }
 }

@@ -54,7 +54,8 @@
 		8436EEDC279B1A1700D2BBD0 /* NetworkOperationDescriptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436EEDA279B1A1700D2BBD0 /* NetworkOperationDescriptors.swift */; };
 		844EA37A27DA852300107E97 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844EA37927DA852300107E97 /* AuthManager.swift */; };
 		844EA37D27DBB2DA00107E97 /* AuthCredentialsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844EA37C27DBB2DA00107E97 /* AuthCredentialsProvider.swift */; };
-		844EA37F27DBB71C00107E97 /* FirebaseAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844EA37E27DBB71C00107E97 /* FirebaseAuthProvider.swift */; };
+		844EA37F27DBB71C00107E97 /* FirebaseAuthCredentialsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844EA37E27DBB71C00107E97 /* FirebaseAuthCredentialsProvider.swift */; };
+		844EA38127DBD5AA00107E97 /* OfflineAuthCredentialsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844EA38027DBD5AA00107E97 /* OfflineAuthCredentialsProvider.swift */; };
 		8465FBA0276C166A00CB2E1D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8465FB9F276C166A00CB2E1D /* GoogleService-Info.plist */; };
 		8465FBA4276C1B8C00CB2E1D /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBA3276C1B8C00CB2E1D /* GoogleSignInButton.swift */; };
 		8465FBA7276CA2A900CB2E1D /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465FBA6276CA2A900CB2E1D /* Typealiases.swift */; };
@@ -175,7 +176,8 @@
 		8436EEDA279B1A1700D2BBD0 /* NetworkOperationDescriptors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkOperationDescriptors.swift; sourceTree = "<group>"; };
 		844EA37927DA852300107E97 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		844EA37C27DBB2DA00107E97 /* AuthCredentialsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCredentialsProvider.swift; sourceTree = "<group>"; };
-		844EA37E27DBB71C00107E97 /* FirebaseAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthProvider.swift; sourceTree = "<group>"; };
+		844EA37E27DBB71C00107E97 /* FirebaseAuthCredentialsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthCredentialsProvider.swift; sourceTree = "<group>"; };
+		844EA38027DBD5AA00107E97 /* OfflineAuthCredentialsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineAuthCredentialsProvider.swift; sourceTree = "<group>"; };
 		8465FB9F276C166A00CB2E1D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8465FBA3276C1B8C00CB2E1D /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInButton.swift; sourceTree = "<group>"; };
 		8465FBA6276CA2A900CB2E1D /* Typealiases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
@@ -376,7 +378,8 @@
 			isa = PBXGroup;
 			children = (
 				844EA37C27DBB2DA00107E97 /* AuthCredentialsProvider.swift */,
-				844EA37E27DBB71C00107E97 /* FirebaseAuthProvider.swift */,
+				844EA37E27DBB71C00107E97 /* FirebaseAuthCredentialsProvider.swift */,
+				844EA38027DBD5AA00107E97 /* OfflineAuthCredentialsProvider.swift */,
 			);
 			path = AuthCredentialsProviders;
 			sourceTree = "<group>";
@@ -1050,6 +1053,7 @@
 				8402E01527A44051003957A2 /* Encodable.swift in Sources */,
 				84C26FA7276B8C3B00BEBEF0 /* LoginView.swift in Sources */,
 				84CFB67A27924D75006270C8 /* TaskCompletedView.swift in Sources */,
+				844EA38127DBD5AA00107E97 /* OfflineAuthCredentialsProvider.swift in Sources */,
 				844EA37D27DBB2DA00107E97 /* AuthCredentialsProvider.swift in Sources */,
 				841C124C276D0DCC00EDEFD8 /* MainView.swift in Sources */,
 				8402E00F27A3668C003957A2 /* MockNetworkAgent.swift in Sources */,
@@ -1059,7 +1063,7 @@
 				8471D350277B59F600CB4E1F /* CircularHUDModifier.swift in Sources */,
 				8436EEC22799E7C900D2BBD0 /* PreferencesContainer.swift in Sources */,
 				84A64FFA27D8F6C60094E133 /* LoginRouter.swift in Sources */,
-				844EA37F27DBB71C00107E97 /* FirebaseAuthProvider.swift in Sources */,
+				844EA37F27DBB71C00107E97 /* FirebaseAuthCredentialsProvider.swift in Sources */,
 				84CFB66B278EE496006270C8 /* TaskListCell.swift in Sources */,
 				8436EECF279AD91700D2BBD0 /* MainNetworking.swift in Sources */,
 				84A513AD278C802C005309B3 /* TaskDetailsView.swift in Sources */,
