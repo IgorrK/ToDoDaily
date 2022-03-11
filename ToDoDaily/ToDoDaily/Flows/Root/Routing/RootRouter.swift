@@ -11,7 +11,7 @@ import Model
 
 enum RootRoute: RouteType {
     case auth
-    case onboarding(User)
+    case onboarding
     case main
 }
 
@@ -26,7 +26,7 @@ struct RootRouter: Routing {
     func view(for route: RootRoute) -> some View {
         switch route {
         case .auth:
-            LoginView(viewModel: LoginViewModel(services: services))
+            LoginView.instance(with: services)
         case.onboarding:
             NavigationView {
                 ProfileView(viewModel: ProfileViewModel(services: services))

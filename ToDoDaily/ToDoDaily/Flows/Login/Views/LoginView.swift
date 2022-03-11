@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-struct LoginView: View {
+struct LoginView: RoutableView {
+    
+    // MARK: - RoutableView
+    
+    let router: LoginRouter
     
     // MARK: - Properties
     
@@ -16,6 +20,13 @@ struct LoginView: View {
     @State private var primaryAnimation = false
     @State private var secondaryAnimation = false
     @State private var bottomViewAnimation = false
+    
+    // MARK: - Lifecycle
+    
+    private init(router: LoginRouter, viewModel: LoginViewModel) {
+        self.router = router
+        self.viewModel = viewModel
+    }
         
     // MARK: - View
     
@@ -105,6 +116,9 @@ private extension LoginView {
         .padding(.horizontal, 32.0)
         .padding(.bottom, 32.0)
         .transition(.move(edge: .bottom))
+        .sheet(isPresented: $viewModel.isProfilePresented) {
+            router.view(for: .goOffline)
+        }
         // TODO: show alert on error
     }
     
@@ -120,7 +134,14 @@ private extension LoginView {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(viewModel: LoginViewModel(services: MockServices()))
+        LoginView.instance(with: MockServices())
+    }
+}
+
+// MARK: - Factory methods
+extension LoginView {
+    static func instance(with services: Services) -> LoginView {
+        return LoginView(router: LoginRouter(services: services), viewModel: LoginViewModel(services: services))
     }
 }
 

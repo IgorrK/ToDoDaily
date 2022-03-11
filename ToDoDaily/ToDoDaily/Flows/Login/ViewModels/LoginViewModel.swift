@@ -18,6 +18,7 @@ final class LoginViewModel: ObservableObject, InteractiveViewModel {
     private var anyCancellables = Set<AnyCancellable>()
     @Published var error: Error?
     @Published var isLoading: Bool = false
+    @Published var isProfilePresented: Bool = false
     
     // MARK: - Lifecycle
     
@@ -33,7 +34,7 @@ final class LoginViewModel: ObservableObject, InteractiveViewModel {
         case .onGoogleSignIn:
             services.authManager.logIn()
         case .onGoOffline:
-            break
+            isProfilePresented.toggle()
         }
     }
     

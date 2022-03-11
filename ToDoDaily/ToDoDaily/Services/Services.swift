@@ -23,7 +23,7 @@ final class AppServices: Services {
         FirebaseApp.configure()
 
         self.defaultsManager = AppDefaultsManager()
-        self.authManager = FirebaseAuthManager(defaultsManager: self.defaultsManager)
+        self.authManager = AppAuthManager(defaultsManager: self.defaultsManager)
         self.networkManager = NetworkManager(agent: FirebaseNetworkAgent())
     }
 }

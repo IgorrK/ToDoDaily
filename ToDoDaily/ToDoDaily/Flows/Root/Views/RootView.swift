@@ -29,8 +29,8 @@ struct RootView: View, RoutableView {
         switch viewModel.state {
         case .notAuthorized:
             router.view(for: .auth)
-        case .newUser(let user):
-            router.view(for: .onboarding(user))
+        case .newUser:
+            router.view(for: .onboarding)
                 .transition(.move(edge: .bottom))
         case .authorized:
             router.view(for: .main)
