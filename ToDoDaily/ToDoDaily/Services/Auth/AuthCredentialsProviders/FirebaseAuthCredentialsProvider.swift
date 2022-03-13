@@ -16,6 +16,7 @@ final class FirebaseAuthCredentialsProvider: AuthCredentialsProvider {
     
     // MARK: - AuthCredentialsProvider
 
+    var method: AuthMethod { .firebase }
     var activityPublisher = PassthroughSubject<Bool, Never>()
     
     func checkExistingUser() -> AnyPublisher<Model.User?, Never> {

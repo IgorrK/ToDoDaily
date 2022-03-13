@@ -8,10 +8,10 @@
 import Foundation
 
 enum DefaultsKey: String {
-    case isLoggedIn
     case taskListLayoutType
     case taskListFilterType
     case currentUser
+    case preferredAuthMethod
 }
 
 typealias DefaultsStorable = RawRepresentable

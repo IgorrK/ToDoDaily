@@ -23,6 +23,7 @@ final class OfflineAuthCredentialsProvider: AuthCredentialsProvider {
     
     // MARK: - AuthCredentialsProvider
     
+    var method: AuthMethod { .firebase }
     var activityPublisher = PassthroughSubject<Bool, Never>()
     
     func checkExistingUser() -> AnyPublisher<User?, Never> {

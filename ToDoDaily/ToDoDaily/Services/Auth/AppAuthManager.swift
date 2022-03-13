@@ -15,22 +15,38 @@ final class AppAuthManager: AuthManager {
     
     // MARK: - Properties
     
+    private(set) var authMethod: AuthMethod
     var dataContainer: UserDataContainer { Environment(\.userDataContainer).wrappedValue}
     
     private var defaultsManager: DefaultsManager
     private var anyCancellables = Set<AnyCancellable>()
-    private let credentialsProvider: AuthCredentialsProvider
+    private var credentialsProvider: AuthCredentialsProvider
     
     // MARK: - Lifecycle
     
     init(defaultsManager: DefaultsManager) {
+        self.authMethod = .offline
         self.defaultsManager = defaultsManager
-        self.credentialsProvider = OfflineAuthCredentialsProvider(defaultsManager: defaultsManager)//FirebaseAuthCredentialsProvider()
+        self.credentialsProvider = OfflineAuthCredentialsProvider(defaultsManager: defaultsManager)
         setBindings()
-        checkExistingUser()
+        checkStoredAuth()
     }
     
     // MARK: - AuthManager
+    
+    func setAuthMethod(_ method: AuthMethod) {
+        
+        dataContainer.handle(event: .logOut)
+        authMethod = method
+        storedAuthMethod = method
+        
+        switch method {
+        case .firebase:
+            credentialsProvider = FirebaseAuthCredentialsProvider()
+        case .offline:
+            credentialsProvider = OfflineAuthCredentialsProvider(defaultsManager: defaultsManager)
+        }
+    }
     
     func logIn() {
         credentialsProvider.logIn().sink(receiveCompletion: { [weak self] result in
@@ -50,7 +66,6 @@ final class AppAuthManager: AuthManager {
             switch result {
             case .finished:
                 self?.dataContainer.handle(event: .logOut)
-                self?.defaultsManager.setDefault(.isLoggedIn, value: true)
             case .failure(let error):
                 ConsoleLogger.shared.log(error)
             }
@@ -63,7 +78,23 @@ final class AppAuthManager: AuthManager {
     
     // MARK: - Private methods
     
-    private func checkExistingUser() {
+    var storedAuthMethod: AuthMethod {
+        get {
+            if let preferredAuthMethod: AuthMethod = defaultsManager.getDefault(.preferredAuthMethod) {
+                return preferredAuthMethod
+            } else {
+                defaultsManager.setDefault(.preferredAuthMethod, value: AuthMethod.offline)
+                return .offline
+            }
+        }
+        set {
+            defaultsManager.setDefault(.preferredAuthMethod, value: newValue)
+        }
+    }
+    
+    private func checkStoredAuth() {
+        setAuthMethod(storedAuthMethod)
+        
         credentialsProvider.checkExistingUser().sink(receiveCompletion: { _ in },
                                           receiveValue: { [weak self] user in
             if let currentUser = user {
@@ -85,6 +116,5 @@ final class AppAuthManager: AuthManager {
     
     private func processLogIn(_ result: Model.User) {
         dataContainer.handle(event: .authorizedNewUser(result))
-        defaultsManager.setDefault(.isLoggedIn, value: true)
     }
 }

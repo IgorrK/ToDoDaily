@@ -10,6 +10,7 @@ import Model
 import Combine
 
 protocol AuthCredentialsProvider {
+    var method: AuthMethod { get }
     var activityPublisher: PassthroughSubject<Bool, Never> { get }
 
     func checkExistingUser() -> AnyPublisher<Model.User?, Never>
@@ -19,6 +20,7 @@ protocol AuthCredentialsProvider {
 }
 
 final class MockAuthCredentialsProvider: AuthCredentialsProvider {
+    var method: AuthMethod { .offline }
     var activityPublisher = PassthroughSubject<Bool, Never>()
     
     var didLogin = false

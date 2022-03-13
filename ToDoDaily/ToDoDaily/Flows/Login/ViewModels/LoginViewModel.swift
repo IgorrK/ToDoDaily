@@ -31,11 +31,13 @@ final class LoginViewModel: ObservableObject, InteractiveViewModel {
     
     func handleInput(event: Event) {
         switch event {
-        case .onGoogleSignIn:
-            services.authManager.logIn()
         case .onGoOffline:
+            services.authManager.setAuthMethod(.offline)
             isProfilePresented.toggle()
+        case .onGoogleSignIn:
+            services.authManager.setAuthMethod(.firebase)
         }
+        services.authManager.logIn()
     }
     
     // MARK: - Private methods
