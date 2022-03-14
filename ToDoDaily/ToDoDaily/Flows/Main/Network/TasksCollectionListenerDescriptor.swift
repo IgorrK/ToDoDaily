@@ -15,4 +15,10 @@ struct TasksCollectionListenerDescriptor: CollectionListenerDescriptor {
     typealias ResponseType = Model.TaskItem
     
     var collectionName: String { "tasks" }
+    
+    var filter: (field: String, value: Any) { ("userId", userId) }
+    
+    // MARK: - Parameters
+    
+    var userId: String
 }

@@ -39,12 +39,13 @@ final class TaskDataStorage: NSObject, ObservableObject {
     private(set) var filterPredicate: NSPredicate?
     
     private var anyCancellables = Set<AnyCancellable>()
+    private let userId: String
     
     // MARK: - Lifecycle
     
-    init(networkManager: MainNetworking, predicate: NSPredicate?) {
+    init(user: Model.User, networkManager: MainNetworking) {
         self.networkManager = networkManager
-        self.filterPredicate = predicate
+        self.userId = user.id
         super.init()
         setBindings()
     }
@@ -56,8 +57,15 @@ final class TaskDataStorage: NSObject, ObservableObject {
     }
     
     func refine(with predicate: NSPredicate?) {
-        filterPredicate = predicate
-        fetchedResultsController.fetchRequest.predicate = predicate
+        let userIdPredicate = NSPredicate(format: "userId = %@", userId)
+        let resultingPredicate: NSPredicate
+        if let refinePredicate = predicate {
+            resultingPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [userIdPredicate, refinePredicate])
+        } else {
+            resultingPredicate = userIdPredicate
+        }
+        filterPredicate = resultingPredicate
+        fetchedResultsController.fetchRequest.predicate = resultingPredicate
         fetchData()
     }
     
@@ -72,6 +80,10 @@ final class TaskDataStorage: NSObject, ObservableObject {
         let object = try managedObjectContext.fetch(entity: TaskObject.self, id: id)
         managedObjectContext.delete(object)
         try managedObjectContext.save()
+    }
+    
+    func newTaskPresentation() -> TaskPresentation {
+        return TaskPresentation(userId: userId)
     }
     
     func updateTask(using presentation: TaskPresentation) throws {
@@ -91,6 +103,7 @@ final class TaskDataStorage: NSObject, ObservableObject {
         }
         object.isDone = presentation.isDone
         object.updatedAt = Date()
+        object.userId = presentation.userId
         try managedObjectContext.save()
     }
     
@@ -106,7 +119,7 @@ final class TaskDataStorage: NSObject, ObservableObject {
     }
     
     private func setBindings() {
-        networkManager.tasksCollectionListener().sink(receiveCompletion: { completion in
+        networkManager.tasksCollectionListener(userId: userId).sink(receiveCompletion: { completion in
             switch completion {
             case .failure(let error):
                 ConsoleLogger.shared.log("Network error:", error, logLevel: .error)

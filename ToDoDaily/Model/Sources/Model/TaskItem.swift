@@ -18,6 +18,7 @@ public struct TaskItem: Hashable, Codable {
     public var isDone: Bool
     public var text: String
     public var updatedAt: Date
+    public var userId: String
     
     // MARK: - Lifecycle
     
@@ -27,7 +28,8 @@ public struct TaskItem: Hashable, Codable {
                 notificationId: String?,
                 isDone: Bool,
                 text: String,
-                updatedAt: Date) {
+                updatedAt: Date,
+                userId: String) {
         self.id = id
         self.createdAt = createdAt
         self.dueDate = dueDate
@@ -35,5 +37,6 @@ public struct TaskItem: Hashable, Codable {
         self.isDone = isDone
         self.text = text
         self.updatedAt = updatedAt
+        self.userId = userId
     }
 }

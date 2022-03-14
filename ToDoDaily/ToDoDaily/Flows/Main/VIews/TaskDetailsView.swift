@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Model
 
 struct TaskDetailsView: View {
     
@@ -154,6 +155,7 @@ private extension TaskDetailsView {
 struct AddTaskView_Previews: PreviewProvider {
     static var previews: some View {
         TaskDetailsView(viewModel: TaskDetailsViewModel(displayMode: .addTask,
-                                                        dataStorage: TaskDataStorage(networkManager: NetworkManager.mock, predicate: nil)))
+                                                        dataStorage: TaskDataStorage(user: Model.User.mockUser,
+                                                                                     networkManager: NetworkManager.mock)))
     }
 }

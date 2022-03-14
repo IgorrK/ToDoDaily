@@ -18,13 +18,14 @@ extension Model.TaskItem {
         let createdAt = try managedObject.createdAt.unwrap()
         let text = try managedObject.text.unwrap()
         let updatedAt = try managedObject.updatedAt.unwrap()
-        
+        let userId  = try managedObject.userId.unwrap()
         self.init(id: id,
                   createdAt: createdAt,
                   dueDate: managedObject.dueDate,
                   notificationId: notificationId,
                   isDone: managedObject.isDone,
                   text: text,
-                  updatedAt: updatedAt)
+                  updatedAt: updatedAt,
+                  userId: userId)
     }
 }

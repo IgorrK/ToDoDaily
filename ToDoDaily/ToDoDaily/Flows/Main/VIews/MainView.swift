@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Grid
+import Model
 
 struct MainView: View {
     
@@ -265,7 +266,15 @@ fileprivate extension MainViewModel.LayoutType {
 // MARK: - Factory methods
 extension MainView {
     static func instance(with services: Services) -> MainView {
-        let dataStorage = TaskDataStorage(networkManager: services.networkManager, predicate: nil)
+        let user: Model.User
+        do {
+            user = try services.authManager.dataContainer.user.unwrap()
+        } catch {
+            user = Model.User.mockUser
+            ConsoleLogger.shared.log(error, logLevel: .error)
+        }
+        
+        let dataStorage = TaskDataStorage(user: user, networkManager: services.networkManager)
         return MainView(router: MainRouter(services: services, dataStorage: dataStorage),
                         viewModel: MainViewModel(services: services, dataStorage: dataStorage))
     }

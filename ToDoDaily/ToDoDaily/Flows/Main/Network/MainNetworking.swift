@@ -11,15 +11,15 @@ import Combine
 
 protocol MainNetworking {
 
-    func tasksCollectionListener() -> AnyPublisher<[Model.TaskItem], Swift.Error>
+    func tasksCollectionListener(userId: String) -> AnyPublisher<[Model.TaskItem], Swift.Error>
     
     func updateTask(id: String, with parameters: JSONDictionary) -> Future<Void, Error>
 }
 
 extension NetworkManager: MainNetworking {
     
-    func tasksCollectionListener() -> AnyPublisher<[Model.TaskItem], Swift.Error> {
-        let descriptor = TasksCollectionListenerDescriptor()
+    func tasksCollectionListener(userId: String) -> AnyPublisher<[Model.TaskItem], Swift.Error> {
+        let descriptor = TasksCollectionListenerDescriptor(userId: userId)
         return collectionListener(descriptor)
     }
     

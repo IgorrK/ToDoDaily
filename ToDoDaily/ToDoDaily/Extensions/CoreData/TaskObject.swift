@@ -43,14 +43,6 @@ extension TaskObject {
         return instance
     }
     
-//    static func newInstance(with model: TaskItem, context: NSManagedObjectContext) -> Self {
-//        let instance = Self(context: context)
-//        instance.id = UUID(uuidString: model.id)
-//        instance.createdAt = model.createdAt
-//        instance.update(with: model)
-//        return instance
-//    }
-    
     func update(with model: TaskItem) {
         text = model.text
         dueDate = model.dueDate

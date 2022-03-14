@@ -121,24 +121,24 @@ extension TaskDetailsViewModel {
 // MARK: - Private methods
 private extension TaskDetailsViewModel {
     func saveTaskFromInput() {
-        var task: TaskPresentation = task ?? TaskPresentation()
+        var presentation: TaskPresentation = task ?? dataStorage.newTaskPresentation()
         
-        task.text = input.descriptionText
+        presentation.text = input.descriptionText
         
-        if let existingNotificationId = task.notificationId {
+        if let existingNotificationId = presentation.notificationId {
             NotificationScheduler.cancelNotification(id: existingNotificationId)
         }
         
         if input.isDueDateEnabled {
-            task.dueDate = input.dueDate
+            presentation.dueDate = input.dueDate
             
             if input.isNotificationEnabled {
-                task.notificationId = NotificationScheduler.scheduleNotification(for: task)?.uuidString
+                presentation.notificationId = NotificationScheduler.scheduleNotification(for: presentation)?.uuidString
             }
         }
         
         do {
-            try dataStorage.updateTask(using: task)
+            try dataStorage.updateTask(using: presentation)
         } catch {
             ConsoleLogger.shared.log("error saving task:", error, logLevel: .error)
         }

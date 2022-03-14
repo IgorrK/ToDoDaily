@@ -11,6 +11,7 @@ protocol CollectionListenerDescriptor {
     associatedtype ResponseType: Decodable
     
     var collectionName: String { get }
+    var filter: (field: String, value: Any) { get }
 }
 
 protocol UpdateOperationDescriptor {

@@ -20,6 +20,7 @@ struct TaskPresentation: Identifiable, Hashable {
     var dueDate: Date?
     var notificationId: String?
     var isDone: Bool
+    var userId: String
     
     // MARK: - Lifecycle
     
@@ -29,11 +30,13 @@ struct TaskPresentation: Identifiable, Hashable {
         self.dueDate = managedObject.dueDate
         self.notificationId = managedObject.notificationId?.uuidString
         self.isDone = managedObject.isDone
+        self.userId = try managedObject.userId.unwrap()
     }
     
-    init() {
+    init(userId: String) {
         self.id = UUID().uuidString
         self.text = ""
         self.isDone = false
+        self.userId = userId
     }
 }
