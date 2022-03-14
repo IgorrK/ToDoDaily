@@ -29,6 +29,10 @@ struct NetworkManager {
     func update<Descriptor: UpdateOperationDescriptor>(descriptor: Descriptor) -> Future<Void, Error> {
         return agent.update(descriptor: descriptor)
     }
+    
+    func delete<Descriptor: DeleteOperationDescriptor>(descriptor: Descriptor) -> Future<Void, Error> {
+        return agent.delete(descriptor: descriptor)
+    }
 }
 
 extension NetworkManager {

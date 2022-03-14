@@ -10,6 +10,6 @@ import Combine
 
 protocol NetworkAgent {
     func run<Descriptor: CollectionListenerDescriptor>(descriptor: Descriptor) -> PassthroughSubject<[Descriptor.ResponseType], Error>
-    
     func update<Descriptor: UpdateOperationDescriptor>(descriptor: Descriptor) -> Future<Void, Error>
+    func delete<Descriptor: DeleteOperationDescriptor>(descriptor: Descriptor) -> Future<Void, Error>
 }

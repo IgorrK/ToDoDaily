@@ -27,4 +27,10 @@ struct MockNetworkAgent: NetworkAgent {
             promise(.success(()))
         }
     }
+    
+    func delete<Descriptor>(descriptor: Descriptor) -> Future<Void, Error> where Descriptor : DeleteOperationDescriptor {
+        return Future() { promise in
+            promise(.success(()))
+        }
+    }
 }

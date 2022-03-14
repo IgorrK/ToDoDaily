@@ -15,8 +15,12 @@ protocol CollectionListenerDescriptor {
 }
 
 protocol UpdateOperationDescriptor {
-
     var collectionName: String { get }
     var documentId: String { get }
     var parameters: JSONDictionary { get }
+}
+
+protocol DeleteOperationDescriptor {
+    var collectionName: String { get }
+    var documentId: String { get }
 }

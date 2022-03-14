@@ -12,8 +12,8 @@ import Combine
 protocol MainNetworking {
 
     func tasksCollectionListener(userId: String) -> AnyPublisher<[Model.TaskItem], Swift.Error>
-    
     func updateTask(id: String, with parameters: JSONDictionary) -> Future<Void, Error>
+    func deleteTask(id: String) -> Future<Void, Error>
 }
 
 extension NetworkManager: MainNetworking {
@@ -26,5 +26,10 @@ extension NetworkManager: MainNetworking {
     func updateTask(id: String, with parameters: JSONDictionary) -> Future<Void, Error> {
         let descriptor = UpdateTaskOperationDescriptor(documentId: id, parameters: parameters)
         return update(descriptor: descriptor)
+    }
+    
+    func deleteTask(id: String) -> Future<Void, Error> {
+        let descriptor = DeleteTaskOperationDescriptor(documentId: id)
+        return delete(descriptor: descriptor)
     }
 }

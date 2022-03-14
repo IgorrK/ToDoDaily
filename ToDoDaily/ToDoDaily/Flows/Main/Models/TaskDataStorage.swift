@@ -74,12 +74,23 @@ final class TaskDataStorage: NSObject, ObservableObject {
         object.isDone = true
         object.updatedAt = Date()
         try managedObjectContext.save()
+        try updateRemoteTask(id: id, with: object)
     }
     
     func removeTask(id: String) throws {
         let object = try managedObjectContext.fetch(entity: TaskObject.self, id: id)
         managedObjectContext.delete(object)
         try managedObjectContext.save()
+        
+        networkManager.deleteTask(id: id).sink(receiveCompletion: { result in
+            switch result {
+            case .failure(let error):
+                ConsoleLogger.shared.log(error, logLevel: .error)
+            default:
+                break
+            }
+        }, receiveValue: {})
+            .store(in: &anyCancellables)
     }
     
     func newTaskPresentation() -> TaskPresentation {
@@ -105,6 +116,7 @@ final class TaskDataStorage: NSObject, ObservableObject {
         object.updatedAt = Date()
         object.userId = presentation.userId
         try managedObjectContext.save()
+        try updateRemoteTask(id: presentation.id, with: object)
     }
     
     // MARK: - Private methods
@@ -161,24 +173,27 @@ final class TaskDataStorage: NSObject, ObservableObject {
             localObject.update(with: remoteModel)
             
         case .updateRemote(let remoteModel, let localObject):
-
             do {
-                let jsonObject = try localObject.asJsonObject()
-                networkManager.updateTask(id: remoteModel.id, with: jsonObject).sink(receiveCompletion: { result in
-                    switch result {
-                    case .failure(let error):
-                        ConsoleLogger.shared.log(error, logLevel: .error)
-                    default:
-                        break
-                    }
-                }, receiveValue: {})
-                    .store(in: &anyCancellables)
+                try updateRemoteTask(id: remoteModel.id, with: localObject)
             } catch {
                 ConsoleLogger.shared.log(error, logLevel: .error)
             }
         case .notNeeded:
             ConsoleLogger.shared.log("Version resolution not needed")
         }
+    }
+    
+    private func updateRemoteTask(id: String, with localObject: TaskObject) throws {
+        let jsonObject = try localObject.asJsonObject()
+        networkManager.updateTask(id: id, with: jsonObject).sink(receiveCompletion: { result in
+            switch result {
+            case .failure(let error):
+                ConsoleLogger.shared.log(error, logLevel: .error)
+            default:
+                break
+            }
+        }, receiveValue: {})
+            .store(in: &anyCancellables)
     }
 }
 

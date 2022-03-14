@@ -59,7 +59,19 @@ struct FirebaseNetworkAgent: NetworkAgent {
     
     func update<Descriptor: UpdateOperationDescriptor>(descriptor: Descriptor) -> Future<Void, Error> {
         return Future() { promise in
-            Self.collectionReference(with: descriptor.collectionName).document(descriptor.documentId).updateData(descriptor.parameters, completion: { error in
+            Self.collectionReference(with: descriptor.collectionName).document(descriptor.documentId).setData(descriptor.parameters, merge: true, completion: { error in
+                if let error = error {
+                    promise(.failure(error))
+                } else {
+                    promise(.success(()))
+                }
+            })
+        }
+    }
+    
+    func delete<Descriptor>(descriptor: Descriptor) -> Future<Void, Error> where Descriptor : DeleteOperationDescriptor {
+        return Future() { promise in
+            Self.collectionReference(with: descriptor.collectionName).document(descriptor.documentId).delete(completion: { error in
                 if let error = error {
                     promise(.failure(error))
                 } else {
